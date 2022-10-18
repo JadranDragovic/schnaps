@@ -85,7 +85,7 @@ def tab1():
             global ciji_red
             print(f"bacena karta je {bacenaKarta}")
             if ciji_red % 2 != 0:
-                print("red je drugi")
+                turn_tekst = tk.Label(novi_prozor,text=f"{igrač2ime} je na redu!",font=("Arial bold", 30),bg="green",fg="white").place(x=460,y=50,width=400,height=60)
                 if p1inv[0] != bacenaKarta[-1]:
                     p1karta_1 = tk.Button(novi_prozor,text=p1inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb1()]).place(x=3000,y=550,width= 180,height=250)
                 else:
@@ -128,7 +128,7 @@ def tab1():
                     pass
                 ciji_red +=1
             else:
-                print("red je prvi")
+                turn_tekst = tk.Label(novi_prozor,text=f"{igrač1ime} je na redu!",font=("Arial bold", 30),bg="green",fg="white").place(x=460,y=50,width=400,height=60)
                 if p1inv[0] != bacenaKarta[-1]:
                     p1karta_1 = tk.Button(novi_prozor,text=p1inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb1()]).place(x=125,y=550,width= 180,height=250)
                 else:

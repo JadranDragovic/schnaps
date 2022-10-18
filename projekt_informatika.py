@@ -15,7 +15,6 @@ while len(igrač2ime)>7 or len(igrač2ime)==0:
     igrač2ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ")
 ciji_red = 1  
 usporedba = []
-bacenaKarta = []
 def tab1():
     #main window igre
     windowmain = tk.Tk()
@@ -83,95 +82,33 @@ def tab1():
         def promijeni_red():
             global usporedba
             global ciji_red
-            print(f"bacena karta je {bacenaKarta}")
             if ciji_red % 2 != 0:
                 turn_tekst = tk.Label(novi_prozor,text=f"{igrač2ime} je na redu!",font=("Arial bold", 30),bg="green",fg="white").place(x=460,y=50,width=400,height=60)
-                if p1inv[0] != bacenaKarta[-1]:
-                    p1karta_1 = tk.Button(novi_prozor,text=p1inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb1()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[1] != bacenaKarta[-1]:
-                    p1karta_2 = tk.Button(novi_prozor,text=p1inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb2()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[2] != bacenaKarta[-1]:
-                    p1karta_3 = tk.Button(novi_prozor,text=p1inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb3()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[3] != bacenaKarta[-1]:
-                    p1karta_4 = tk.Button(novi_prozor,text=p1inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb4()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[4] != bacenaKarta[-1]:
-                    p1karta_5 = tk.Button(novi_prozor,text=p1inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb5()]).place(x=3000,y=550,width= 180,height=250) 
-                else:
-                    pass
-                if p2inv[0] != bacenaKarta[-1]:
-                    p2karta_1 = tk.Button(novi_prozor,text=p2inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb6()]).place(x=125,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[1] != bacenaKarta[-1]:
-                    p2karta_2 = tk.Button(novi_prozor,text=p2inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb7()]).place(x=325,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[2] != bacenaKarta[-1]:
-                    p2karta_3 = tk.Button(novi_prozor,text=p2inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb8()]).place(x=525,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[3] != bacenaKarta[-1]:
-                    p2karta_4 = tk.Button(novi_prozor,text=p2inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb9()]).place(x=725,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[4] != bacenaKarta[-1]:
-                    p2karta_5 = tk.Button(novi_prozor,text=p2inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb10()]).place(x=925,y=550,width= 180,height=250)
-                else:
-                    pass
+                
+                p1karta_1 = tk.Button(novi_prozor,text=p1inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb1()]).place(x=3000,y=550,width= 180,height=250)
+                p1karta_2 = tk.Button(novi_prozor,text=p1inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb2()]).place(x=3000,y=550,width= 180,height=250)
+                p1karta_3 = tk.Button(novi_prozor,text=p1inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb3()]).place(x=3000,y=550,width= 180,height=250)
+                p1karta_4 = tk.Button(novi_prozor,text=p1inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb4()]).place(x=3000,y=550,width= 180,height=250)
+                p1karta_5 = tk.Button(novi_prozor,text=p2inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb10()]).place(x=925,y=550,width= 180,height=250)
+                p2karta_1 = tk.Button(novi_prozor,text=p2inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb6()]).place(x=125,y=550,width= 180,height=250)
+                p2karta_2 = tk.Button(novi_prozor,text=p2inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb7()]).place(x=325,y=550,width= 180,height=250)
+                p2karta_3 = tk.Button(novi_prozor,text=p2inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb8()]).place(x=525,y=550,width= 180,height=250)
+                p2karta_4 = tk.Button(novi_prozor,text=p2inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb9()]).place(x=725,y=550,width= 180,height=250)
+                p2karta_5 = tk.Button(novi_prozor,text=p2inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb10()]).place(x=925,y=550,width= 180,height=250)
                 ciji_red +=1
             else:
                 turn_tekst = tk.Label(novi_prozor,text=f"{igrač1ime} je na redu!",font=("Arial bold", 30),bg="green",fg="white").place(x=460,y=50,width=400,height=60)
-                if p1inv[0] != bacenaKarta[-1]:
-                    p1karta_1 = tk.Button(novi_prozor,text=p1inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb1()]).place(x=125,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[1] != bacenaKarta[-1]:
-                    p1karta_2 = tk.Button(novi_prozor,text=p1inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb2()]).place(x=325,y=550,width= 180,height=250)
-                else:
-                   pass
-                if p1inv[2] != bacenaKarta[-1]:
-                    p1karta_3 = tk.Button(novi_prozor,text=p1inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb3()]).place(x=525,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[3] != bacenaKarta[-1]:
-                    p1karta_4 = tk.Button(novi_prozor,text=p1inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb4()]).place(x=725,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p1inv[4] != bacenaKarta[-1]:
-                    p1karta_5 = tk.Button(novi_prozor,text=p1inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb5()]).place(x=925,y=550,width= 180,height=250)
-                else:
-                    pass
-
-                if p2inv[0] != bacenaKarta[-1]:
-                    p2karta_1 = tk.Button(novi_prozor,text=p2inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb6()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[1] != bacenaKarta[-1]:
-                    p2karta_2 = tk.Button(novi_prozor,text=p2inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb7()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[2] != bacenaKarta[-1]:
-                    p2karta_3 = tk.Button(novi_prozor,text=p2inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb8()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[3] != bacenaKarta[-1]:
-                    p2karta_4 = tk.Button(novi_prozor,text=p2inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb9()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
-                if p2inv[4] != bacenaKarta[-1]:
-                    p2karta_5 = tk.Button(novi_prozor,text=p2inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb10()]).place(x=3000,y=550,width= 180,height=250)
-                else:
-                    pass
+                p1karta_1 = tk.Button(novi_prozor,text=p1inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb1()]).place(x=125,y=550,width= 180,height=250)
+                p1karta_2 = tk.Button(novi_prozor,text=p1inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb2()]).place(x=325,y=550,width= 180,height=250)
+                p1karta_3 = tk.Button(novi_prozor,text=p1inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb3()]).place(x=525,y=550,width= 180,height=250)
+                p1karta_4 = tk.Button(novi_prozor,text=p1inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb4()]).place(x=725,y=550,width= 180,height=250)
+                p1karta_5 = tk.Button(novi_prozor,text=p1inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb5()]).place(x=725,y=550,width= 180,height=250)
+                p2karta_1 = tk.Button(novi_prozor,text=p2inv[0],font=("Arial bold", 18), command=lambda:[kliknut_gumb6()]).place(x=3000,y=550,width= 180,height=250)
+                p2karta_2 = tk.Button(novi_prozor,text=p2inv[1],font=("Arial bold", 18), command=lambda:[kliknut_gumb7()]).place(x=3000,y=550,width= 180,height=250)
+                p2karta_3 = tk.Button(novi_prozor,text=p2inv[2],font=("Arial bold", 18), command=lambda:[kliknut_gumb8()]).place(x=3000,y=550,width= 180,height=250)
+                p2karta_4 = tk.Button(novi_prozor,text=p2inv[3],font=("Arial bold", 18), command=lambda:[kliknut_gumb9()]).place(x=3000,y=550,width= 180,height=250)
+                p2karta_5 = tk.Button(novi_prozor,text=p2inv[4],font=("Arial bold", 18), command=lambda:[kliknut_gumb10()]).place(x=3000,y=550,width= 180,height=250)
                 ciji_red +=1
-                print(f"usporedba: {usporedba}")
                 if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
                     p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
                     usporedba.clear()
@@ -189,43 +126,33 @@ def tab1():
         def kliknut_gumb1():
             karta_bacena = tk.Label(novi_prozor,text=p1inv[0],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p1inv[0])
-            bacenaKarta.append(p1inv[0])
         def kliknut_gumb2():
             karta_bacena = tk.Label(novi_prozor,text=p1inv[1],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p1inv[1])
-            bacenaKarta.append(p1inv[1])
         def kliknut_gumb3():
             karta_bacena = tk.Label(novi_prozor,text=p1inv[2],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p1inv[2])
-            bacenaKarta.append(p1inv[2])
         def kliknut_gumb4():
             karta_bacena = tk.Label(novi_prozor,text=p1inv[3],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p1inv[3])
-            bacenaKarta.append(p1inv[3])
         def kliknut_gumb5():
             karta_bacena = tk.Label(novi_prozor,text=p1inv[4],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p1inv[4])
-            bacenaKarta.append(p1inv[4])
         def kliknut_gumb6():
             karta_bacena = tk.Label(novi_prozor,text=p2inv[0],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p2inv[0])
-            bacenaKarta.append(p2inv[0])
         def kliknut_gumb7():
             karta_bacena = tk.Label(novi_prozor,text=p2inv[1],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p2inv[1])
-            bacenaKarta.append(p2inv[1])
         def kliknut_gumb8():
             karta_bacena = tk.Label(novi_prozor,text=p2inv[2],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p2inv[2])
-            bacenaKarta.append(p2inv[2])
         def kliknut_gumb9():
             karta_bacena = tk.Label(novi_prozor,text=p2inv[3],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p2inv[3])
-            bacenaKarta.append(p2inv[3])
         def kliknut_gumb10():
             karta_bacena = tk.Label(novi_prozor,text=p2inv[4],font=("Arial bold", 18)).place(x=730,y=250,width= 180,height=250)
             usporedba.append(p2inv[4])
-            bacenaKarta.append(p2inv[4])
         
     #funkcija za provjeru kliknutog gumba 9
     def kliknut9():

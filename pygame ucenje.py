@@ -1,3 +1,4 @@
+from re import I
 import pygame 
 from pygame import Surface
 import random
@@ -144,93 +145,24 @@ def kliknut_sedam():#window za igru od 7 bodova
 			#prikaz karata
 			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
 				promjena_reda += 1
-
-			if len(usporedba) != 2:
-				if promjena_reda %2 == 0:
-					p1karta_1 = Button(50,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p1inv[0]]).convert_alpha(),0.2).draw()
-					if p1karta_1 == True:
-						usporedba.append(p1inv[0])
-						prekri_kartu.fill(zelena)
-						sakri_kartu = "da"
-					if sakri_kartu == "da":
-						screen.blit(prekri_kartu, (50,500))
-					p1karta_2 = Button(250,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p1inv[1]]).convert_alpha(),0.2).draw()
-					if p1karta_2 == True:
-						usporedba.append(p1inv[1])
-						prekri_kartu.fill(zelena)
-						sakri_kartu = "da1"
-					if sakri_kartu == "da1":
-						screen.blit(prekri_kartu, (250,500))
-					p1karta_3 = Button(450,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p1inv[2]]).convert_alpha(),0.2).draw()
-					if p1karta_3 == True:
-						usporedba.append(p1inv[2])
-						prekri_kartu.fill(zelena)
-						sakri_kartu = "daa"
-					if sakri_kartu == "daa":
-						screen.blit(prekri_kartu, (450,500))
-					p1karta_4 = Button(650,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p1inv[3]]).convert_alpha(),0.2).draw()
-					if p1karta_4 == True:
-						usporedba.append(p1inv[3])
-						prekri_kartu.fill(zelena)
-						sakri_kartu = "nee"
-					if sakri_kartu == "nee":
-						screen.blit(prekri_kartu, (650,500))
-					p1karta_5 = Button(850,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p1inv[4]]).convert_alpha(),0.2).draw()
-					if p1karta_5 == True:
-						usporedba.append(p1inv[4])
-						prekri_kartu.fill(zelena)
-						sakri_kartu = "daaa"
-					if sakri_kartu == "daaa":
-						screen.blit(prekri_kartu, (850,500))
-				else:
-					p2karta_1 = Button(50,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p2inv[0]]).convert_alpha(),0.2).draw()
-					if p2karta_1 == True:
-						usporedba.append(p2inv[0])
-						prekri_kartu2.fill(zelena)
-						sakri_kartu2 = "b"
-					if sakri_kartu2 == "b":
-						screen.blit(prekri_kartu2, (50,500))
-					p2karta_2 = Button(250,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p2inv[1]]).convert_alpha(),0.2).draw()
-					if p2karta_2 == True:
-						usporedba.append(p2inv[1])
-						prekri_kartu2.fill(zelena)
-						sakri_kartu2 = "bb"
-					if sakri_kartu2 == "bb":
-						screen.blit(prekri_kartu2, (250,500))
-					p2karta_3 = Button(450,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p2inv[2]]).convert_alpha(),0.2).draw()
-					if p2karta_3 == True:
-						usporedba.append(p2inv[2])
-						prekri_kartu2.fill(zelena)
-						sakri_kartu2 = "bbb"
-					if sakri_kartu2 == "bbb":
-						screen.blit(prekri_kartu2, (450,500))
-					p2karta_4 = Button(650,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p2inv[3]]).convert_alpha(),0.2).draw()
-					if p2karta_4 == True:
-						usporedba.append(p2inv[3])
-						prekri_kartu2.fill(zelena)
-						sakri_kartu2 = "bbbb"
-					if sakri_kartu2 == "bbbb":
-						screen.blit(prekri_kartu2, (650,500))
-					p2karta_5 = Button(850,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[p2inv[4]]).convert_alpha(),0.2).draw()
-					if p2karta_5 == True:
-						usporedba.append(p2inv[4])
-						prekri_kartu2.fill(zelena)
-						sakri_kartu2 = "b1"
-					if sakri_kartu2 == "b1":
-						screen.blit(prekri_kartu2, (850,500))
-			elif len(usporedba) == 2:
-				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
-					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
-					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-				else:
-					print("Neš ne radi")
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
+				
+			if promjena_reda %2 == 0:
+				xos = 50
+				for i in p1inv:
+					karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
+					xos += 200
+					if karta == True:
+						usporedba.append(i)
+						p1inv.remove(i)
+			
+			if promjena_reda %2 != 0:
+				xos = 50
+				for t in p2inv:
+					karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
+					xos += 200
+					if karta == True:
+						usporedba.append(t)
+						p2inv.remove(t)
 
 		pygame.display.update()
 	pygame.quit()

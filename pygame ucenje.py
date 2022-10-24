@@ -144,8 +144,6 @@ def kliknut_sedam():#window za igru od 7 bodova
 			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
 				promjena_reda += 1
 			
-			btn_izvuci_kartu.draw()
-
 			if len(usporedba) != 2:
 				if promjena_reda %2 == 0:
 					xos = 50
@@ -155,7 +153,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 						if karta == True:
 							usporedba.append(i)
 							p1inv.remove(i)
-						if btn_izvuci_kartu == True:
+						if btn_izvuci_kartu.draw() == True:
 							p1inv.append(random.choice(dek))
 							dek.remove(p1inv[len(p1inv)-1])
 							print(p1inv,dek)
@@ -168,7 +166,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 						if karta == True:
 							usporedba.append(t)
 							p2inv.remove(t)
-						if btn_izvuci_kartu == True:
+						if btn_izvuci_kartu.draw() == True:
 							p2inv.append(random.choice(dek))
 							dek.remove(p2inv[len(p2inv)-1])
 							print(p2inv,dek)

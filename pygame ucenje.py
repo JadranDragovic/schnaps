@@ -105,6 +105,7 @@ btn_povratak = Button(10,10,povratak_btn_slika,1)
 btn_pravila = Button(450,480,sedam_bodova_slika,1)
 btn_podijeli_karte = Button(800,350,sedam_bodova_slika,1)
 btn_zavrsi_bacanje = Button(512,70,sedam_bodova_slika,1)
+btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,1)
 
 
 menu_state ="main" #pomaže za mijenjanje prozora
@@ -126,9 +127,6 @@ def kliknut_sedam():#window za igru od 7 bodova
 		global ciji_red
 		global karte_state
 		global promjena_reda
-		global prekri_kartu
-		global sakri_kartu
-		global sakri_kartu2
 		global p1bodovi_runda
 		global p2bodovi_runda
 		screen.fill(zelena)
@@ -145,24 +143,49 @@ def kliknut_sedam():#window za igru od 7 bodova
 			#prikaz karata
 			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
 				promjena_reda += 1
-				
-			if promjena_reda %2 == 0:
-				xos = 50
-				for i in p1inv:
-					karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
-					xos += 200
-					if karta == True:
-						usporedba.append(i)
-						p1inv.remove(i)
 			
-			if promjena_reda %2 != 0:
-				xos = 50
-				for t in p2inv:
-					karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
-					xos += 200
-					if karta == True:
-						usporedba.append(t)
-						p2inv.remove(t)
+			btn_izvuci_kartu.draw()
+
+			if len(usporedba) != 2:
+				if promjena_reda %2 == 0:
+					xos = 50
+					for i in p1inv:
+						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
+						xos += 200
+						if karta == True:
+							usporedba.append(i)
+							p1inv.remove(i)
+						if btn_izvuci_kartu == True:
+							p1inv.append(random.choice(dek))
+							dek.remove(p1inv[len(p1inv)-1])
+							print(p1inv,dek)
+				
+				if promjena_reda %2 != 0:
+					xos = 50
+					for t in p2inv:
+						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
+						xos += 200
+						if karta == True:
+							usporedba.append(t)
+							p2inv.remove(t)
+						if btn_izvuci_kartu == True:
+							p2inv.append(random.choice(dek))
+							dek.remove(p2inv[len(p2inv)-1])
+							print(p2inv,dek)
+
+			elif len(usporedba) == 2:
+				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba.clear()
+					print(p1bodovi_runda,p2bodovi_runda)
+				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba.clear()
+					print(p1bodovi_runda,p2bodovi_runda)
+				else:
+					print("Neš ne radi")
+					usporedba.clear()
+					print(p1bodovi_runda,p2bodovi_runda)
 
 		pygame.display.update()
 	pygame.quit()

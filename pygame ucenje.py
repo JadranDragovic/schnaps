@@ -67,6 +67,8 @@ def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3,5): 
 		p2inv.append(random.choice(dek))
 		dek.remove(p2inv[i])
+	global va
+	va = adut[0][-1] #uzima vrstu aduta
 
 def draw_text(text,font,text_col,x,y):#služi za prikazivanje bilo kakavog teksta na ekranu
 	img = font.render(text,True,text_col)
@@ -151,6 +153,11 @@ def kliknut_sedam():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
+							for vrsta in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
+								if vrsta[-1] == va:
+									print(vrsta[-1])
+								elif vrsta[-1] != va:
+									...#disable taj button
 							usporedba.append(i)
 							p1inv.remove(i)
 						if btn_izvuci_kartu.draw() == True:

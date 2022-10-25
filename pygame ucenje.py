@@ -18,12 +18,15 @@ FPS = 60
 font = pygame.font.Font(None, 60)
 font2 = pygame.font.Font(None, 40)
 text_color = (255,255,255)
-ciji_red = 1
+
+#slike za buttone
 sedam_bodova_slika = pygame.image.load("Desktop\projekt\sedam.png").convert_alpha()
 devet_bodova_slika = pygame.image.load("Desktop\projekt\devet.png").convert_alpha()
 povratak_btn_slika = pygame.image.load("Desktop\projekt\povratak_btn.png").convert_alpha()
 promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\promijeni_btn.png").convert_alpha()
 pravila_slika = pygame.image.load("Desktop\projekt\pravila_btn.png").convert_alpha()
+
+#liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
 dek = ["JC", "QC", "KC", "10C", "AC","JS", "QS", "KS", "10S", "AS","JD", "QD", "KD", "10D", "AD","JH", "QH", "KH", "10H", "AH"]
 slike_karata = {"10C":"10C.png",
@@ -129,7 +132,6 @@ def kliknut_sedam():#window za igru od 7 bodova
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False
-		global ciji_red
 		global karte_state
 		global promjena_reda
 		global p1bodovi_runda
@@ -238,7 +240,6 @@ def kliknut_devet():#window za igru od 9 bodova
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False
-		global ciji_red
 		global karte_state
 		global promjena_reda
 		global p1bodovi_runda
@@ -354,7 +355,7 @@ def main():#loop koji pokrece igru
 				run = False
 
 		screen.fill(zelena)
-		draw_text("ODABERI POČETAN BROJ BODOVA",font,text_color,220,100)
+		draw_text("ODABERI POČETAN BROJ BODOVA",font,text_color,170,100)
 		if menu_state == "main":#provjerave jesam li u glavnom menuu ili u jednom od prozora za igru
 
 			if btn_pravila.draw() == True:

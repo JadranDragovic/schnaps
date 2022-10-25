@@ -49,6 +49,8 @@ p1bodovi_runda = []
 p2bodovi_runda = []
 usporedba = []
 brojAduta = 0
+karte_crtanje = []
+
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -110,9 +112,14 @@ btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,1)
 
 menu_state ="main" #pomaže za mijenjanje prozora
 karte_state ="ne_prikaz"
+bacena_karta_state ="ne"
+bacena_karta_state2 ="ne"
 promjena_reda = 0
 ogranici_izvlacenje1 = 0
 ogranici_izvlacenje2 = 0
+btn_podijeli_karte_crtaj = 0
+ogranici_bacanje1 = 0
+ogranici_bacanje2 = 1
 
 def kliknut_sedam():#window za igru od 7 bodova
 	run = True
@@ -129,6 +136,9 @@ def kliknut_sedam():#window za igru od 7 bodova
 		global p2bodovi_runda
 		global ogranici_izvlacenje1
 		global ogranici_izvlacenje2
+		global btn_podijeli_karte_crtaj
+		global ogranici_bacanje1
+		global ogranici_bacanje2
 		screen.fill(zelena)
 		p1bodovi = 7
 		p2bodovi = 7
@@ -136,8 +146,10 @@ def kliknut_sedam():#window za igru od 7 bodova
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
 
 		if btn_podijeli_karte.draw() == True:#ako se klikne taj gumb onda se podijeli karte s pomocu funkcije dijeljenje_karata
-			dijeljenje_karata()
-			karte_state = "prikaz"
+			while btn_podijeli_karte_crtaj % 2 == 0:
+				dijeljenje_karata()
+				karte_state = "prikaz"
+				btn_podijeli_karte_crtaj += 1
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
@@ -167,6 +179,13 @@ def kliknut_sedam():#window za igru od 7 bodova
 										...#smije bacit tu kartu
 							usporedba.append(i)
 							p1inv.remove(i)
+							while ogranici_bacanje1 % 2 == 0:
+								karte_crtanje.append(i)
+								bacena_karta_state ="da"
+								usporedba.append(i)
+								p1inv.remove(i)
+								ogranici_bacanje1 +=1
+								ogranici_bacanje2 +=1
 						if btn_izvuci_kartu.draw() == True:
 							if ogranici_izvlacenje1 %2 == 0:
 								p1inv.append(random.choice(dek))
@@ -176,6 +195,9 @@ def kliknut_sedam():#window za igru od 7 bodova
 								ogranici_izvlacenje2 += 1
 							else:
 								print("Ne mogu izvući kartu")
+
+				if bacena_karta_state =="da":
+					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
 				if promjena_reda %2 != 0:
 					xos = 50
@@ -183,8 +205,13 @@ def kliknut_sedam():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							usporedba.append(t)
-							p2inv.remove(t)
+							while ogranici_bacanje2 % 2 == 0:
+								karte_crtanje.append(t)
+								bacena_karta_state2 ="da"
+								usporedba.append(t)
+								p2inv.remove(t)
+								ogranici_bacanje2 +=1
+								ogranici_bacanje1 +=1
 						if btn_izvuci_kartu.draw() == True:
 							if ogranici_izvlacenje2 %2 != 0:
 								p2inv.append(random.choice(dek))
@@ -194,6 +221,9 @@ def kliknut_sedam():#window za igru od 7 bodova
 								ogranici_izvlacenje1 += 1
 							else:
 								print("Ne mogu izvući kartu")
+
+				if bacena_karta_state2 =="da":
+					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 
 
 			elif len(usporedba) == 2:

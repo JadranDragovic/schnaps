@@ -109,6 +109,8 @@ btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,1)
 
 menu_state ="main" #pomaže za mijenjanje prozora
 karte_state ="ne_prikaz"
+bacena_karta_state ="ne"
+bacena_karta_state2 ="ne"
 promjena_reda = 0
 ogranici_izvlacenje1 = 0
 ogranici_izvlacenje2 = 0
@@ -150,11 +152,8 @@ def kliknut_sedam():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							for vrsta in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
-								if vrsta[-1] == va:
-									print(vrsta[-1])
-								elif vrsta[-1] != va:
-									...#disable taj button
+							karte_crtanje.append(i)
+							bacena_karta_state ="da"
 							usporedba.append(i)
 							p1inv.remove(i)
 						if btn_izvuci_kartu.draw() == True:
@@ -166,6 +165,9 @@ def kliknut_sedam():#window za igru od 7 bodova
 								ogranici_izvlacenje2 += 1
 							else:
 								print("Ne mogu izvući kartu")
+
+				if bacena_karta_state =="da":
+					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
 				if promjena_reda %2 != 0:
 					xos = 50
@@ -173,6 +175,8 @@ def kliknut_sedam():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
+							karte_crtanje.append(t)
+							bacena_karta_state2 ="da"
 							usporedba.append(t)
 							p2inv.remove(t)
 						if btn_izvuci_kartu.draw() == True:
@@ -184,6 +188,9 @@ def kliknut_sedam():#window za igru od 7 bodova
 								ogranici_izvlacenje1 += 1
 							else:
 								print("Ne mogu izvući kartu")
+
+				if bacena_karta_state2 =="da":
+					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 
 
 			elif len(usporedba) == 2:

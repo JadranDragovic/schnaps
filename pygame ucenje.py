@@ -48,9 +48,7 @@ adut = []
 p1bodovi_runda = []
 p2bodovi_runda = []
 usporedba = []
-brojAduta = 0
 karte_crtanje = []
-
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -67,8 +65,6 @@ def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3,5): 
 		p2inv.append(random.choice(dek))
 		dek.remove(p2inv[i])
-	global va
-	va = adut[0][-1] #uzima vrstu aduta
 
 def draw_text(text,font,text_col,x,y):#služi za prikazivanje bilo kakavog teksta na ekranu
 	img = font.render(text,True,text_col)
@@ -109,7 +105,7 @@ btn_podijeli_karte = Button(800,350,sedam_bodova_slika,1)
 btn_zavrsi_bacanje = Button(512,70,sedam_bodova_slika,1)
 btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,1)
 
-
+#varijable
 menu_state ="main" #pomaže za mijenjanje prozora
 karte_state ="ne_prikaz"
 bacena_karta_state ="ne"
@@ -136,6 +132,8 @@ def kliknut_sedam():#window za igru od 7 bodova
 		global p2bodovi_runda
 		global ogranici_izvlacenje1
 		global ogranici_izvlacenje2
+		global bacena_karta_state
+		global bacena_karta_state2
 		global btn_podijeli_karte_crtaj
 		global ogranici_bacanje1
 		global ogranici_bacanje2
@@ -162,23 +160,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
-						global brojAduta
-						brojAduta = 0
 						if karta == True:
-							for i in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
-								if i[-1] == va:
-									brojAduta += 1
-
-							for vrsta in p1inv:
-								if brojAduta == 0:
-									...#smije bacit bilo koju kartu
-								else: #ako ima vrstu kao adut mora disableat karte koje nisu te vrste
-									if vrsta[-1] != va: #ako nije jednaka vrsti aduta ne može ju bacit
-										print("Ne možeš baciti kartu") 
-									if vrsta[-1] == va:
-										...#smije bacit tu kartu
-							usporedba.append(i)
-							p1inv.remove(i)
 							while ogranici_bacanje1 % 2 == 0:
 								karte_crtanje.append(i)
 								bacena_karta_state ="da"
@@ -193,8 +175,6 @@ def kliknut_sedam():#window za igru od 7 bodova
 								print(p1inv,dek)
 								ogranici_izvlacenje1 += 1
 								ogranici_izvlacenje2 += 1
-							else:
-								print("Ne mogu izvući kartu")
 
 				if bacena_karta_state =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
@@ -204,21 +184,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
-						global brojAduta
-						brojAduta = 0
 						if karta == True:
-							for i in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
-								if i[-1] == va:
-									brojAduta += 1
-
-							for vrsta in p1inv:
-								if brojAduta == 0:
-									...#smije bacit bilo koju kartu
-								else: #ako ima vrstu kao adut mora disableat karte koje nisu te vrste
-									if vrsta[-1] != va: #ako nije jednaka vrsti aduta ne može ju bacit
-										print("Ne možeš baciti kartu") 
-									if vrsta[-1] == va:
-										...#smije bacit tu kartu
 							while ogranici_bacanje2 % 2 == 0:
 								karte_crtanje.append(t)
 								bacena_karta_state2 ="da"
@@ -233,12 +199,9 @@ def kliknut_sedam():#window za igru od 7 bodova
 								print(p2inv,dek)
 								ogranici_izvlacenje2 += 1
 								ogranici_izvlacenje1 += 1
-							else:
-								print("Ne mogu izvući kartu")
 
 				if bacena_karta_state2 =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
-
 
 			elif len(usporedba) == 2:
 				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
@@ -258,14 +221,107 @@ def kliknut_sedam():#window za igru od 7 bodova
 	pygame.quit()
 
 def kliknut_devet():#window za igru od 9 bodova
-	novi_prozor = pygame.display.set_mode((1024,768))
-	novi_prozor.fill(zelena)
-	p1bodovi = 9
-	p2bodovi = 9
-	draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
-	draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
-	if btn_podijeli_karte.draw() == True:
-		dijeljenje_karata()
+	run = True
+	while run:
+		clock = pygame.time.Clock()
+		clock.tick(FPS)
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				run = False
+		global ciji_red
+		global karte_state
+		global promjena_reda
+		global p1bodovi_runda
+		global p2bodovi_runda
+		global ogranici_izvlacenje1
+		global ogranici_izvlacenje2
+		global bacena_karta_state
+		global bacena_karta_state2
+		global btn_podijeli_karte_crtaj
+		global ogranici_bacanje1
+		global ogranici_bacanje2
+		screen.fill(zelena)
+		p1bodovi = 9
+		p2bodovi = 9
+		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
+		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
+
+		if btn_podijeli_karte.draw() == True:#ako se klikne taj gumb onda se podijeli karte s pomocu funkcije dijeljenje_karata
+			while btn_podijeli_karte_crtaj % 2 == 0:
+				dijeljenje_karata()
+				karte_state = "prikaz"
+				btn_podijeli_karte_crtaj += 1
+
+		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
+			#prikaz karata
+			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
+				promjena_reda += 1
+			
+			if len(usporedba) != 2:
+				if promjena_reda %2 == 0:
+					xos = 50
+					for i in p1inv:
+						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
+						xos += 200
+						if karta == True:
+							while ogranici_bacanje1 % 2 == 0:
+								karte_crtanje.append(i)
+								bacena_karta_state ="da"
+								usporedba.append(i)
+								p1inv.remove(i)
+								ogranici_bacanje1 +=1
+								ogranici_bacanje2 +=1
+						if btn_izvuci_kartu.draw() == True:
+							if ogranici_izvlacenje1 %2 == 0:
+								p1inv.append(random.choice(dek))
+								dek.remove(p1inv[len(p1inv)-1])
+								print(p1inv,dek)
+								ogranici_izvlacenje1 += 1
+								ogranici_izvlacenje2 += 1
+
+				if bacena_karta_state =="da":
+					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
+				
+				if promjena_reda %2 != 0:
+					xos = 50
+					for t in p2inv:
+						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
+						xos += 200
+						if karta == True:
+							while ogranici_bacanje2 % 2 == 0:
+								karte_crtanje.append(t)
+								bacena_karta_state2 ="da"
+								usporedba.append(t)
+								p2inv.remove(t)
+								ogranici_bacanje2 +=1
+								ogranici_bacanje1 +=1
+						if btn_izvuci_kartu.draw() == True:
+							if ogranici_izvlacenje2 %2 != 0:
+								p2inv.append(random.choice(dek))
+								dek.remove(p2inv[len(p2inv)-1])
+								print(p2inv,dek)
+								ogranici_izvlacenje2 += 1
+								ogranici_izvlacenje1 += 1
+
+				if bacena_karta_state2 =="da":
+					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
+
+			elif len(usporedba) == 2:
+				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba.clear()
+					print(p1bodovi_runda,p2bodovi_runda)
+				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba.clear()
+					print(p1bodovi_runda,p2bodovi_runda)
+				else:
+					print("Neš ne radi")
+					usporedba.clear()
+					print(p1bodovi_runda,p2bodovi_runda)
+
+		pygame.display.update()
+	pygame.quit()
 
 def pravila():#window za popis pravila igre
 	novi_prozor = pygame.display.set_mode((1024,768))

@@ -204,7 +204,21 @@ def kliknut_sedam():#window za igru od 7 bodova
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
+						global brojAduta
+						brojAduta = 0
 						if karta == True:
+							for i in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
+								if i[-1] == va:
+									brojAduta += 1
+
+							for vrsta in p1inv:
+								if brojAduta == 0:
+									...#smije bacit bilo koju kartu
+								else: #ako ima vrstu kao adut mora disableat karte koje nisu te vrste
+									if vrsta[-1] != va: #ako nije jednaka vrsti aduta ne može ju bacit
+										print("Ne možeš baciti kartu") 
+									if vrsta[-1] == va:
+										...#smije bacit tu kartu
 							while ogranici_bacanje2 % 2 == 0:
 								karte_crtanje.append(t)
 								bacena_karta_state2 ="da"

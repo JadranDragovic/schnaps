@@ -1,8 +1,5 @@
-from re import I
 import pygame 
-from pygame import Surface
 import random
-import os
 
 pygame.init()
 igrač1ime = input("Unesi ime: ")
@@ -112,11 +109,9 @@ btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,1)
 
 menu_state ="main" #pomaže za mijenjanje prozora
 karte_state ="ne_prikaz"
-sakri_kartu ="ne"
-sakri_kartu2 ="keks"
 promjena_reda = 0
-prekri_kartu = pygame.Surface((200,500))
-prekri_kartu2 = pygame.Surface((200,500))
+ogranici_izvlacenje1 = 0
+ogranici_izvlacenje2 = 0
 
 def kliknut_sedam():#window za igru od 7 bodova
 	run = True
@@ -131,6 +126,8 @@ def kliknut_sedam():#window za igru od 7 bodova
 		global promjena_reda
 		global p1bodovi_runda
 		global p2bodovi_runda
+		global ogranici_izvlacenje1
+		global ogranici_izvlacenje2
 		screen.fill(zelena)
 		p1bodovi = 7
 		p2bodovi = 7
@@ -161,9 +158,14 @@ def kliknut_sedam():#window za igru od 7 bodova
 							usporedba.append(i)
 							p1inv.remove(i)
 						if btn_izvuci_kartu.draw() == True:
-							p1inv.append(random.choice(dek))
-							dek.remove(p1inv[len(p1inv)-1])
-							print(p1inv,dek)
+							if ogranici_izvlacenje1 %2 == 0:
+								p1inv.append(random.choice(dek))
+								dek.remove(p1inv[len(p1inv)-1])
+								print(p1inv,dek)
+								ogranici_izvlacenje1 += 1
+								ogranici_izvlacenje2 += 1
+							else:
+								print("Ne mogu izvući kartu")
 				
 				if promjena_reda %2 != 0:
 					xos = 50
@@ -174,9 +176,15 @@ def kliknut_sedam():#window za igru od 7 bodova
 							usporedba.append(t)
 							p2inv.remove(t)
 						if btn_izvuci_kartu.draw() == True:
-							p2inv.append(random.choice(dek))
-							dek.remove(p2inv[len(p2inv)-1])
-							print(p2inv,dek)
+							if ogranici_izvlacenje2 %2 != 0:
+								p2inv.append(random.choice(dek))
+								dek.remove(p2inv[len(p2inv)-1])
+								print(p2inv,dek)
+								ogranici_izvlacenje2 += 1
+								ogranici_izvlacenje1 += 1
+							else:
+								print("Ne mogu izvući kartu")
+
 
 			elif len(usporedba) == 2:
 				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:

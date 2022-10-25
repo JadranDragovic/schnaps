@@ -150,6 +150,8 @@ def kliknut_sedam():#window za igru od 7 bodova
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
+						global brojAduta
+						brojAduta = 0
 						if karta == True:
 							for i in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
 								if i[-1] == va:

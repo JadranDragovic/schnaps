@@ -48,6 +48,7 @@ adut = []
 p1bodovi_runda = []
 p2bodovi_runda = []
 usporedba = []
+karte_crtanje = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):

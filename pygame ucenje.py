@@ -48,6 +48,7 @@ adut = []
 p1bodovi_runda = []
 p2bodovi_runda = []
 usporedba = []
+brojAduta = 0
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -150,11 +151,18 @@ def kliknut_sedam():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							for vrsta in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
-								if vrsta[-1] == va:
-									print(vrsta[-1])
-								elif vrsta[-1] != va:
-									...#disable taj button
+							for i in p1inv: ## tu provjerava jel p1inv ima vrstu kao adut#######################################
+								if i[-1] == va:
+									brojAduta += 1
+
+							for vrsta in p1inv:
+								if brojAduta == 0:
+									...#smije bacit bilo koju kartu
+								else: #ako ima vrstu kao adut mora disableat karte koje nisu te vrste
+									if vrsta[-1] != va: #ako nije jednaka vrsti aduta ne može ju bacit
+										print("Ne možeš baciti kartu") 
+									if vrsta[-1] == va:
+										...#smije bacit tu kartu
 							usporedba.append(i)
 							p1inv.remove(i)
 						if btn_izvuci_kartu.draw() == True:

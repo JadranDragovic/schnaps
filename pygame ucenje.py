@@ -1,5 +1,7 @@
 import pygame 
 import random
+import time
+from pygame import Surface
 
 pygame.init()
 igrač1ime = input("Unesi ime: ")
@@ -153,6 +155,10 @@ def kliknut_sedam():#window za igru od 7 bodova
 			#prikaz karata
 			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
 				promjena_reda += 1
+				pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+				draw_text("IDUĆI IGRAČ MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+				pygame.display.update()
+				time.sleep(5)
 			
 			if len(usporedba) != 2:
 				if promjena_reda %2 == 0:
@@ -258,10 +264,14 @@ def kliknut_devet():#window za igru od 9 bodova
 			#prikaz karata
 			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
 				promjena_reda += 1
+				pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+				draw_text("IDUĆI IGRAČ MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+				pygame.display.update()
+				time.sleep(5)
 			
 			if len(usporedba) != 2:
 				if promjena_reda %2 == 0:
-					draw_text(f"{igrač1ime} je na redu",font2,(255,255,255),50,10)
+					draw_text(f"{igrač1ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
@@ -286,7 +296,7 @@ def kliknut_devet():#window za igru od 9 bodova
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
 				if promjena_reda %2 != 0:
-					draw_text(f"{igrač2ime} je na redu",font2,(255,255,255),50,10)
+					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()

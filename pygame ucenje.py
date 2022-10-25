@@ -156,7 +156,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 			
 			if len(usporedba) != 2:
 				if promjena_reda %2 == 0:
-					draw_text(f"{igrač1ime} JE NA REDU.",font2,(255,255,255),400,200)
+					draw_text(f"{igrač1ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
@@ -181,7 +181,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
 				if promjena_reda %2 != 0:
-					draw_text(f"{igrač2ime} JE NA REDU.",font2,(255,255,255),400,200)
+					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
@@ -261,7 +261,7 @@ def kliknut_devet():#window za igru od 9 bodova
 			
 			if len(usporedba) != 2:
 				if promjena_reda %2 == 0:
-					draw_text(f"{igrač1ime} je na redu.",font2,(255,255,255),400,200)
+					draw_text(f"{igrač1ime} je na redu",font2,(255,255,255),50,10)
 					xos = 50
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
@@ -286,7 +286,7 @@ def kliknut_devet():#window za igru od 9 bodova
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
 				if promjena_reda %2 != 0:
-					draw_text(f"{igrač2ime} je na redu.",font2,(255,255,255),400,200)
+					draw_text(f"{igrač2ime} je na redu",font2,(255,255,255),50,10)
 					xos = 50
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()

@@ -56,6 +56,7 @@ p1bodovi_runda = []
 p2bodovi_runda = []
 usporedba = []
 karte_crtanje = []
+usporedba2 = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -197,20 +198,28 @@ def kliknut_sedam():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							while ogranici_bacanje2 % 2 == 0:
-								karte_crtanje.append(t)
-								bacena_karta_state2 ="da"
-								usporedba.append(t)
-								p2inv.remove(t)
-								ogranici_bacanje2 +=1
-								ogranici_bacanje1 +=1
-						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje2 %2 != 0:
-								p2inv.append(random.choice(dek))
-								dek.remove(p2inv[len(p2inv)-1])
-								print(p2inv,dek)
-								ogranici_izvlacenje2 += 1
-								ogranici_izvlacenje1 += 1
+							usporedba2.append(usporedba[0])
+							for h in usporedba2:
+								if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
+									while ogranici_bacanje2 % 2 == 0:
+										karte_crtanje.append(t)
+										bacena_karta_state2 ="da"
+										usporedba.append(t)
+										p2inv.remove(t)
+										ogranici_bacanje2 +=1
+										ogranici_bacanje1 +=1
+								#prioritiziraj prvu kartu a ne adut tj. da zabrani adut
+								elif  t[-1] == adut[0][-1]:
+									while ogranici_bacanje2 % 2 == 0:
+										karte_crtanje.append(t)
+										bacena_karta_state2 ="da"
+										usporedba.append(t)
+										p2inv.remove(t)
+										ogranici_bacanje2 +=1
+										ogranici_bacanje1 +=1
+								elif t[-1] != h[-1]:
+									print("Moraš pratiti pravilo poštovanja")
+								
 
 				if bacena_karta_state2 =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()

@@ -6,10 +6,10 @@ from pygame import Surface
 pygame.init()
 igrač1ime = input("Unesi ime: ")
 while len(igrač1ime)>7 or len(igrač1ime)==0:
-    igrač1ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ")
+    igrač1ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ").upper()
 igrač2ime = input("Unesi ime: ")
 while len(igrač2ime)>7 or len(igrač2ime)==0:
-    igrač2ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ")
+    igrač2ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ").upper()
 
 zelena = (0,100,0)
 screen = pygame.display.set_mode((1024,768))
@@ -57,6 +57,8 @@ p2bodovi_runda = []
 usporedba = []
 karte_crtanje = []
 usporedba2 = []
+usporedba_red_bacanja1 = []
+usporedba_red_bacanja2 = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -124,6 +126,7 @@ ogranici_izvlacenje2 = 0
 btn_podijeli_karte_crtaj = 0
 ogranici_bacanje1 = 0
 ogranici_bacanje2 = 1
+zavrsi_bacanje_kliknut = 0
 
 def kliknut_sedam():#window za igru od 7 bodova
 	run = True
@@ -144,6 +147,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 		global btn_podijeli_karte_crtaj
 		global ogranici_bacanje1
 		global ogranici_bacanje2
+		global zavrsi_bacanje_kliknut
 		screen.fill(zelena)
 		p1bodovi = 7
 		p2bodovi = 7
@@ -158,86 +162,125 @@ def kliknut_sedam():#window za igru od 7 bodova
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
-			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
-				promjena_reda += 1
-				pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
-				draw_text("IDUĆI IGRAČ MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
-				pygame.display.update()
-				time.sleep(5)
+			
 			
 			if len(usporedba) != 2:
-				if promjena_reda %2 == 0:
+				if promjena_reda == 0:
 					draw_text(f"{igrač1ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							while ogranici_bacanje1 % 2 == 0:
+							while ogranici_bacanje1 == 0:
 								karte_crtanje.append(i)
 								bacena_karta_state ="da"
 								usporedba.append(i)
 								p1inv.remove(i)
-								ogranici_bacanje1 +=1
-								ogranici_bacanje2 +=1
+								ogranici_bacanje1 =1
+								ogranici_bacanje2 =1
+
 						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje1 %2 == 0:
+							if ogranici_izvlacenje1 == 0:
 								p1inv.append(random.choice(dek))
 								dek.remove(p1inv[len(p1inv)-1])
 								print(p1inv,dek)
-								ogranici_izvlacenje1 += 1
-								ogranici_izvlacenje2 += 1
+								ogranici_izvlacenje1 = 1
+								ogranici_izvlacenje2 = 1
 
 				if bacena_karta_state =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
-				if promjena_reda %2 != 0:
+				if promjena_reda == 1:
 					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							usporedba2.append(usporedba[0])
-							for h in usporedba2:
-								if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
-									while ogranici_bacanje2 % 2 == 0:
-										karte_crtanje.append(t)
-										bacena_karta_state2 ="da"
-										usporedba.append(t)
-										p2inv.remove(t)
-										ogranici_bacanje2 +=1
-										ogranici_bacanje1 +=1
+							#usporedba2.append(usporedba[0])
+							#for h in usporedba2:
+							#	if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
+							while ogranici_bacanje2 == 1:
+								karte_crtanje.append(t)
+								bacena_karta_state2 ="da"
+								usporedba.append(t)
+								p2inv.remove(t)
+								ogranici_bacanje2 = 0
+								ogranici_bacanje1 = 0
 								#prioritiziraj prvu kartu a ne adut tj. da zabrani adut
-								elif  t[-1] == adut[0][-1]:
-									while ogranici_bacanje2 % 2 == 0:
-										karte_crtanje.append(t)
-										bacena_karta_state2 ="da"
-										usporedba.append(t)
-										p2inv.remove(t)
-										ogranici_bacanje2 +=1
-										ogranici_bacanje1 +=1
-								elif t[-1] != h[-1]:
-									print("Moraš pratiti pravilo poštovanja")
+							#	elif  t[-1] == adut[0][-1]:
+							#		while ogranici_bacanje2 % 2 == 0:
+							#			karte_crtanje.append(t)
+							#			bacena_karta_state2 ="da"
+							#			usporedba.append(t)
+							#			p2inv.remove(t)
+							#			ogranici_bacanje2 +=1
+							#			ogranici_bacanje1 +=1
+							#	elif t[-1] != h[-1]:
+							#		print("Moraš pratiti pravilo poštovanja")
 						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje1 %2 != 0:
+							if ogranici_izvlacenje2 == 1:
 								p2inv.append(random.choice(dek))
 								dek.remove(p2inv[len(p2inv)-1])
 								print(p2inv,dek)
-								ogranici_izvlacenje1 += 1
-								ogranici_izvlacenje2 += 1
+								ogranici_izvlacenje1 = 0
+								ogranici_izvlacenje2 = 0
 								
 
 				if bacena_karta_state2 =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
+			
+				if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
+					if zavrsi_bacanje_kliknut == 0:
+						promjena_reda =1
+						pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+						draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+						pygame.display.update()
+						time.sleep(5)
+						zavrsi_bacanje_kliknut = 1
+					if zavrsi_bacanje_kliknut == 2:
+						if usporedba_red_bacanja1[-1] == "1":
+							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+							pygame.display.update()
+							time.sleep(5)
+							promjena_reda = 0
+							ogranici_bacanje1 = 0
+							ogranici_bacanje2 = 1
+							ogranici_izvlacenje1 = 0
+							ogranici_izvlacenje2 = 1
+							usporedba_red_bacanja1.append("0")
+						else:
+							usporedba_red_bacanja2.append("1")
+							zavrsi_bacanje_kliknut = 3
+					if zavrsi_bacanje_kliknut  == 3:
+						if usporedba_red_bacanja2[-1] == "1":
+							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+							pygame.display.update()
+							time.sleep(5)
+							promjena_reda = 1
+							ogranici_bacanje1 = 0
+							ogranici_bacanje2 = 1
+							ogranici_izvlacenje1 = 0
+							ogranici_izvlacenje2 = 1
+							usporedba_red_bacanja2.append("0")
+						else:
+							usporedba_red_bacanja1.append("1")
+							zavrsi_bacanje_kliknut = 2
 
 			elif len(usporedba) == 2:
 				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba_red_bacanja1.append("1")
+					zavrsi_bacanje_kliknut = 2
 					usporedba.clear()
 					print(p1bodovi_runda,p2bodovi_runda)
 				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba_red_bacanja2.append("1")
+					zavrsi_bacanje_kliknut = 3
 					usporedba.clear()
 					print(p1bodovi_runda,p2bodovi_runda)
 				else:
@@ -267,6 +310,7 @@ def kliknut_devet():#window za igru od 9 bodova
 		global btn_podijeli_karte_crtaj
 		global ogranici_bacanje1
 		global ogranici_bacanje2
+		global zavrsi_bacanje_kliknut
 		screen.fill(zelena)
 		p1bodovi = 9
 		p2bodovi = 9
@@ -281,71 +325,124 @@ def kliknut_devet():#window za igru od 9 bodova
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
-			if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
-				promjena_reda += 1
-				pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
-				draw_text("IDUĆI IGRAČ MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
-				pygame.display.update()
-				time.sleep(5)
 			
 			if len(usporedba) != 2:
-				if promjena_reda %2 == 0:
+				if promjena_reda == 0:
 					draw_text(f"{igrač1ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for i in p1inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							while ogranici_bacanje1 % 2 == 0:
+							while ogranici_bacanje1 == 0:
 								karte_crtanje.append(i)
 								bacena_karta_state ="da"
 								usporedba.append(i)
 								p1inv.remove(i)
-								ogranici_bacanje1 +=1
-								ogranici_bacanje2 +=1
+								ogranici_bacanje1 =1
+								ogranici_bacanje2 =1
+
 						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje1 %2 == 0:
+							if ogranici_izvlacenje1 == 0:
 								p1inv.append(random.choice(dek))
 								dek.remove(p1inv[len(p1inv)-1])
 								print(p1inv,dek)
-								ogranici_izvlacenje1 += 1
-								ogranici_izvlacenje2 += 1
+								ogranici_izvlacenje1 = 1
+								ogranici_izvlacenje2 = 1
 
 				if bacena_karta_state =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
-				if promjena_reda %2 != 0:
+				if promjena_reda == 1:
 					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 50
 					for t in p2inv:
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							while ogranici_bacanje2 % 2 == 0:
+							#usporedba2.append(usporedba[0])
+							#for h in usporedba2:
+							#	if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
+							while ogranici_bacanje2 == 1:
 								karte_crtanje.append(t)
 								bacena_karta_state2 ="da"
 								usporedba.append(t)
 								p2inv.remove(t)
-								ogranici_bacanje2 +=1
-								ogranici_bacanje1 +=1
+								ogranici_bacanje2 = 0
+								ogranici_bacanje1 = 0
+								#prioritiziraj prvu kartu a ne adut tj. da zabrani adut
+							#	elif  t[-1] == adut[0][-1]:
+							#		while ogranici_bacanje2 % 2 == 0:
+							#			karte_crtanje.append(t)
+							#			bacena_karta_state2 ="da"
+							#			usporedba.append(t)
+							#			p2inv.remove(t)
+							#			ogranici_bacanje2 +=1
+							#			ogranici_bacanje1 +=1
+							#	elif t[-1] != h[-1]:
+							#		print("Moraš pratiti pravilo poštovanja")
 						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje2 %2 != 0:
+							if ogranici_izvlacenje2 == 1:
 								p2inv.append(random.choice(dek))
 								dek.remove(p2inv[len(p2inv)-1])
 								print(p2inv,dek)
-								ogranici_izvlacenje2 += 1
-								ogranici_izvlacenje1 += 1
+								ogranici_izvlacenje1 = 0
+								ogranici_izvlacenje2 = 0
+								
 
 				if bacena_karta_state2 =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
+			
+				if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
+					if zavrsi_bacanje_kliknut == 0:
+						promjena_reda =1
+						pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+						draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+						pygame.display.update()
+						time.sleep(5)
+						zavrsi_bacanje_kliknut = 1
+					if zavrsi_bacanje_kliknut == 2:
+						if usporedba_red_bacanja1[-1] == "1":
+							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+							pygame.display.update()
+							time.sleep(5)
+							promjena_reda = 0
+							ogranici_bacanje1 = 0
+							ogranici_bacanje2 = 1
+							ogranici_izvlacenje1 = 0
+							ogranici_izvlacenje2 = 1
+							usporedba_red_bacanja1.append("0")
+						else:
+							usporedba_red_bacanja2.append("1")
+							zavrsi_bacanje_kliknut = 3
+					if zavrsi_bacanje_kliknut  == 3:
+						if usporedba_red_bacanja2[-1] == "1":
+							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
+							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
+							pygame.display.update()
+							time.sleep(5)
+							promjena_reda = 1
+							ogranici_bacanje1 = 0
+							ogranici_bacanje2 = 1
+							ogranici_izvlacenje1 = 0
+							ogranici_izvlacenje2 = 1
+							usporedba_red_bacanja2.append("0")
+						else:
+							usporedba_red_bacanja1.append("1")
+							zavrsi_bacanje_kliknut = 2
 
 			elif len(usporedba) == 2:
 				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba_red_bacanja1.append("1")
+					zavrsi_bacanje_kliknut = 2
 					usporedba.clear()
 					print(p1bodovi_runda,p2bodovi_runda)
 				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+					usporedba_red_bacanja2.append("1")
+					zavrsi_bacanje_kliknut = 3
 					usporedba.clear()
 					print(p1bodovi_runda,p2bodovi_runda)
 				else:

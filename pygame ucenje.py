@@ -219,6 +219,13 @@ def kliknut_sedam():#window za igru od 7 bodova
 										ogranici_bacanje1 +=1
 								elif t[-1] != h[-1]:
 									print("Moraš pratiti pravilo poštovanja")
+						if btn_izvuci_kartu.draw() == True:
+							if ogranici_izvlacenje1 %2 != 0:
+								p2inv.append(random.choice(dek))
+								dek.remove(p2inv[len(p2inv)-1])
+								print(p2inv,dek)
+								ogranici_izvlacenje1 += 1
+								ogranici_izvlacenje2 += 1
 								
 
 				if bacena_karta_state2 =="da":

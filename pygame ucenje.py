@@ -59,6 +59,8 @@ karte_crtanje = []
 usporedba2 = []
 usporedba_red_bacanja1 = []
 usporedba_red_bacanja2 = []
+bacena_kartap1 = []
+bacena_kartap2 = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -179,6 +181,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 						if karta == True:
 							while ogranici_bacanje1 == 0:
 								karte_crtanje.append(i)
+								bacena_kartap1.append(i)
 								bacena_karta_state ="da"
 								usporedba.append(i)
 								p1inv.remove(i)
@@ -207,6 +210,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 							#for h in usporedba2:
 							#	if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
 							while ogranici_bacanje2 == 1:
+								bacena_kartap2.append(t)
 								karte_crtanje.append(t)
 								bacena_karta_state2 ="da"
 								usporedba.append(t)
@@ -276,23 +280,41 @@ def kliknut_sedam():#window za igru od 7 bodova
 							zavrsi_bacanje_kliknut = 2
 
 			elif len(usporedba) == 2:
-				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
-					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-					usporedba_red_bacanja1.append("1")
-					zavrsi_bacanje_kliknut = 2
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
-					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-					usporedba_red_bacanja2.append("1")
-					zavrsi_bacanje_kliknut = 3
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-				else:
-					print("Neš ne radi")
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-
+				if karte_crtanje[-2] ==  bacena_kartap1[-1] and karte_crtanje[-1] == bacena_kartap2[-1]:
+					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja1.append("1")
+						zavrsi_bacanje_kliknut = 2
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja2.append("1")
+						zavrsi_bacanje_kliknut = 3
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					else:
+						print("Neš ne radi")
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+				if karte_crtanje[-1] == bacena_kartap1[-1] and karte_crtanje[-2] == bacena_kartap2[-1]:
+					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja2.append("1")
+						zavrsi_bacanje_kliknut = 2
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja1.append("1")
+						zavrsi_bacanje_kliknut = 3
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					else:
+						print("Neš ne radi")
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+				print(len(dek))
 		pygame.display.update()
 	pygame.quit()
 
@@ -341,6 +363,7 @@ def kliknut_devet():#window za igru od 9 bodova
 						if karta == True:
 							while ogranici_bacanje1 == 0:
 								karte_crtanje.append(i)
+								bacena_kartap1.append(i)
 								bacena_karta_state ="da"
 								usporedba.append(i)
 								p1inv.remove(i)
@@ -370,6 +393,7 @@ def kliknut_devet():#window za igru od 9 bodova
 							#	if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
 							while ogranici_bacanje2 == 1:
 								karte_crtanje.append(t)
+								bacena_kartap2.append(t)
 								bacena_karta_state2 ="da"
 								usporedba.append(t)
 								p2inv.remove(t)
@@ -438,22 +462,41 @@ def kliknut_devet():#window za igru od 9 bodova
 							zavrsi_bacanje_kliknut = 2
 
 			elif len(usporedba) == 2:
-				if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
-					p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-					usporedba_red_bacanja1.append("1")
-					zavrsi_bacanje_kliknut = 2
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-				elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
-					p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-					usporedba_red_bacanja2.append("1")
-					zavrsi_bacanje_kliknut = 3
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
-				else:
-					print("Neš ne radi")
-					usporedba.clear()
-					print(p1bodovi_runda,p2bodovi_runda)
+				if karte_crtanje[-2] ==  bacena_kartap1[-1] and karte_crtanje[-1] == bacena_kartap2[-1]:
+					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja1.append("1")
+						zavrsi_bacanje_kliknut = 2
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja2.append("1")
+						zavrsi_bacanje_kliknut = 3
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					else:
+						print("Neš ne radi")
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+				if karte_crtanje[-1] == bacena_kartap1[-1] and karte_crtanje[-2] == bacena_kartap2[-1]:
+					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja2.append("1")
+						zavrsi_bacanje_kliknut = 2
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						usporedba_red_bacanja1.append("1")
+						zavrsi_bacanje_kliknut = 3
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+					else:
+						print("Neš ne radi")
+						usporedba.clear()
+						print(p1bodovi_runda,p2bodovi_runda)
+				print(len(dek))
 
 		pygame.display.update()
 	pygame.quit()

@@ -70,7 +70,6 @@ def dijeljenje_karata():#podijeli random karte igračima
 		p2inv.append(random.choice(dek))
 		dek.remove(p2inv[i])
 	adut.append(random.choice(dek))
-	dek.remove(adut[0])
 	for i in range(3,5):
 		p1inv.append(random.choice(dek))
 		dek.remove(p1inv[i])
@@ -162,13 +161,21 @@ def kliknut_sedam():#window za igru od 7 bodova
 				dijeljenje_karata()
 				karte_state = "prikaz"
 				btn_podijeli_karte_crtaj += 1
-		
+
 		#tipka za zvanje
 		if btn_zvanje.draw() == True:
 			menu_state ="pravila"
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
+			if adut[0][-1] == "H":
+				draw_text(f"ADUT: HERC",font2,(255,255,255),50,40)
+			if adut[0][-1] == "S":
+				draw_text(f"ADUT: PIK",font2,(255,255,255),50,40)
+			if adut[0][-1] == "D":
+				draw_text(f"ADUT: KARO",font2,(255,255,255),50,40)
+			if adut[0][-1] == "C":
+				draw_text(f"ADUT: TREF",font2,(255,255,255),50,40)
 			
 			
 			if len(usporedba) != 2:
@@ -352,6 +359,14 @@ def kliknut_devet():#window za igru od 9 bodova
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
+			if adut[0][-1] == "H":
+				draw_text(f"ADUT: HERC",font2,(255,255,255),50,40)
+			if adut[0][-1] == "S":
+				draw_text(f"ADUT: PIK",font2,(255,255,255),50,40)
+			if adut[0][-1] == "D":
+				draw_text(f"ADUT: KARO",font2,(255,255,255),50,40)
+			if adut[0][-1] == "C":
+				draw_text(f"ADUT: TREF",font2,(255,255,255),50,40)
 			
 			if len(usporedba) != 2:
 				if promjena_reda == 0:

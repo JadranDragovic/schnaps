@@ -161,6 +161,10 @@ def kliknut_sedam():#window za igru od 7 bodova
 				dijeljenje_karata()
 				karte_state = "prikaz"
 				btn_podijeli_karte_crtaj += 1
+		
+		#tipka za zvanje
+		if btn_zvanje.draw() == True:
+			menu_state ="pravila"
 
 		#tipka za zvanje
 		if btn_zvanje.draw() == True:
@@ -197,11 +201,14 @@ def kliknut_sedam():#window za igru od 7 bodova
 
 						if btn_izvuci_kartu.draw() == True:
 							if ogranici_izvlacenje1 == 0:
-								p1inv.append(random.choice(dek))
-								dek.remove(p1inv[len(p1inv)-1])
-								print(p1inv,dek)
-								ogranici_izvlacenje1 = 1
-								ogranici_izvlacenje2 = 1
+								if len(dek) != 0:
+									p1inv.append(random.choice(dek))
+									dek.remove(p1inv[len(p1inv)-1])
+									print(p1inv,dek)
+									ogranici_izvlacenje1 = 1
+									ogranici_izvlacenje2 = 1
+								else:
+									print("dek je prazan")
 
 				if bacena_karta_state =="da":
 					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
@@ -237,11 +244,14 @@ def kliknut_sedam():#window za igru od 7 bodova
 							#		print("Moraš pratiti pravilo poštovanja")
 						if btn_izvuci_kartu.draw() == True:
 							if ogranici_izvlacenje2 == 1:
-								p2inv.append(random.choice(dek))
-								dek.remove(p2inv[len(p2inv)-1])
-								print(p2inv,dek)
-								ogranici_izvlacenje1 = 0
-								ogranici_izvlacenje2 = 0
+								if len(dek) != 0:
+									p2inv.append(random.choice(dek))
+									dek.remove(p2inv[len(p2inv)-1])
+									print(p2inv,dek)
+									ogranici_izvlacenje1 = 0
+									ogranici_izvlacenje2 = 0
+								else:
+									print("dek je prazan")
 								
 
 				if bacena_karta_state2 =="da":
@@ -322,6 +332,10 @@ def kliknut_sedam():#window za igru od 7 bodova
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
 				print(len(dek))
+		if len(p1inv) == 0 and len(p2inv) == 0 and len(dek) == 0:
+			print("gotova runda")
+		
+		
 		pygame.display.update()
 	pygame.quit()
 

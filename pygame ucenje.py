@@ -114,6 +114,7 @@ btn_pravila = Button(430,550,pravila_slika,0.7)
 btn_podijeli_karte = Button(800,350,sedam_bodova_slika,0.5)
 btn_zavrsi_bacanje = Button(460,80,promijeni_red_btn_slika,1)
 btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,0.5)
+btn_zvanje = Button(200,350,sedam_bodova_slika, 0.5)
 
 #varijable
 menu_state ="main" #pomaže za mijenjanje prozora
@@ -159,6 +160,10 @@ def kliknut_sedam():#window za igru od 7 bodova
 				dijeljenje_karata()
 				karte_state = "prikaz"
 				btn_podijeli_karte_crtaj += 1
+		
+		#tipka za zvanje
+		if btn_zvanje.draw() == True:
+			menu_state ="pravila"
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata

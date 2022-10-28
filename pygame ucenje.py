@@ -609,8 +609,6 @@ def kraj_runde():
 			ogranici_bacanje1 = 0
 			ogranici_bacanje2 = 1
 			zavrsi_bacanje_kliknut = 0
-			pobjeda1 = 0
-			pobjeda2 = 0
 			adut.clear()
 			usporedba2.clear()
 			usporedba_red_bacanja1.clear()

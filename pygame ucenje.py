@@ -129,6 +129,8 @@ btn_podijeli_karte_crtaj = 0
 ogranici_bacanje1 = 0
 ogranici_bacanje2 = 1
 zavrsi_bacanje_kliknut = 0
+pobjeda1 = 0
+pobjeda2 = 0
 
 def kliknut_sedam():#window za igru od 7 bodova
 	run = True
@@ -150,9 +152,12 @@ def kliknut_sedam():#window za igru od 7 bodova
 		global ogranici_bacanje1
 		global ogranici_bacanje2
 		global zavrsi_bacanje_kliknut
+		global pobjeda1
+		global pobjeda2
+		global menu_state
 		screen.fill(zelena)
-		p1bodovi = 7
-		p2bodovi = 7
+		p1bodovi = 7 - pobjeda1
+		p2bodovi = 7 - pobjeda2
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
 
@@ -172,15 +177,16 @@ def kliknut_sedam():#window za igru od 7 bodova
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
-			if adut[0][-1] == "H":
-				draw_text(f"ADUT: HERC",font2,(255,255,255),50,40)
-			if adut[0][-1] == "S":
-				draw_text(f"ADUT: PIK",font2,(255,255,255),50,40)
-			if adut[0][-1] == "D":
-				draw_text(f"ADUT: KARO",font2,(255,255,255),50,40)
-			if adut[0][-1] == "C":
-				draw_text(f"ADUT: TREF",font2,(255,255,255),50,40)
-			
+			if len(adut) != 0:
+				if adut[0][-1] == "H":
+					draw_text(f"ADUT: HERC",font2,(255,255,255),50,40)
+				if adut[0][-1] == "S":
+					draw_text(f"ADUT: PIK",font2,(255,255,255),50,40)
+				if adut[0][-1] == "D":
+					draw_text(f"ADUT: KARO",font2,(255,255,255),50,40)
+				if adut[0][-1] == "C":
+					draw_text(f"ADUT: TREF",font2,(255,255,255),50,40)
+				
 			
 			if len(usporedba) != 2:
 				if promjena_reda == 0:
@@ -263,14 +269,14 @@ def kliknut_sedam():#window za igru od 7 bodova
 						pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
 						draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 						pygame.display.update()
-						time.sleep(5)
+						time.sleep(2)
 						zavrsi_bacanje_kliknut = 1
 					if zavrsi_bacanje_kliknut == 2:
 						if usporedba_red_bacanja1[-1] == "1":
 							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
 							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
-							time.sleep(5)
+							time.sleep(2)
 							promjena_reda = 0
 							ogranici_bacanje1 = 0
 							ogranici_bacanje2 = 1
@@ -285,7 +291,7 @@ def kliknut_sedam():#window za igru od 7 bodova
 							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
 							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
-							time.sleep(5)
+							time.sleep(2)
 							promjena_reda = 1
 							ogranici_bacanje1 = 0
 							ogranici_bacanje2 = 1
@@ -334,7 +340,12 @@ def kliknut_sedam():#window za igru od 7 bodova
 				print(len(dek))
 		if len(p1inv) == 0 and len(p2inv) == 0 and len(dek) == 0:
 			print("gotova runda")
-		
+		if sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66:
+			kraj_runde_btn = Button(200,250,sedam_bodova_slika, 0.5)
+			if kraj_runde_btn.draw() == True:
+				menu_state = "kraj_runde"
+				if menu_state == "kraj_runde":
+					kraj_runde()
 		
 		pygame.display.update()
 	pygame.quit()
@@ -533,6 +544,82 @@ def kliknut_devet():#window za igru od 9 bodova
 def pravila():#window za popis pravila igre
 	novi_prozor = pygame.display.set_mode((1024,768))
 	novi_prozor.fill(zelena)
+
+def kraj_runde():
+	global menu_state
+	global karte_state
+	global promjena_reda
+	global p1bodovi_runda
+	global p2bodovi_runda
+	global ogranici_izvlacenje1
+	global ogranici_izvlacenje2
+	global bacena_karta_state
+	global bacena_karta_state2
+	global btn_podijeli_karte_crtaj
+	global ogranici_bacanje1
+	global ogranici_bacanje2
+	global zavrsi_bacanje_kliknut
+	global pobjeda1
+	global pobjeda2
+	global dek
+	clock = pygame.time.Clock()
+	run = True
+	while run:
+		clock.tick(FPS)
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				run = False
+		novi_prozor = pygame.display.set_mode((1024,768))
+		novi_prozor.fill(zelena)
+		draw_text(f"Kraj runde.",font,(255,255,255),110,230)
+		draw_text(f"{igrač1ime}:{sum(p1bodovi_runda)}",font,(255,255,255),110,430)
+		draw_text(f"{igrač2ime}:{sum(p2bodovi_runda)}",font,(255,255,255),410,430)
+		if sum(p1bodovi_runda) > sum(p2bodovi_runda):
+			if sum(p2bodovi_runda) == 0:
+				pobjeda1 = 3
+			if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
+				pobjeda1 = 2
+			if sum(p2bodovi_runda) > 33:
+				pobjeda1 = 1
+		if sum(p2bodovi_runda) > sum(p1bodovi_runda):
+			if sum(p1bodovi_runda) == 0:
+				pobjeda2 = 3
+			if sum(p1bodovi_runda) > 0 and sum(p1bodovi_runda) < 33:
+				pobjeda2 = 2
+			if sum(p1bodovi_runda) > 33:
+				pobjeda2 = 1
+		nastavi_rundu_btn = Button(500,500,sedam_bodova_slika, 0.5)
+		if nastavi_rundu_btn.draw() == True:
+			menu_state = "nastavi_sedam"
+		if menu_state == "nastavi_sedam":
+			usporedba.clear()
+			p1inv.clear()
+			p2inv.clear()
+			dek = ["JC", "QC", "KC", "10C", "AC","JS", "QS", "KS", "10S", "AS","JD", "QD", "KD", "10D", "AD","JH", "QH", "KH", "10H", "AH"]
+			p1bodovi_runda.clear()
+			p2bodovi_runda.clear()
+			karte_crtanje.clear()
+			karte_state ="ne_prikaz"
+			bacena_karta_state ="ne"
+			bacena_karta_state2 ="ne"
+			promjena_reda = 0
+			ogranici_izvlacenje1 = 0
+			ogranici_izvlacenje2 = 0
+			btn_podijeli_karte_crtaj = 0
+			ogranici_bacanje1 = 0
+			ogranici_bacanje2 = 1
+			zavrsi_bacanje_kliknut = 0
+			pobjeda1 = 0
+			pobjeda2 = 0
+			adut.clear()
+			usporedba2.clear()
+			usporedba_red_bacanja1.clear()
+			usporedba_red_bacanja2.clear()
+			bacena_kartap1.clear()
+			bacena_kartap2.clear()
+			kliknut_sedam()
+		pygame.display.update()
+	pygame.quit()
 
 def main():#loop koji pokrece igru
 	global menu_state

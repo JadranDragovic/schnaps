@@ -17,6 +17,8 @@ pygame.display.set_caption("ŠNAPS")
 FPS = 60
 font = pygame.font.Font(None, 60)
 font2 = pygame.font.Font(None, 40)
+font3 = pygame.font.Font(None, 100)
+font4 = pygame.font.Font(None, 80)
 text_color = (255,255,255)
 
 #slike za buttone
@@ -25,6 +27,7 @@ devet_bodova_slika = pygame.image.load("Desktop\projekt\devet.png").convert_alph
 povratak_btn_slika = pygame.image.load("Desktop\projekt\povratak_btn.png").convert_alpha()
 promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\promijeni_btn.png").convert_alpha()
 pravila_slika = pygame.image.load("Desktop\projekt\pravila_btn.png").convert_alpha()
+kraj_runde_slika = pygame.image.load("Desktop\projekt\kraj_runde_table.png").convert_alpha()
 
 #liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
@@ -129,8 +132,8 @@ btn_podijeli_karte_crtaj = 0
 ogranici_bacanje1 = 0
 ogranici_bacanje2 = 1
 zavrsi_bacanje_kliknut = 0
-pobjeda1 = 0
-pobjeda2 = 0
+p1pobjeda = 0
+p2pobjeda = 0
 
 def igra():#window za igru od 7 bodova
 	run = True
@@ -376,6 +379,8 @@ def kraj_runde():
 	global p2bodovi
 	global stari_bodovi1
 	global stari_bodovi2
+	global p1pobjeda
+	global p2pobjeda
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -385,9 +390,6 @@ def kraj_runde():
 				run = False
 		novi_prozor = pygame.display.set_mode((1024,768))
 		novi_prozor.fill(zelena)
-		draw_text(f"Kraj runde.",font,(255,255,255),110,230)
-		draw_text(f"{igrač1ime}:{sum(p1bodovi_runda)}",font,(255,255,255),110,430)
-		draw_text(f"{igrač2ime}:{sum(p2bodovi_runda)}",font,(255,255,255),410,430)
 		if sum(p1bodovi_runda) > sum(p2bodovi_runda) and stari_bodovi1 == p1bodovi:
 			if sum(p2bodovi_runda) == 0:
 				p1bodovi = stari_bodovi1 - 3
@@ -402,34 +404,67 @@ def kraj_runde():
 				p2bodovi = stari_bodovi2 - 2
 			if sum(p1bodovi_runda) > 33:
 				p2bodovi = stari_bodovi2 - 1
-		nastavi_rundu_btn = Button(500,500,sedam_bodova_slika, 0.5)
-		if nastavi_rundu_btn.draw() == True:
-			menu_state = "nastavi_sedam"
-		if menu_state == "nastavi_sedam":
-			usporedba.clear()
-			p1inv.clear()
-			p2inv.clear()
-			dek = ["JC", "QC", "KC", "10C", "AC","JS", "QS", "KS", "10S", "AS","JD", "QD", "KD", "10D", "AD","JH", "QH", "KH", "10H", "AH"]
-			p1bodovi_runda.clear()
-			p2bodovi_runda.clear()
-			karte_crtanje.clear()
-			karte_state ="ne_prikaz"
-			bacena_karta_state ="ne"
-			bacena_karta_state2 ="ne"
-			promjena_reda = 0
-			ogranici_izvlacenje1 = 0
-			ogranici_izvlacenje2 = 0
-			btn_podijeli_karte_crtaj = 0
-			ogranici_bacanje1 = 0
-			ogranici_bacanje2 = 1
-			zavrsi_bacanje_kliknut = 0
-			adut.clear()
-			usporedba2.clear()
-			usporedba_red_bacanja1.clear()
-			usporedba_red_bacanja2.clear()
-			bacena_kartap1.clear()
-			bacena_kartap2.clear()
-			igra()
+		novi_prozor.blit(kraj_runde_slika, (0,0))
+
+		draw_text(f"{igrač1ime}",font4,(250,250,250),550,252)
+		draw_text(f"{igrač2ime}",font4,(250,250,250),870,252)
+		draw_text(f"{sum(p1bodovi_runda)}",font4,(250,250,250),550,340)
+		draw_text(f"{sum(p2bodovi_runda)}",font4,(250,250,250),870,340)
+		draw_text(f"{p1bodovi}",font4,(250,250,250),550,430)
+		draw_text(f"{p2bodovi}",font4,(250,250,250),870,430)
+
+		#reseta sve varijable i liste
+		usporedba.clear()
+		p1inv.clear()
+		p2inv.clear()
+		dek = ["JC", "QC", "KC", "10C", "AC","JS", "QS", "KS", "10S", "AS","JD", "QD", "KD", "10D", "AD","JH", "QH", "KH", "10H", "AH"]
+		karte_crtanje.clear()
+		karte_state ="ne_prikaz"
+		bacena_karta_state ="ne"
+		bacena_karta_state2 ="ne"
+		promjena_reda = 0
+		ogranici_izvlacenje1 = 0
+		ogranici_izvlacenje2 = 0
+		btn_podijeli_karte_crtaj = 0
+		ogranici_bacanje1 = 0
+		ogranici_bacanje2 = 1
+		zavrsi_bacanje_kliknut = 0
+		adut.clear()
+		usporedba2.clear()
+		usporedba_red_bacanja1.clear()
+		usporedba_red_bacanja2.clear()
+		bacena_kartap1.clear()
+		bacena_kartap2.clear()
+
+		
+		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li runda gotova
+			draw_text(f"KRAJ IGRE",font3,(255,255,255),300,80)
+			if p1bodovi <= 0:
+				p1bodovi = 0
+				draw_text(f"Pobjedio je {igrač1ime}!",font,(255,255,255),10,30)
+				p1pobjeda += 1
+			else:
+				p2bodovi = 0
+				draw_text(f"Pobjedio je {igrač2ime}!",font,(255,255,255),10,30)
+				p2pobjeda += 1
+			zavrsi_rundu_btn = Button(480,600,devet_bodova_slika, 0.5)
+			if zavrsi_rundu_btn.draw() == True:
+				menu_state = "main"
+			if menu_state == "main":
+				#reseta bodove runde
+				p1bodovi_runda.clear()
+				p2bodovi_runda.clear()
+				main()
+		else: #nastavlja rundu ako nije gotova runda
+			draw_text(f"KRAJ RUNDE",font3,(255,255,255),300,80)
+			nastavi_rundu_btn = Button(480,600,sedam_bodova_slika, 0.5)
+			if nastavi_rundu_btn.draw() == True:
+				menu_state = "nastavi_sedam"
+			if menu_state == "nastavi_sedam":
+				#reseta bodove runde
+				p1bodovi_runda.clear()
+				p2bodovi_runda.clear()
+				igra()
 		pygame.display.update()
 	pygame.quit()
 

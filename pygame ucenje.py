@@ -134,6 +134,8 @@ ogranici_bacanje2 = 1
 zavrsi_bacanje_kliknut = 0
 p1pobjeda = 0
 p2pobjeda = 0
+brojac_vrsteP1 = 0
+brojac_vrsteP2 = 0
 
 def igra():#window za igru od 7 bodova
 	run = True
@@ -160,6 +162,8 @@ def igra():#window za igru od 7 bodova
 		global p2bodovi
 		global stari_bodovi1
 		global stari_bodovi2
+		global brojac_vrsteP1
+		global brojac_vrsteP2
 		screen.fill(zelena)
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
@@ -199,15 +203,75 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							while ogranici_bacanje1 == 0:
-								karte_crtanje.append(i)
-								bacena_kartap1.append(i)
-								bacena_karta_state ="da"
-								usporedba.append(i)
-								p1inv.remove(i)
-								ogranici_bacanje1 =1
-								ogranici_bacanje2 =1
+							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
+								while ogranici_bacanje1 == 0:
+									karte_crtanje.append(i)
+									bacena_kartap1.append(i)
+									bacena_karta_state ="da"
+									usporedba.append(i)
+									p1inv.remove(i)
+									ogranici_bacanje1 =1
+									ogranici_bacanje2 =1					
+							if len(dek) == 0 and len(p1inv) <5 and len(p2inv) <5:
+								if len(usporedba) != 0:
+									for m in p1inv:
+										if m[-1] == usporedba[-1][-1]:
+											brojac_vrsteP1 = 1
+										if brojac_vrsteP1 == 0:
+											if m[-1] == adut[0][-1] and m[-1] != usporedba[-1][-1]:
+												brojac_vrsteP1 = 2
+											elif m[-1] != usporedba[-1][-1] and m[-1] != adut[0][-1]:
+												brojac_vrsteP1 = 3
+									print(brojac_vrsteP1)
+									if brojac_vrsteP1 == 1:
+										brojac_vrsteP1 = 0
+										if i[-1] == usporedba[-1][-1]:
+											while ogranici_bacanje1 == 0:
+												karte_crtanje.append(i)
+												bacena_kartap1.append(i)
+												bacena_karta_state ="da"
+												usporedba.append(i)
+												p1inv.remove(i)
+												ogranici_bacanje1 =1
+												ogranici_bacanje2 =1
+													
+										else:
+											print("Moraš pratiti pravilo poštovanja")
 
+									if brojac_vrsteP1 == 2:
+										brojac_vrsteP1 = 0
+										if i[-1] == adut[0][-1]:
+											while ogranici_bacanje1 == 0:
+												karte_crtanje.append(i)
+												bacena_kartap1.append(i)
+												bacena_karta_state ="da"
+												usporedba.append(i)
+												p1inv.remove(i)
+												ogranici_bacanje1 =1
+												ogranici_bacanje2 =1
+												
+										else:
+											print("Moraš pratiti pravilo poštovanja")
+									if brojac_vrsteP1 == 3:
+										brojac_vrsteP1 = 0
+										while ogranici_bacanje1 == 0:
+											karte_crtanje.append(i)
+											bacena_kartap1.append(i)
+											bacena_karta_state ="da"
+											usporedba.append(i)
+											p1inv.remove(i)
+											ogranici_bacanje1 =1
+											ogranici_bacanje2 =1
+								if len(usporedba)  == 0:
+									while ogranici_bacanje1 == 0:
+										karte_crtanje.append(i)
+										bacena_kartap1.append(i)
+										bacena_karta_state ="da"
+										usporedba.append(i)
+										p1inv.remove(i)
+										ogranici_bacanje1 =1
+										ogranici_bacanje2 =1
+									
 						if btn_izvuci_kartu.draw() == True:
 							if ogranici_izvlacenje1 == 0:
 								if len(dek) != 0:
@@ -229,28 +293,75 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							#usporedba2.append(usporedba[0])
-							#for h in usporedba2:
-							#	if t[-1] == h[-1]: #Provjerava vrstu od prvog i drugog igrača
-							while ogranici_bacanje2 == 1:
-								bacena_kartap2.append(t)
-								karte_crtanje.append(t)
-								bacena_karta_state2 ="da"
-								usporedba.append(t)
-								p2inv.remove(t)
-								ogranici_bacanje2 = 0
-								ogranici_bacanje1 = 0
-								#prioritiziraj prvu kartu a ne adut tj. da zabrani adut
-							#	elif  t[-1] == adut[0][-1]:
-							#		while ogranici_bacanje2 % 2 == 0:
-							#			karte_crtanje.append(t)
-							#			bacena_karta_state2 ="da"
-							#			usporedba.append(t)
-							#			p2inv.remove(t)
-							#			ogranici_bacanje2 +=1
-							#			ogranici_bacanje1 +=1
-							#	elif t[-1] != h[-1]:
-							#		print("Moraš pratiti pravilo poštovanja")
+							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
+								while ogranici_bacanje2 == 1:
+									karte_crtanje.append(t)
+									bacena_kartap2.append(t)
+									bacena_karta_state2 ="da"
+									usporedba.append(t)
+									p2inv.remove(t)
+									ogranici_bacanje2 = 0
+									ogranici_bacanje1 = 0					
+							if len(dek) == 0 and len(p1inv) <5 and len(p2inv) <5:
+								if len(usporedba) != 0:
+									for l in p2inv:
+										if l[-1] == usporedba[-1][-1]:
+											brojac_vrsteP2 = 1
+										if brojac_vrsteP2 == 0:
+											if l[-1] == adut[0][-1] and l[-1] != usporedba[-1][-1]:
+												brojac_vrsteP2 = 2
+											elif l[-1] != usporedba[-1][-1] and l[-1] != adut[0][-1]:
+												brojac_vrsteP2 = 3
+									print(brojac_vrsteP2)
+									if brojac_vrsteP2 == 1:
+										brojac_vrsteP2 = 0
+										if t[-1] == usporedba[-1][-1]:
+											while ogranici_bacanje2 == 1:
+												bacena_kartap2.append(t)
+												karte_crtanje.append(t)
+												bacena_karta_state2 ="da"
+												usporedba.append(t)
+												p2inv.remove(t)
+												ogranici_bacanje2 = 0
+												ogranici_bacanje1 = 0
+													
+										else:
+											print("Moraš pratiti pravilo poštovanja")
+
+									if brojac_vrsteP2 == 2:
+										brojac_vrsteP2 = 0
+										if t[-1] == adut[0][-1]:
+											while ogranici_bacanje2 == 1:
+												bacena_kartap2.append(t)
+												karte_crtanje.append(t)
+												bacena_karta_state2 ="da"
+												usporedba.append(t)
+												p2inv.remove(t)
+												ogranici_bacanje2 = 0
+												ogranici_bacanje1 = 0
+												
+										else:
+											print("Moraš pratiti pravilo poštovanja")
+
+									if brojac_vrsteP2 == 3:
+										brojac_vrsteP2 = 0
+										while ogranici_bacanje2 == 1:
+											bacena_kartap2.append(t)
+											karte_crtanje.append(t)
+											bacena_karta_state2 ="da"
+											usporedba.append(t)
+											p2inv.remove(t)
+											ogranici_bacanje2 = 0
+											ogranici_bacanje1 = 0
+								if len(usporedba)  == 0:
+									while ogranici_bacanje2 == 1:
+										bacena_kartap2.append(t)
+										karte_crtanje.append(t)
+										bacena_karta_state2 ="da"
+										usporedba.append(t)
+										p2inv.remove(t)
+										ogranici_bacanje2 = 0
+										ogranici_bacanje1 = 0
 						if btn_izvuci_kartu.draw() == True:
 							if ogranici_izvlacenje2 == 1:
 								if len(dek) != 0:

@@ -4,10 +4,10 @@ import time
 from pygame import Surface
 
 pygame.init()
-igrač1ime = input("Unesi ime: ")
+igrač1ime = input("Unesi ime: ").upper()
 while len(igrač1ime)>7 or len(igrač1ime)==0:
     igrač1ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ").upper()
-igrač2ime = input("Unesi ime: ")
+igrač2ime = input("Unesi ime: ").upper()
 while len(igrač2ime)>7 or len(igrač2ime)==0:
     igrač2ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ").upper()
 

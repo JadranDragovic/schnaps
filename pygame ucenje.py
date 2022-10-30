@@ -282,9 +282,9 @@ def igra():#window za igru od 7 bodova
 									ogranici_izvlacenje2 = 1
 								else:
 									print("dek je prazan")
-
-				if bacena_karta_state =="da":
-					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
+				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
+					if bacena_karta_state =="da":
+						bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 				
 				if promjena_reda == 1:
 					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
@@ -373,11 +373,13 @@ def igra():#window za igru od 7 bodova
 								else:
 									print("dek je prazan")
 								
-
-				if bacena_karta_state2 =="da":
-					bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
+				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
+					if bacena_karta_state2 =="da":
+						bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 			
 				if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
+					if len(karte_crtanje) == 2:
+						karte_crtanje.clear()
 					if zavrsi_bacanje_kliknut == 0:
 						promjena_reda =1
 						pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))

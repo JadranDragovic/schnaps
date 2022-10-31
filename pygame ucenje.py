@@ -144,6 +144,7 @@ zatvaranje_tekst = ""
 stih = 0
 brojac_ibera = 0
 brojac_ibera2 = 0
+ogranici_zavrsi = 1
 
 #background
 screen.blit(background_slika, (0,0))
@@ -181,6 +182,7 @@ def igra():#window za igru od 7 bodova
 		global brojac_ibera
 		global brojac_ibera2
 		global stih
+		global ogranici_zavrsi
 		screen.blit(background_slika, (0,0))
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
@@ -215,6 +217,7 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
+							ogranici_zavrsi = 0
 							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
 								while ogranici_bacanje1 == 0:
 									karte_crtanje.append(i)
@@ -311,6 +314,7 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
+							ogranici_zavrsi = 0
 							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
 								while ogranici_bacanje2 == 1:
 									karte_crtanje.append(t)
@@ -403,53 +407,54 @@ def igra():#window za igru od 7 bodova
 					if bacena_karta_state2 =="da":
 						bacena_karta = Button(450,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 			
-				if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
-					print("KLIKNUT SAM")
-					if len(karte_crtanje) == 2:
-						karte_crtanje.clear()
-					else:
-						pass
-					if stih == 1:
-						if len(dek) > 0:
-							p1inv.append(random.choice(dek))
-							dek.remove(p1inv[-1])
-							p2inv.append(random.choice(dek))
-							dek.remove(p2inv[-1])
-							stih = 0
+				if ogranici_zavrsi == 0:
+					if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
+						ogranici_zavrsi = 1
+						if len(karte_crtanje) == 2:
+							karte_crtanje.clear()
 						else:
 							pass
-					else:
-						pass
+						if stih == 1:
+							if len(dek) > 0:
+								p1inv.append(random.choice(dek))
+								dek.remove(p1inv[-1])
+								p2inv.append(random.choice(dek))
+								dek.remove(p2inv[-1])
+								stih = 0
+							else:
+								pass
+						else:
+							pass
 
-					print(usporedba_red_bacanja1,usporedba_red_bacanja2)
-					if zavrsi_bacanje_kliknut == 0:
-						promjena_reda =1
-						screen.blit(background_slika, (0,0))
-						draw_text(f"{igrač2ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
-						pygame.display.update()
-						time.sleep(3)
-						zavrsi_bacanje_kliknut = 1
-					if zavrsi_bacanje_kliknut == 2:
-						if usporedba_red_bacanja1[-1] == "0":
-							promjena_reda = 0
-							screen.blit(background_slika, (0,0))
-							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
-							pygame.display.update()
-							time.sleep(3)
-							ogranici_bacanje1 = 0
-							ogranici_bacanje2 = 1
-							usporedba_red_bacanja1.append("1")
-							usporedba_red_bacanja2.append("1")
-						elif usporedba_red_bacanja2[-1] == "1":
-							promjena_reda = 1
+						print(usporedba_red_bacanja1,usporedba_red_bacanja2)
+						if zavrsi_bacanje_kliknut == 0:
+							promjena_reda =1
 							screen.blit(background_slika, (0,0))
 							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
 							time.sleep(3)
-							ogranici_bacanje1 = 0
-							ogranici_bacanje2 = 1
-							usporedba_red_bacanja2.append("0")
-							usporedba_red_bacanja1.append("0")
+							zavrsi_bacanje_kliknut = 1
+						if zavrsi_bacanje_kliknut == 2:
+							if usporedba_red_bacanja1[-1] == "0":
+								promjena_reda = 0
+								screen.blit(background_slika, (0,0))
+								draw_text(f"{igrač1ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
+								pygame.display.update()
+								time.sleep(3)
+								ogranici_bacanje1 = 0
+								ogranici_bacanje2 = 1
+								usporedba_red_bacanja1.append("1")
+								usporedba_red_bacanja2.append("1")
+							elif usporedba_red_bacanja2[-1] == "1":
+								promjena_reda = 1
+								screen.blit(background_slika, (0,0))
+								draw_text(f"{igrač2ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
+								pygame.display.update()
+								time.sleep(3)
+								ogranici_bacanje1 = 0
+								ogranici_bacanje2 = 1
+								usporedba_red_bacanja2.append("0")
+								usporedba_red_bacanja1.append("0")
 
 			elif len(usporedba) == 2:
 				if len(p1inv) == 1 and len(p2inv) == 1 and sum(p1bodovi_runda) == sum(p2bodovi_runda):

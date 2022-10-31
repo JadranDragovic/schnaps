@@ -35,6 +35,13 @@ mainMenu_slika = pygame.image.load("Desktop\projekt\mainScreen.png").convert_alp
 zatvaranje_slika = pygame.image.load("Desktop\projekt\zatvaranje_btn.png").convert_alpha()
 zvanje_slika = pygame.image.load("Desktop\projekt\zvanje_btn.png").convert_alpha()
 kraj_slika = pygame.image.load("Desktop\projekt\kraj_btn.png").convert_alpha()
+nastavi_slika = pygame.image.load("Desktop\projekt\continue_btn.png").convert_alpha()
+vrati_se_slika = pygame.image.load("Desktop\projekt\leave_btn.png").convert_alpha()
+podijeli_karte_slika = pygame.image.load("Desktop\projekt\podijeli_btn.png").convert_alpha()
+nastavi_slika = pygame.image.load("Desktop\projekt\continue_btn.png").convert_alpha()
+waiting_slika1 = pygame.image.load("Desktop\projekt\waiting1.png").convert_alpha()
+waiting_slika2 = pygame.image.load("Desktop\projekt\waiting2.png").convert_alpha()
+waiting_slika3 = pygame.image.load("Desktop\projekt\waiting3.png").convert_alpha()
 
 #liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
@@ -197,8 +204,8 @@ def igra():#window za igru od 7 bodova
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
 
 		#dijeljenje karti
-		if len(p1inv) == 0:
-			btn_podijeli_karte = Button(500,350,sedam_bodova_slika,0.5)
+		if len(p1inv) == 0 and len(dek) != 0:
+			btn_podijeli_karte = Button(450,250,podijeli_karte_slika,0.8)
 			if btn_podijeli_karte.draw() == True:#ako se klikne taj gumb onda se podijeli karte s pomocu funkcije dijeljenje_karata
 				while btn_podijeli_karte_crtaj % 2 == 0:
 					dijeljenje_karata()
@@ -227,7 +234,6 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							ogranici_zavrsi = 0
 							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
 								while ogranici_bacanje1 == 0:
 									karte_crtanje.append(i)
@@ -236,7 +242,8 @@ def igra():#window za igru od 7 bodova
 									usporedba.append(i)
 									p1inv.remove(i)
 									ogranici_bacanje1 =1
-									ogranici_bacanje2 =1					
+									ogranici_bacanje2 =1
+									ogranici_zavrsi = 0					
 							if len(dek) == 0 and len(p1inv) <5 and len(p2inv) <5:
 								if len(usporedba) != 0:
 									for m in p1inv:
@@ -263,6 +270,7 @@ def igra():#window za igru od 7 bodova
 													p1inv.remove(i)
 													ogranici_bacanje1 =1
 													ogranici_bacanje2 =1
+													ogranici_zavrsi = 0
 											else:
 												print("Moraš pratiti pravilo iberovanja")
 										else:
@@ -275,6 +283,7 @@ def igra():#window za igru od 7 bodova
 													p1inv.remove(i)
 													ogranici_bacanje1 =1
 													ogranici_bacanje2 =1
+													ogranici_zavrsi = 0
 														
 											else:
 												print("Moraš pratiti pravilo poštovanja")
@@ -290,6 +299,7 @@ def igra():#window za igru od 7 bodova
 												p1inv.remove(i)
 												ogranici_bacanje1 =1
 												ogranici_bacanje2 =1
+												ogranici_zavrsi = 0
 												
 										else:
 											print("Moraš pratiti pravilo poštovanja")
@@ -303,6 +313,7 @@ def igra():#window za igru od 7 bodova
 											p1inv.remove(i)
 											ogranici_bacanje1 =1
 											ogranici_bacanje2 =1
+											ogranici_zavrsi = 0
 								if len(usporedba)  == 0:
 									while ogranici_bacanje1 == 0:
 										karte_crtanje.append(i)
@@ -312,6 +323,7 @@ def igra():#window za igru od 7 bodova
 										p1inv.remove(i)
 										ogranici_bacanje1 =1
 										ogranici_bacanje2 =1
+										ogranici_zavrsi = 0
 									
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
 					if bacena_karta_state =="da":
@@ -324,7 +336,6 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							ogranici_zavrsi = 0
 							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
 								while ogranici_bacanje2 == 1:
 									karte_crtanje.append(t)
@@ -333,7 +344,8 @@ def igra():#window za igru od 7 bodova
 									usporedba.append(t)
 									p2inv.remove(t)
 									ogranici_bacanje2 = 0
-									ogranici_bacanje1 = 0					
+									ogranici_bacanje1 = 0
+									ogranici_zavrsi = 0					
 							if len(dek) == 0 and len(p1inv) <5 and len(p2inv) <5:
 								if len(usporedba) != 0:
 									for l in p2inv:
@@ -361,6 +373,7 @@ def igra():#window za igru od 7 bodova
 													p2inv.remove(t)
 													ogranici_bacanje2 = 0
 													ogranici_bacanje1 = 0
+													ogranici_zavrsi = 0
 													
 											else:
 												print("Moraš pratiti pravilo iberovanja")
@@ -374,6 +387,7 @@ def igra():#window za igru od 7 bodova
 													p2inv.remove(t)
 													ogranici_bacanje2 = 0
 													ogranici_bacanje1 = 0
+													ogranici_zavrsi = 0
 														
 											else:
 												print("Moraš pratiti pravilo poštovanja")
@@ -389,6 +403,7 @@ def igra():#window za igru od 7 bodova
 												p2inv.remove(t)
 												ogranici_bacanje2 = 0
 												ogranici_bacanje1 = 0
+												ogranici_zavrsi = 0
 												
 										else:
 											print("Moraš pratiti pravilo poštovanja")
@@ -403,6 +418,7 @@ def igra():#window za igru od 7 bodova
 											p2inv.remove(t)
 											ogranici_bacanje2 = 0
 											ogranici_bacanje1 = 0
+											ogranici_zavrsi = 0
 								if len(usporedba)  == 0:
 									while ogranici_bacanje2 == 1:
 										bacena_kartap2.append(t)
@@ -412,6 +428,7 @@ def igra():#window za igru od 7 bodova
 										p2inv.remove(t)
 										ogranici_bacanje2 = 0
 										ogranici_bacanje1 = 0
+										ogranici_zavrsi = 0
 								
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
 					if bacena_karta_state2 =="da":
@@ -441,31 +458,45 @@ def igra():#window za igru od 7 bodova
 						else:
 							pass
 
-						print(usporedba_red_bacanja1,usporedba_red_bacanja2)
 						if zavrsi_bacanje_kliknut == 0:
 							promjena_reda =1
-							screen.blit(background_slika, (0,0))
-							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
+							screen.blit(waiting_slika1, (0,0))
 							pygame.display.update()
-							time.sleep(3)
+							time.sleep(1)
+							screen.blit(waiting_slika2, (0,0))
+							pygame.display.update()
+							time.sleep(1)
+							screen.blit(waiting_slika3, (0,0))
+							pygame.display.update()
+							time.sleep(1)
 							zavrsi_bacanje_kliknut = 1
 						if zavrsi_bacanje_kliknut == 2:
 							if usporedba_red_bacanja1[-1] == "0":
 								promjena_reda = 0
-								screen.blit(background_slika, (0,0))
-								draw_text(f"{igrač1ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
+								screen.blit(waiting_slika1, (0,0))
 								pygame.display.update()
-								time.sleep(3)
+								time.sleep(1)
+								screen.blit(waiting_slika2, (0,0))
+								pygame.display.update()
+								time.sleep(1)
+								screen.blit(waiting_slika3, (0,0))
+								pygame.display.update()
+								time.sleep(1)
 								ogranici_bacanje1 = 0
 								ogranici_bacanje2 = 1
 								usporedba_red_bacanja1.append("1")
 								usporedba_red_bacanja2.append("1")
 							elif usporedba_red_bacanja2[-1] == "1":
 								promjena_reda = 1
-								screen.blit(background_slika, (0,0))
-								draw_text(f"{igrač2ime} MOŽE IGRATI ZA 3 SEKUNDI",font,(255,255,255),110,330)
+								screen.blit(waiting_slika1, (0,0))
 								pygame.display.update()
-								time.sleep(3)
+								time.sleep(1)
+								screen.blit(waiting_slika2, (0,0))
+								pygame.display.update()
+								time.sleep(1)
+								screen.blit(waiting_slika3, (0,0))
+								pygame.display.update()
+								time.sleep(1)
 								ogranici_bacanje1 = 0
 								ogranici_bacanje2 = 1
 								usporedba_red_bacanja2.append("0")
@@ -527,23 +558,18 @@ def igra():#window za igru od 7 bodova
 						zvanje_provjera +=1
 						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q":
 							if len(moguca_zvanja) > 0:
-								print(moguca_zvanja)
 								for z in moguca_zvanja:
 									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno:
 										prihvati_zvanje = 1
 							moguca_zvanja.append(zvanje_moguce)
 			elif promjena_reda == 1:
-				print(zvanje_provjera)
 				for zvanje_moguce in p2inv:
 					if zvanje_provjera < 6:
 						zvanje_provjera +=1
 						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q":
-							print(moguca_zvanja)
 							if len(moguca_zvanja) > 0:
-								print(moguca_zvanja)
 								for z in moguca_zvanja:
 									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno:
-										print(zvanje_baceno)
 										prihvati_zvanje = 1
 							moguca_zvanja.append(zvanje_moguce)
                             
@@ -622,13 +648,11 @@ def zvanje():
 				karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 				xos += 200
 				if karta == True:
-					print(ogranici_zvanje)
 					if ogranici_zvanje < 2:
 						if i not in zvanje_baceno:
 							if i[0] == "K" or i[0] == "Q":
 								zvanje_baceno.append(i)
 								ogranici_zvanje += 1
-								print(zvanje_baceno)
 
 
 		else:
@@ -641,7 +665,6 @@ def zvanje():
 							if t[0] == "K" or t[0] == "Q":
 								zvanje_baceno.append(t)
 								ogranici_zvanje += 1
-								print(zvanje_baceno)
 
 		if ogranici_zvanje == 0 and len(zvanje_baceno) % 2 == 1:
 			zvanje_baceno.remove(zvanje_baceno[-1])
@@ -685,7 +708,7 @@ def zvanje():
 		if zvanje_state == "2":
 			draw_text(f"Zvanje je uspješno! Dobijaš 20",font2,(255,255,255),400,150)
 		
-		iz_zvanje_u_igru_btn = Button(480,300,sedam_bodova_slika, 0.5)
+		iz_zvanje_u_igru_btn = Button(280,300,vrati_se_slika, 1)
 		zvanje_provjera = 0
 		moguca_zvanja.clear()
 		prihvati_zvanje = 0
@@ -727,6 +750,15 @@ def kraj_runde():
 	global prihvati_zvanje
 	global zvanje_provjera
 	global moguca_zvanja
+	global ciji_red
+	global brojac_vrsteP1
+	global brojac_vrsteP2
+	global zadnja_karta
+	global brojac_ibera
+	global brojac_ibera2
+	global stih
+	global ogranici_zavrsi
+
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -820,7 +852,14 @@ def kraj_runde():
 		zvanje_provjera = 0
 		moguca_zvanja.clear()
 		prihvati_zvanje = 0
-		
+		ciji_red = 0
+		brojac_vrsteP1 = 0
+		brojac_vrsteP2 = 0
+		brojac_ibera = 0
+		brojac_ibera2 = 0
+		stih = 0
+		ogranici_zavrsi = 1
+
 		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li runda gotova
 			draw_text(f"KRAJ IGRE",font3,(255,255,255),300,80)
 			if p1bodovi <= 0:
@@ -831,7 +870,7 @@ def kraj_runde():
 				p2bodovi = 0
 				draw_text(f"Pobjedio je {igrač2ime}!",font,(255,255,255),10,30)
 				p2pobjeda += 1
-			zavrsi_rundu_btn = Button(480,600,devet_bodova_slika, 0.5)
+			zavrsi_rundu_btn = Button(280,600,vrati_se_slika, 1)
 			if zavrsi_rundu_btn.draw() == True:
 				menu_state = "main"
 			if menu_state == "main":
@@ -839,10 +878,11 @@ def kraj_runde():
 				p1bodovi_runda.clear()
 				p2bodovi_runda.clear()
 				zatvara = "0"
+				zadnja_karta = []
 				main()
 		else: #nastavlja rundu ako nije gotova runda
 			draw_text(f"KRAJ RUNDE",font3,(255,255,255),300,80)
-			nastavi_rundu_btn = Button(480,600,sedam_bodova_slika, 0.5)
+			nastavi_rundu_btn = Button(280,600,nastavi_slika, 1)
 			if nastavi_rundu_btn.draw() == True:
 				menu_state = "nastavi_sedam"
 			if menu_state == "nastavi_sedam":
@@ -850,6 +890,7 @@ def kraj_runde():
 				p1bodovi_runda.clear()
 				p2bodovi_runda.clear()
 				zatvara = "0"
+				zadnja_karta = []
 				igra()
 		pygame.display.update()
 	pygame.quit()

@@ -424,16 +424,16 @@ def igra():#window za igru od 7 bodova
 					if zavrsi_bacanje_kliknut == 0:
 						promjena_reda =1
 						pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
-						draw_text(f"{igrač2ime} MOŽE IGRATI ZA 2 SEKUNDI",font,(255,255,255),110,330)
+						draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 						pygame.display.update()
-						time.sleep(2)
+						time.sleep(5)
 						zavrsi_bacanje_kliknut = 1
 					if zavrsi_bacanje_kliknut == 2:
 						if usporedba_red_bacanja1[-1] == "1":
 							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
-							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 2 SEKUNDI",font,(255,255,255),110,330)
+							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
-							time.sleep(2)
+							time.sleep(5)
 							promjena_reda = 0
 							ogranici_bacanje1 = 0
 							ogranici_bacanje2 = 1
@@ -446,9 +446,9 @@ def igra():#window za igru od 7 bodova
 					if zavrsi_bacanje_kliknut  == 3:
 						if usporedba_red_bacanja2[-1] == "1":
 							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
-							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 2 SEKUNDI",font,(255,255,255),110,330)
+							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
-							time.sleep(2)
+							time.sleep(5)
 							promjena_reda = 1
 							ogranici_bacanje1 = 0
 							ogranici_bacanje2 = 1

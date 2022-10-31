@@ -73,6 +73,7 @@ bacena_kartap1 = []
 bacena_kartap2 = []
 zvanje_baceno = []
 zadnja_karta = []
+moguca_zvanja = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -145,6 +146,9 @@ stih = 0
 brojac_ibera = 0
 brojac_ibera2 = 0
 ogranici_zavrsi = 1
+ciji_red = 0
+zvanje_provjera = 0
+prihvati_zvanje = 0
 
 #background
 screen.blit(background_slika, (0,0))
@@ -183,6 +187,11 @@ def igra():#window za igru od 7 bodova
 		global brojac_ibera2
 		global stih
 		global ogranici_zavrsi
+		global ciji_red
+		global moguca_zvanja
+		global zvanje_provjera
+		global prihvati_zvanje
+		global zvanje_baceno
 		screen.blit(background_slika, (0,0))
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
@@ -195,6 +204,7 @@ def igra():#window za igru od 7 bodova
 					dijeljenje_karata()
 					karte_state = "prikaz"
 					btn_podijeli_karte_crtaj += 1
+
 
 		if karte_state == "prikaz":#pomaze mi samo da prikazujem ili ne prikazujem kartu
 			#prikaz karata
@@ -410,6 +420,11 @@ def igra():#window za igru od 7 bodova
 				if ogranici_zavrsi == 0:
 					if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
 						ogranici_zavrsi = 1
+						ciji_red +=1
+						zvanje_provjera = 0
+						prihvati_zvanje = 0
+						moguca_zvanja.clear()
+
 						if len(karte_crtanje) == 2:
 							karte_crtanje.clear()
 						else:
@@ -505,7 +520,34 @@ def igra():#window za igru od 7 bodova
 						print(p1bodovi_runda,p2bodovi_runda)
 		
 		#tipka za zvanje
-		if len(p1inv) > 1 or len(p2inv) > 1:
+		if ciji_red % 2 == 0 and (len(p1inv) > 1 or len(p2inv) > 1):
+			if promjena_reda == 0:
+				for zvanje_moguce in p1inv:
+					if zvanje_provjera < 6:
+						zvanje_provjera +=1
+						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q":
+							if len(moguca_zvanja) > 0:
+								print(moguca_zvanja)
+								for z in moguca_zvanja:
+									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno:
+										prihvati_zvanje = 1
+							moguca_zvanja.append(zvanje_moguce)
+			elif promjena_reda == 1:
+				print(zvanje_provjera)
+				for zvanje_moguce in p2inv:
+					if zvanje_provjera < 6:
+						zvanje_provjera +=1
+						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q":
+							print(moguca_zvanja)
+							if len(moguca_zvanja) > 0:
+								print(moguca_zvanja)
+								for z in moguca_zvanja:
+									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno:
+										print(zvanje_baceno)
+										prihvati_zvanje = 1
+							moguca_zvanja.append(zvanje_moguce)
+                            
+		if prihvati_zvanje == 1:
 			btn_zvanje = Button(100,265,zvanje_slika, 0.5)
 			if btn_zvanje.draw() == True:
 				menu_state ="zvanje"
@@ -529,7 +571,7 @@ def igra():#window za igru od 7 bodova
 
 		#KRAJ RUNDE	
 		if (sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66) or ((zatvara == "1" or zatvara == "2") and len(p1inv) == 0 and len(p2inv) == 0 and sum(p1bodovi_runda) < 66 and sum(p2bodovi_runda) < 66):
-			kraj_runde_btn = Button(600,250,kraj_slika, 0.5)
+			kraj_runde_btn = Button(800,250,kraj_slika, 0.5)
 			if kraj_runde_btn.draw() == True:
 				menu_state = "kraj_runde"
 				if menu_state == "kraj_runde":
@@ -561,6 +603,9 @@ def zvanje():
 	global promjena_reda
 	global menu_state
 	global zvanje_baceno
+	global prihvati_zvanje
+	global zvanje_provjera
+	global moguca_zvanja
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -641,6 +686,9 @@ def zvanje():
 			draw_text(f"Zvanje je uspješno! Dobijaš 20",font2,(255,255,255),400,150)
 		
 		iz_zvanje_u_igru_btn = Button(480,300,sedam_bodova_slika, 0.5)
+		zvanje_provjera = 0
+		moguca_zvanja.clear()
+		prihvati_zvanje = 0
 		if iz_zvanje_u_igru_btn.draw() == True:
 			menu_state = "nastavi_sedam"
 		if menu_state == "nastavi_sedam":
@@ -676,6 +724,9 @@ def kraj_runde():
 	global ogranici_zbroj
 	global zvanje_state
 	global zvanje_baceno
+	global prihvati_zvanje
+	global zvanje_provjera
+	global moguca_zvanja
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -766,6 +817,9 @@ def kraj_runde():
 		ogranici_zbroj = 0
 		zvanje_state = "0"
 		zvanje_baceno.clear()
+		zvanje_provjera = 0
+		moguca_zvanja.clear()
+		prihvati_zvanje = 0
 		
 		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li runda gotova
 			draw_text(f"KRAJ IGRE",font3,(255,255,255),300,80)

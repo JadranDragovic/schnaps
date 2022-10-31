@@ -137,7 +137,7 @@ p1pobjeda = 0
 p2pobjeda = 0
 brojac_vrsteP1 = 0
 brojac_vrsteP2 = 0
-
+stih = 0
 brojac_ibera = 0
 brojac_ibera2 = 0
 
@@ -168,9 +168,9 @@ def igra():#window za igru od 7 bodova
 		global stari_bodovi2
 		global brojac_vrsteP1
 		global brojac_vrsteP2
-
 		global brojac_ibera
 		global brojac_ibera2
+		global stih
 		screen.fill(zelena)
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
@@ -295,16 +295,6 @@ def igra():#window za igru od 7 bodova
 										ogranici_bacanje1 =1
 										ogranici_bacanje2 =1
 									
-						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje1 == 0:
-								if len(dek) != 0:
-									p1inv.append(random.choice(dek))
-									dek.remove(p1inv[len(p1inv)-1])
-									print(p1inv,dek)
-									ogranici_izvlacenje1 = 1
-									ogranici_izvlacenje2 = 1
-								else:
-									print("dek je prazan")
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
 					if bacena_karta_state =="da":
 						bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
@@ -403,24 +393,30 @@ def igra():#window za igru od 7 bodova
 										p2inv.remove(t)
 										ogranici_bacanje2 = 0
 										ogranici_bacanje1 = 0
-						if btn_izvuci_kartu.draw() == True:
-							if ogranici_izvlacenje2 == 1:
-								if len(dek) != 0:
-									p2inv.append(random.choice(dek))
-									dek.remove(p2inv[len(p2inv)-1])
-									print(p2inv,dek)
-									ogranici_izvlacenje1 = 0
-									ogranici_izvlacenje2 = 0
-								else:
-									print("dek je prazan")
 								
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
 					if bacena_karta_state2 =="da":
 						bacena_karta = Button(400,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.2).draw()
 			
 				if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
+					print("KLIKNUT SAM")
 					if len(karte_crtanje) == 2:
 						karte_crtanje.clear()
+					else:
+						pass
+					if stih == 1:
+						if len(dek) > 0:
+							p1inv.append(random.choice(dek))
+							dek.remove(p1inv[-1])
+							p2inv.append(random.choice(dek))
+							dek.remove(p2inv[-1])
+							stih = 0
+						else:
+							pass
+					else:
+						pass
+
+					print(usporedba_red_bacanja1,usporedba_red_bacanja2)
 					if zavrsi_bacanje_kliknut == 0:
 						promjena_reda =1
 						pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
@@ -429,72 +425,72 @@ def igra():#window za igru od 7 bodova
 						time.sleep(5)
 						zavrsi_bacanje_kliknut = 1
 					if zavrsi_bacanje_kliknut == 2:
-						if usporedba_red_bacanja1[-1] == "1":
+						if usporedba_red_bacanja1[-1] == "0":
+							promjena_reda = 0
 							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
 							draw_text(f"{igrač1ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
 							time.sleep(5)
-							promjena_reda = 0
 							ogranici_bacanje1 = 0
 							ogranici_bacanje2 = 1
-							ogranici_izvlacenje1 = 0
-							ogranici_izvlacenje2 = 1
-							usporedba_red_bacanja1.append("0")
-						else:
+							usporedba_red_bacanja1.append("1")
 							usporedba_red_bacanja2.append("1")
-							zavrsi_bacanje_kliknut = 3
-					if zavrsi_bacanje_kliknut  == 3:
-						if usporedba_red_bacanja2[-1] == "1":
+						elif usporedba_red_bacanja2[-1] == "1":
+							promjena_reda = 1
 							pygame.draw.rect(screen,zelena, pygame.Rect(0,0,1024,768))
 							draw_text(f"{igrač2ime} MOŽE IGRATI ZA 5 SEKUNDI",font,(255,255,255),110,330)
 							pygame.display.update()
 							time.sleep(5)
-							promjena_reda = 1
 							ogranici_bacanje1 = 0
 							ogranici_bacanje2 = 1
-							ogranici_izvlacenje1 = 0
-							ogranici_izvlacenje2 = 1
 							usporedba_red_bacanja2.append("0")
-						else:
-							usporedba_red_bacanja1.append("1")
-							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("0")
 
 			elif len(usporedba) == 2:
 				if karte_crtanje[-2] ==  bacena_kartap1[-1] and karte_crtanje[-1] == bacena_kartap2[-1]:
 					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						usporedba_red_bacanja1.append("1")
+						stih = 1
 						zavrsi_bacanje_kliknut = 2
+						usporedba_red_bacanja1.append("0")
+						usporedba_red_bacanja2.append("0")
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
 					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+						stih = 1
+						zavrsi_bacanje_kliknut = 2
 						usporedba_red_bacanja2.append("1")
-						zavrsi_bacanje_kliknut = 3
+						usporedba_red_bacanja1.append("1")
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
 					else:
 						print("Neš ne radi")
+						stih = 1
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
 				if karte_crtanje[-1] == bacena_kartap1[-1] and karte_crtanje[-2] == bacena_kartap2[-1]:
 					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						usporedba_red_bacanja2.append("1")
+						stih = 1
 						zavrsi_bacanje_kliknut = 2
+						usporedba_red_bacanja2.append("1")
+						usporedba_red_bacanja1.append("1")
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
 					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						usporedba_red_bacanja1.append("1")
-						zavrsi_bacanje_kliknut = 3
+						stih = 1
+						zavrsi_bacanje_kliknut = 2
+						usporedba_red_bacanja1.append("0")
+						usporedba_red_bacanja2.append("0")
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
 					else:
 						print("Neš ne radi")
+						stih = 1
 						usporedba.clear()
 						print(p1bodovi_runda,p2bodovi_runda)
-				print(len(dek))
 		if len(p1inv) == 0 and len(p2inv) == 0 and len(dek) == 0:
 			print("gotova runda")
 		if sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66:

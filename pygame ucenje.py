@@ -235,7 +235,7 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
+							if len(dek) != 0 and (len(p1inv) == 5 or len(p2inv) == 5):		
 								while ogranici_bacanje1 == 0:
 									karte_crtanje.append(i)
 									bacena_kartap1.append(i)
@@ -245,25 +245,25 @@ def igra():#window za igru od 7 bodova
 									ogranici_bacanje1 =1
 									ogranici_bacanje2 =1
 									ogranici_zavrsi = 0					
-							if len(dek) == 0 and len(p1inv) <5 and len(p2inv) <5:
+							if len(dek) == 0:
 								if len(usporedba) != 0:
 									for m in p1inv:
-										if m[-1] == usporedba[-1][-1]:
+										if m[-1] == bacena_kartap2[-1][-1]:
 											brojac_vrsteP1 = 1
 										if brojac_vrsteP1 == 0:
-											if m[-1] == adut[0][-1] and m[-1] != usporedba[-1][-1]:
+											if m[-1] == adut[0][-1] and m[-1] != bacena_kartap2[-1][-1]:
 												brojac_vrsteP1 = 2
-											elif m[-1] != usporedba[-1][-1] and m[-1] != adut[0][-1]:
+											elif m[-1] != bacena_kartap2[-1][-1] and m[-1] != adut[0][-1]:
 												brojac_vrsteP1 = 3
 									for h in p1inv:
-										if h[-1] == usporedba[-1][-1] and vrijednosti_karata[h]>vrijednosti_karata[usporedba[0]]:
+										if h[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[h]>vrijednosti_karata[bacena_kartap2[-1]]:
 											brojac_ibera = 1
 									if brojac_vrsteP1 == 1:
 										brojac_vrsteP1 = 0
-										if i[-1] == usporedba[-1][-1]:
+										if i[-1] == bacena_kartap2[-1][-1]:
 											if brojac_ibera == 1:
 												brojac_ibera = 0
-												if i[-1] == usporedba[-1][-1] and vrijednosti_karata[i]>vrijednosti_karata[usporedba[0]]:
+												if i[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[i]>vrijednosti_karata[bacena_kartap2[-1]]:
 													while ogranici_bacanje1 == 0:
 														karte_crtanje.append(i)
 														bacena_kartap1.append(i)
@@ -278,7 +278,7 @@ def igra():#window za igru od 7 bodova
 													pygame.display.update()
 													time.sleep(2)
 											else:
-												if i[-1] == usporedba[-1][-1]:
+												if i[-1] == bacena_kartap2[-1][-1]:
 													while ogranici_bacanje1 == 0:
 														karte_crtanje.append(i)
 														bacena_kartap1.append(i)
@@ -347,7 +347,7 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.2).draw()
 						xos += 200
 						if karta == True:
-							if len(dek) != 0 or (len(p1inv) == 5 or len(p2inv) == 5):		
+							if len(dek) != 0 and (len(p1inv) == 5 or len(p2inv) == 5):		
 								while ogranici_bacanje2 == 1:
 									karte_crtanje.append(t)
 									bacena_kartap2.append(t)
@@ -357,26 +357,26 @@ def igra():#window za igru od 7 bodova
 									ogranici_bacanje2 = 0
 									ogranici_bacanje1 = 0
 									ogranici_zavrsi = 0					
-							if len(dek) == 0 and len(p1inv) <5 and len(p2inv) <5:
+							if len(dek) == 0:
 								if len(usporedba) != 0:
 									for l in p2inv:
-										if l[-1] == usporedba[-1][-1]:
+										if l[-1] == bacena_kartap1[-1][-1]:
 											brojac_vrsteP2 = 1
 										if brojac_vrsteP2 == 0:
-											if l[-1] == adut[0][-1] and l[-1] != usporedba[-1][-1]:
+											if l[-1] == adut[0][-1] and l[-1] != bacena_kartap1[-1][-1]:
 												brojac_vrsteP2 = 2
-											elif l[-1] != usporedba[-1][-1] and l[-1] != adut[0][-1]:
+											elif l[-1] != bacena_kartap1[-1][-1] and l[-1] != adut[0][-1]:
 												brojac_vrsteP2 = 3
 									for z in p2inv:
-										if z[-1] == usporedba[-1][-1] and vrijednosti_karata[z]>vrijednosti_karata[usporedba[0]]:
+										if z[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[z]>vrijednosti_karata[bacena_kartap1[-1]]:
 											brojac_ibera2 = 1
 
 									if brojac_vrsteP2 == 1:
 										brojac_vrsteP2 = 0
-										if t[-1] == usporedba[-1][-1]:
+										if t[-1] == bacena_kartap1[-1][-1]:
 											if brojac_ibera2 == 1:
 												brojac_ibera2 = 0
-												if t[-1] == usporedba[-1][-1] and vrijednosti_karata[t]>vrijednosti_karata[usporedba[0]]:
+												if t[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[t]>vrijednosti_karata[bacena_kartap1[-1]]:
 													while ogranici_bacanje2 == 1:
 														bacena_kartap2.append(t)
 														karte_crtanje.append(t)
@@ -392,7 +392,7 @@ def igra():#window za igru od 7 bodova
 													pygame.display.update()
 													time.sleep(2)
 											else:
-												if t[-1] == usporedba[-1][-1]:
+												if t[-1] == bacena_kartap1[-1][-1]:
 													while ogranici_bacanje2 == 1:
 														bacena_kartap2.append(t)
 														karte_crtanje.append(t)
@@ -645,8 +645,6 @@ def igra():#window za igru od 7 bodova
 							usporedba_red_bacanja2.append("1")
 							usporedba.clear()
 							print(p1bodovi_runda,p2bodovi_runda)
-						
-
 		
 		#tipka za zvanje
 		if ciji_red % 2 == 0 and (len(p1inv) > 1 or len(p2inv) > 1):
@@ -802,9 +800,9 @@ def zvanje():
 			ogranici_zvanje = 3
 
 		if zvanje_state == "1":
-			draw_text(f"Zvanje je uspješno! Dobijaš 40",font2,(255,255,255),400,150)
+			draw_text(f"Zvanje je uspješno! Dobivaš 40",font2,(255,255,255),400,150)
 		if zvanje_state == "2":
-			draw_text(f"Zvanje je uspješno! Dobijaš 20",font2,(255,255,255),400,150)
+			draw_text(f"Zvanje je uspješno! Dobivaš 20",font2,(255,255,255),400,150)
 		
 		iz_zvanje_u_igru_btn = Button(280,300,vrati_se_slika, 1)
 		zvanje_provjera = 0

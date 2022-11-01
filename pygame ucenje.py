@@ -708,9 +708,9 @@ def zvanje():
 			ogranici_zvanje = 3
 
 		if zvanje_state == "1":
-			draw_text(f"Zvanje je uspješno! Dobijaš 40",font2,(255,255,255),400,150)
+			draw_text(f"Zvanje je uspješno! Dobivaš 40",font2,(255,255,255),400,150)
 		if zvanje_state == "2":
-			draw_text(f"Zvanje je uspješno! Dobijaš 20",font2,(255,255,255),400,150)
+			draw_text(f"Zvanje je uspješno! Dobivaš 20",font2,(255,255,255),400,150)
 		
 		iz_zvanje_u_igru_btn = Button(280,300,vrati_se_slika, 1)
 		zvanje_provjera = 0

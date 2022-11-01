@@ -240,7 +240,7 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:
-							if len(dek) != 0 and (len(p1inv) == 5 or len(p2inv) == 5):		
+							if len(dek) != 0:		
 								while ogranici_bacanje1 == 0:
 									karte_crtanje.append(i)
 									bacena_kartap1.append(i)
@@ -256,13 +256,17 @@ def igra():#window za igru od 7 bodova
 										if m[-1] == bacena_kartap2[-1][-1]:
 											brojac_vrsteP1 = 1
 										if brojac_vrsteP1 == 0:
-											if m[-1] == adut[0][-1] and m[-1] != bacena_kartap2[-1][-1]:
+											if m[-1] == adut[0][-1]:
 												brojac_vrsteP1 = 2
-											elif m[-1] != bacena_kartap2[-1][-1] and m[-1] != adut[0][-1]:
+
+									if brojac_vrsteP1 == 0:
+										for k in p1inv:
+											if k[-1] != bacena_kartap2[-1][-1] and k[-1] != adut[0][-1]:
 												brojac_vrsteP1 = 3
 									for h in p1inv:
 										if h[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[h]>vrijednosti_karata[bacena_kartap2[-1]]:
 											brojac_ibera = 1
+									print(brojac_vrsteP1)
 									if brojac_vrsteP1 == 1:
 										brojac_vrsteP1 = 0
 										if i[-1] == bacena_kartap2[-1][-1]:
@@ -352,7 +356,7 @@ def igra():#window za igru od 7 bodova
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:
-							if len(dek) != 0 and (len(p1inv) == 5 or len(p2inv) == 5):		
+							if len(dek) != 0:		
 								while ogranici_bacanje2 == 1:
 									karte_crtanje.append(t)
 									bacena_kartap2.append(t)
@@ -368,14 +372,16 @@ def igra():#window za igru od 7 bodova
 										if l[-1] == bacena_kartap1[-1][-1]:
 											brojac_vrsteP2 = 1
 										if brojac_vrsteP2 == 0:
-											if l[-1] == adut[0][-1] and l[-1] != bacena_kartap1[-1][-1]:
+											if l[-1] == adut[0][-1]:
 												brojac_vrsteP2 = 2
-											elif l[-1] != bacena_kartap1[-1][-1] and l[-1] != adut[0][-1]:
+									if brojac_vrsteP2 == 0:
+										for s in p2inv:
+											if s[-1] != bacena_kartap1[-1][-1] and s[-1] != adut[0][-1]:
 												brojac_vrsteP2 = 3
 									for z in p2inv:
 										if z[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[z]>vrijednosti_karata[bacena_kartap1[-1]]:
 											brojac_ibera2 = 1
-
+									print(brojac_vrsteP2)
 									if brojac_vrsteP2 == 1:
 										brojac_vrsteP2 = 0
 										if t[-1] == bacena_kartap1[-1][-1]:

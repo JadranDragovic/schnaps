@@ -156,6 +156,7 @@ ogranici_zavrsi = 1
 ciji_red = 0
 zvanje_provjera = 0
 prihvati_zvanje = 0
+keks = pygame.Surface((150,150))
 
 #background
 screen.blit(background_slika, (0,0))
@@ -273,7 +274,9 @@ def igra():#window za igru od 7 bodova
 														ogranici_bacanje2 =1
 														ogranici_zavrsi = 0
 												else:
-													print("Moraš pratiti pravilo iberovanja")
+													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150)
+													pygame.display.update()
+													time.sleep(2)
 											else:
 												if i[-1] == usporedba[-1][-1]:
 													while ogranici_bacanje1 == 0:
@@ -287,9 +290,13 @@ def igra():#window za igru od 7 bodova
 														ogranici_zavrsi = 0
 															
 												else:
-													print("Moraš pratiti pravilo poštovanja")
+													draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
+													pygame.display.update()
+													time.sleep(2)
 										else:
-											print("Moraš pratit pravilo poštovanja")
+											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
+											pygame.display.update()
+											time.sleep(2)
 									if brojac_vrsteP1 == 2:
 										brojac_vrsteP1 = 0
 										if i[-1] == adut[0][-1]:
@@ -304,7 +311,9 @@ def igra():#window za igru od 7 bodova
 												ogranici_zavrsi = 0
 												
 										else:
-											print("Moraš pratiti pravilo poštovanja")
+											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
+											pygame.display.update()
+											time.sleep(2)
 									if brojac_vrsteP1 == 3:
 										brojac_vrsteP1 = 0
 										while ogranici_bacanje1 == 0:
@@ -379,7 +388,9 @@ def igra():#window za igru od 7 bodova
 														ogranici_zavrsi = 0
 														
 												else:
-													print("Moraš pratiti pravilo iberovanja")
+													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150)
+													pygame.display.update()
+													time.sleep(2)
 											else:
 												if t[-1] == usporedba[-1][-1]:
 													while ogranici_bacanje2 == 1:
@@ -393,9 +404,13 @@ def igra():#window za igru od 7 bodova
 														ogranici_zavrsi = 0
 															
 												else:
-													print("Moraš pratiti pravilo poštovanja")
+													draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
+													screen.display.update()
+													time.sleep(2)
 										else:
-											print("Moraš pratiti pravilo poštovanja")
+											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
+											pygame.display.update()
+											time.sleep(2)
 									if brojac_vrsteP2 == 2:
 										brojac_vrsteP2 = 0
 										if t[-1] == adut[0][-1]:
@@ -410,7 +425,9 @@ def igra():#window za igru od 7 bodova
 												ogranici_zavrsi = 0
 												
 										else:
-											print("Moraš pratiti pravilo poštovanja")
+											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
+											pygame.display.update()
+											time.sleep(2)
 
 									if brojac_vrsteP2 == 3:
 										brojac_vrsteP2 = 0
@@ -708,9 +725,9 @@ def zvanje():
 			ogranici_zvanje = 3
 
 		if zvanje_state == "1":
-			draw_text(f"Zvanje je uspješno! Dobivaš 40",font2,(255,255,255),400,150)
+			draw_text(f"Zvanje je uspješno! Dobijaš 40",font2,(255,255,255),400,150)
 		if zvanje_state == "2":
-			draw_text(f"Zvanje je uspješno! Dobivaš 20",font2,(255,255,255),400,150)
+			draw_text(f"Zvanje je uspješno! Dobijaš 20",font2,(255,255,255),400,150)
 		
 		iz_zvanje_u_igru_btn = Button(280,300,vrati_se_slika, 1)
 		zvanje_provjera = 0

@@ -24,30 +24,31 @@ font4 = pygame.font.Font(None, 80)
 text_color = (255,255,255)
 
 #video
-video = Video("Desktop\projekt\cards1.mp4")
+video = Video("Desktop\projekt\slike\cards1.mp4")
 video.set_size((1024, 768))
 #slike za buttone
-sedam_bodova_slika = pygame.image.load("Desktop\projekt\sedam.png").convert_alpha()
-devet_bodova_slika = pygame.image.load("Desktop\projekt\devet.png").convert_alpha()
-povratak_btn_slika = pygame.image.load("Desktop\projekt\povratak_btn.png").convert_alpha()
-promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\promijeni_btn.png").convert_alpha()
-pravila_slika = pygame.image.load("Desktop\projekt\pravila_btn.png").convert_alpha()
-igra_slika = pygame.image.load("Desktop\projekt\igra_btn.png").convert_alpha()
-izlaz_slika = pygame.image.load("Desktop\projekt\izlaz_btn.png").convert_alpha()
-kraj_runde_slika = pygame.image.load("Desktop\projekt\kraj_runde_table.png").convert_alpha()
-background_slika = pygame.image.load("Desktop\projekt\pozadina.png").convert_alpha()
-pozadina2_slika = pygame.image.load("Desktop\projekt\pozadina2.png").convert_alpha()
-mainMenu_slika = pygame.image.load("Desktop\projekt\mainScreen.png").convert_alpha()
-zatvaranje_slika = pygame.image.load("Desktop\projekt\zatvaranje_btn.png").convert_alpha()
-zvanje_slika = pygame.image.load("Desktop\projekt\zvanje_btn.png").convert_alpha()
-kraj_slika = pygame.image.load("Desktop\projekt\kraj_btn.png").convert_alpha()
-nastavi_slika = pygame.image.load("Desktop\projekt\continue_btn.png").convert_alpha()
-vrati_se_slika = pygame.image.load("Desktop\projekt\leave_btn.png").convert_alpha()
-podijeli_karte_slika = pygame.image.load("Desktop\projekt\podijeli_btn.png").convert_alpha()
-nastavi_slika = pygame.image.load("Desktop\projekt\continue_btn.png").convert_alpha()
-waiting_slika1 = pygame.image.load("Desktop\projekt\waiting1.png").convert_alpha()
-waiting_slika2 = pygame.image.load("Desktop\projekt\waiting2.png").convert_alpha()
-waiting_slika3 = pygame.image.load("Desktop\projekt\waiting3.png").convert_alpha()
+sedam_bodova_slika = pygame.image.load("Desktop\projekt\slike\sedam.png").convert_alpha()
+devet_bodova_slika = pygame.image.load("Desktop\projekt\slike\devet.png").convert_alpha()
+povratak_btn_slika = pygame.image.load("Desktop\projekt\slike\povratak_btn.png").convert_alpha()
+promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\slike\promijeni_btn.png").convert_alpha()
+pravila_slika = pygame.image.load("Desktop\projekt\slike\pravila_btn.png").convert_alpha()
+igra_slika = pygame.image.load("Desktop\projekt\slike\igra_btn.png").convert_alpha()
+izlaz_slika = pygame.image.load("Desktop\projekt\slike\izlaz_btn.png").convert_alpha()
+kraj_runde_slika = pygame.image.load("Desktop\projekt\slike\kraj_runde_table.png").convert_alpha()
+kraj_igre_tablica = pygame.image.load("Desktop\projekt\slike\kraj_igre_table.png").convert_alpha()
+background_slika = pygame.image.load("Desktop\projekt\slike\pozadina.png").convert_alpha()
+pozadina2_slika = pygame.image.load("Desktop\projekt\slike\pozadina2.png").convert_alpha()
+mainMenu_slika = pygame.image.load("Desktop\projekt\slike\mainScreen.png").convert_alpha()
+zatvaranje_slika = pygame.image.load("Desktop\projekt\slike\zatvaranje_btn.png").convert_alpha()
+zvanje_slika = pygame.image.load("Desktop\projekt\slike\zvanje_btn.png").convert_alpha()
+kraj_slika = pygame.image.load("Desktop\projekt\slike\kraj_btn.png").convert_alpha()
+nastavi_slika = pygame.image.load("Desktop\projekt\slike\continue_btn.png").convert_alpha()
+vrati_se_slika = pygame.image.load("Desktop\projekt\slike\leave_btn.png").convert_alpha()
+podijeli_karte_slika = pygame.image.load("Desktop\projekt\slike\podijeli_btn.png").convert_alpha()
+nastavi_slika = pygame.image.load("Desktop\projekt\slike\continue_btn.png").convert_alpha()
+waiting_slika1 = pygame.image.load("Desktop\projekt\slike\waiting1.png").convert_alpha()
+waiting_slika2 = pygame.image.load("Desktop\projekt\slike\waiting2.png").convert_alpha()
+waiting_slika3 = pygame.image.load("Desktop\projekt\slike\waiting3.png").convert_alpha()
 
 #liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
@@ -163,6 +164,7 @@ ciji_red = 0
 zvanje_provjera = 0
 prihvati_zvanje = 0
 prikazi_video = 0
+ogranici_bodovanje = 0
 keks = pygame.Surface((150,150))
 
 
@@ -237,10 +239,10 @@ def igra():#window za igru od 7 bodova
 					draw_text(f"{igrač1ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 95
 					for i in p1inv:
-						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
+						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:
-							if len(dek) != 0:		
+							if len(dek) != 0:	
 								while ogranici_bacanje1 == 0:
 									karte_crtanje.append(i)
 									bacena_kartap1.append(i)
@@ -258,7 +260,6 @@ def igra():#window za igru od 7 bodova
 										if brojac_vrsteP1 == 0:
 											if m[-1] == adut[0][-1]:
 												brojac_vrsteP1 = 2
-
 									if brojac_vrsteP1 == 0:
 										for k in p1inv:
 											if k[-1] != bacena_kartap2[-1][-1] and k[-1] != adut[0][-1]:
@@ -347,16 +348,16 @@ def igra():#window za igru od 7 bodova
 									
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
 					if bacena_karta_state =="da":
-						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
+						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
 				
 				if promjena_reda == 1:
 					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 95
 					for t in p2inv:
-						karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
+						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:
-							if len(dek) != 0:		
+							if len(dek) != 0:
 								while ogranici_bacanje2 == 1:
 									karte_crtanje.append(t)
 									bacena_kartap2.append(t)
@@ -464,7 +465,7 @@ def igra():#window za igru od 7 bodova
 								
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:
 					if bacena_karta_state2 =="da":
-						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
+						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
 			
 				if ogranici_zavrsi == 0:
 					if btn_zavrsi_bacanje.draw() == True:#ako se klikne gumb zavrsi bacanje promijeni se graficki prikaz inventorya igraca
@@ -753,7 +754,7 @@ def zvanje():
 		xos = 95
 		if promjena_reda == 0:
 			for i in p1inv:
-				karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
+				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 				xos += 180
 				if karta == True:
 					if ogranici_zvanje < 2:
@@ -765,7 +766,7 @@ def zvanje():
 
 		else:
 			for t in p2inv:
-				karta = Button(xos,500,pygame.image.load("Desktop\projekt\slike\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
+				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 				xos += 180
 				if karta == True:
 					if ogranici_zvanje < 2:
@@ -923,8 +924,8 @@ def kraj_runde():
 					p2bodovi = stari_bodovi2 - 1
 		novi_prozor.blit(kraj_runde_slika, (0,0))
 
-		draw_text(f"{igrač1ime}",font4,(250,250,250),550,252)
-		draw_text(f"{igrač2ime}",font4,(250,250,250),870,252)
+		draw_text(f"{igrač1ime}",font4,(250,250,250),500,252)
+		draw_text(f"{igrač2ime}",font4,(250,250,250),820,252)
 		draw_text(f"{sum(p1bodovi_runda)}",font4,(250,250,250),550,340)
 		draw_text(f"{sum(p2bodovi_runda)}",font4,(250,250,250),870,340)
 		draw_text(f"{p1bodovi}",font4,(250,250,250),550,430)
@@ -970,24 +971,20 @@ def kraj_runde():
 
 		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li runda gotova
 			draw_text(f"KRAJ IGRE",font3,(255,255,255),300,80)
-			if p1bodovi <= 0:
+			nastavi_rundu_btn = Button(280,600,nastavi_slika, 1)
+			if p1bodovi < 0:
 				p1bodovi = 0
-				draw_text(f"Pobjedio je {igrač1ime}!",font,(255,255,255),10,30)
-				p1pobjeda += 1
-			else:
+			if p2bodovi < 0:
 				p2bodovi = 0
-				draw_text(f"Pobjedio je {igrač2ime}!",font,(255,255,255),10,30)
-				p2pobjeda += 1
-			zavrsi_rundu_btn = Button(280,600,vrati_se_slika, 1)
-			if zavrsi_rundu_btn.draw() == True:
-				menu_state = "main"
-			if menu_state == "main":
+			if nastavi_rundu_btn.draw() == True:
+				menu_state = "pobjeda"
+			if menu_state == "pobjeda":
 				#reseta bodove runde
 				p1bodovi_runda.clear()
 				p2bodovi_runda.clear()
 				zatvara = "0"
 				zadnja_karta = []
-				main()
+				pobjeda()
 		else: #nastavlja rundu ako nije gotova runda
 			draw_text(f"KRAJ RUNDE",font3,(255,255,255),300,80)
 			nastavi_rundu_btn = Button(280,600,nastavi_slika, 1)
@@ -1000,6 +997,45 @@ def kraj_runde():
 				zatvara = "0"
 				zadnja_karta = []
 				igra()
+		pygame.display.update()
+	pygame.quit()
+
+def pobjeda():
+	global p1pobjeda
+	global p2pobjeda
+	global p1bodovi
+	global p2bodovi
+	global ogranici_bodovanje
+	clock = pygame.time.Clock()
+	run = True
+	while run:
+		clock.tick(FPS)
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				run = False
+		screen.blit(pozadina2_slika, (0,0))
+		if p1bodovi <= 0:
+			draw_text(f"Pobijedio je {igrač1ime}!",font3,(255,255,255),280,150)
+			if ogranici_bodovanje == 0:
+				p1bodovi = 0
+				p1pobjeda += 1
+				ogranici_bodovanje +=1
+		elif p2bodovi <= 0:
+			draw_text(f"Pobijedio je {igrač2ime}!",font3,(255,255,255),280,150)
+			if ogranici_bodovanje == 0:
+				p2bodovi = 0
+				p2pobjeda += 1
+				ogranici_bodovanje += 1
+		draw_text(f"STATISTIKA",font4,(255,255,255),400,40)
+		screen.blit(kraj_igre_tablica, (0,0))
+		draw_text(f"{igrač1ime}",font4,(250,250,250),500,252)
+		draw_text(f"{igrač2ime}",font4,(250,250,250),820,252)
+		draw_text(f"{p1pobjeda}",font4,(250,250,250),550,340)
+		draw_text(f"{p2pobjeda}",font4,(250,250,250),870,340)
+		zavrsi_rundu_btn = Button(280,700,vrati_se_slika, 0.5)
+		if zavrsi_rundu_btn.draw() == True:
+			ogranici_bodovanje = 0
+			main()
 		pygame.display.update()
 	pygame.quit()
 
@@ -1063,4 +1099,5 @@ def opcije():
 			p2bodovi = 9
 		pygame.display.update()
 	pygame.quit()
+
 main()

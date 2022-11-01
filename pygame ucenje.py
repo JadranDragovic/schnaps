@@ -524,52 +524,129 @@ def igra():#window za igru od 7 bodova
 								usporedba_red_bacanja1.append("0")
 
 			elif len(usporedba) == 2:
-				if len(p1inv) == 1 and len(p2inv) == 1 and sum(p1bodovi_runda) == sum(p2bodovi_runda):
-					zadnja_karta.append(usporedba)
 				if karte_crtanje[-2] ==  bacena_kartap1[-1] and karte_crtanje[-1] == bacena_kartap2[-1]:
-					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
-						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						stih = 1
-						zavrsi_bacanje_kliknut = 2
-						usporedba_red_bacanja1.append("0")
-						usporedba_red_bacanja2.append("0")
-						usporedba.clear()
-						print(p1bodovi_runda,p2bodovi_runda)
-					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
-						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						stih = 1
-						zavrsi_bacanje_kliknut = 2
-						usporedba_red_bacanja2.append("1")
-						usporedba_red_bacanja1.append("1")
-						usporedba.clear()
-						print(p1bodovi_runda,p2bodovi_runda)
-					else:
-						print("Neš ne radi")
-						stih = 1
-						usporedba.clear()
-						print(p1bodovi_runda,p2bodovi_runda)
+					if usporedba[0][-1] == usporedba[1][-1]:
+						if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("0")
+							usporedba_red_bacanja2.append("0")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja2.append("1")
+							usporedba_red_bacanja1.append("1")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						else:
+							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("0")
+							usporedba_red_bacanja2.append("0")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+					elif usporedba[0][-1] != usporedba[1][-1]:
+						if usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] != adut[0][-1]:
+							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja2.append("1")
+							usporedba_red_bacanja1.append("1")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						elif usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] == adut[0][-1]:
+							if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+								p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								stih = 1
+								zavrsi_bacanje_kliknut = 2
+								usporedba_red_bacanja1.append("0")
+								usporedba_red_bacanja2.append("0")
+								usporedba.clear()
+								print(p1bodovi_runda,p2bodovi_runda)
+							elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+								p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								stih = 1
+								zavrsi_bacanje_kliknut = 2
+								usporedba_red_bacanja2.append("1")
+								usporedba_red_bacanja1.append("1")
+								usporedba.clear()
+								print(p1bodovi_runda,p2bodovi_runda)
+						else:
+							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("0")
+							usporedba_red_bacanja2.append("0")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+
 				if karte_crtanje[-1] == bacena_kartap1[-1] and karte_crtanje[-2] == bacena_kartap2[-1]:
-					if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
-						p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						stih = 1
-						zavrsi_bacanje_kliknut = 2
-						usporedba_red_bacanja2.append("1")
-						usporedba_red_bacanja1.append("1")
-						usporedba.clear()
-						print(p1bodovi_runda,p2bodovi_runda)
-					elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
-						p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
-						stih = 1
-						zavrsi_bacanje_kliknut = 2
-						usporedba_red_bacanja1.append("0")
-						usporedba_red_bacanja2.append("0")
-						usporedba.clear()
-						print(p1bodovi_runda,p2bodovi_runda)
-					else:
-						print("Neš ne radi")
-						stih = 1
-						usporedba.clear()
-						print(p1bodovi_runda,p2bodovi_runda)
+					if usporedba[0][-1] == usporedba[1][-1]:
+						if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja2.append("1")
+							usporedba_red_bacanja1.append("1")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("0")
+							usporedba_red_bacanja2.append("0")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						else:
+							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("1")
+							usporedba_red_bacanja2.append("1")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+					elif usporedba[0][-1] != usporedba[1][-1]:
+						if usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] != adut[0][-1]:
+							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja2.append("0")
+							usporedba_red_bacanja1.append("0")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						elif usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] == adut[0][-1]:
+							if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
+								p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								stih = 1
+								zavrsi_bacanje_kliknut = 2
+								usporedba_red_bacanja1.append("1")
+								usporedba_red_bacanja2.append("1")
+								usporedba.clear()
+								print(p1bodovi_runda,p2bodovi_runda)
+							elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
+								p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								stih = 1
+								zavrsi_bacanje_kliknut = 2
+								usporedba_red_bacanja2.append("0")
+								usporedba_red_bacanja1.append("0")
+								usporedba.clear()
+								print(p1bodovi_runda,p2bodovi_runda)
+						else:
+							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							stih = 1
+							zavrsi_bacanje_kliknut = 2
+							usporedba_red_bacanja1.append("1")
+							usporedba_red_bacanja2.append("1")
+							usporedba.clear()
+							print(p1bodovi_runda,p2bodovi_runda)
+						
+
 		
 		#tipka za zvanje
 		if ciji_red % 2 == 0 and (len(p1inv) > 1 or len(p2inv) > 1):

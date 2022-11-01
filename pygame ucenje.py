@@ -494,12 +494,15 @@ def igra():#window za igru od 7 bodova
 						if zavrsi_bacanje_kliknut == 0:
 							promjena_reda =1
 							screen.blit(waiting_slika1, (0,0))
+							draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 							pygame.display.update()
 							time.sleep(1)
 							screen.blit(waiting_slika2, (0,0))
+							draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 							pygame.display.update()
 							time.sleep(1)
 							screen.blit(waiting_slika3, (0,0))
+							draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 							pygame.display.update()
 							time.sleep(1)
 							zavrsi_bacanje_kliknut = 1
@@ -507,12 +510,15 @@ def igra():#window za igru od 7 bodova
 							if usporedba_red_bacanja1[-1] == "0":
 								promjena_reda = 0
 								screen.blit(waiting_slika1, (0,0))
+								draw_text(f"{igrač1ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
 								screen.blit(waiting_slika2, (0,0))
+								draw_text(f"{igrač1ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
 								screen.blit(waiting_slika3, (0,0))
+								draw_text(f"{igrač1ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
 								ogranici_bacanje1 = 0
@@ -522,12 +528,15 @@ def igra():#window za igru od 7 bodova
 							elif usporedba_red_bacanja2[-1] == "1":
 								promjena_reda = 1
 								screen.blit(waiting_slika1, (0,0))
+								draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
 								screen.blit(waiting_slika2, (0,0))
+								draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
 								screen.blit(waiting_slika3, (0,0))
+								draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
 								ogranici_bacanje1 = 0

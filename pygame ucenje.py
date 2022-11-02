@@ -31,7 +31,7 @@ sedam_bodova_slika = pygame.image.load("Desktop\projekt\slike\sedam.png").conver
 devet_bodova_slika = pygame.image.load("Desktop\projekt\slike\devet.png").convert_alpha()
 povratak_btn_slika = pygame.image.load("Desktop\projekt\slike\povratak_btn.png").convert_alpha()
 promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\slike\promijeni_btn.png").convert_alpha()
-pravila_slika = pygame.image.load("Desktop\projekt\slike\pravila_btn.png").convert_alpha()
+statistika_slika = pygame.image.load("Desktop\projekt\slike\statistika_slika.png").convert_alpha()
 igra_slika = pygame.image.load("Desktop\projekt\slike\igra_btn.png").convert_alpha()
 izlaz_slika = pygame.image.load("Desktop\projekt\slike\izlaz_btn.png").convert_alpha()
 kraj_runde_slika = pygame.image.load("Desktop\projekt\slike\kraj_runde_table.png").convert_alpha()
@@ -86,8 +86,9 @@ usporedba_red_bacanja2 = []
 bacena_kartap1 = []
 bacena_kartap2 = []
 zvanje_baceno = []
-zadnja_karta = []
 moguca_zvanja = []
+bodoviPoRundi_stat1 = []
+bodoviPoRundi_stat2 = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
@@ -165,6 +166,12 @@ zvanje_provjera = 0
 prihvati_zvanje = 0
 prikazi_video = 0
 ogranici_bodovanje = 0
+p1runda_stat = 0
+p2runda_stat = 0
+p1stih_stat = 0
+p2stih_stat = 0
+p1bodProsjek_stat = 0
+p2bodProsjek_stat = 0
 keks = pygame.Surface((150,150))
 
 
@@ -197,7 +204,6 @@ def igra():#window za igru od 7 bodova
 		global brojac_vrsteP2
 		global zatvara
 		global zatvaranje_tekst
-		global zadnja_karta
 		global brojac_ibera
 		global brojac_ibera2
 		global stih
@@ -207,6 +213,8 @@ def igra():#window za igru od 7 bodova
 		global zvanje_provjera
 		global prihvati_zvanje
 		global zvanje_baceno
+		global p1stih_stat
+		global p2stih_stat
 		screen.blit(background_slika, (0,0))
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
@@ -549,6 +557,7 @@ def igra():#window za igru od 7 bodova
 					if usporedba[0][-1] == usporedba[1][-1]:
 						if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p1stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja1.append("0")
@@ -557,6 +566,7 @@ def igra():#window za igru od 7 bodova
 							print(p1bodovi_runda,p2bodovi_runda)
 						elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p2stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja2.append("1")
@@ -565,6 +575,7 @@ def igra():#window za igru od 7 bodova
 							print(p1bodovi_runda,p2bodovi_runda)
 						else:
 							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p1stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja1.append("0")
@@ -574,6 +585,7 @@ def igra():#window za igru od 7 bodova
 					elif usporedba[0][-1] != usporedba[1][-1]:
 						if usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] != adut[0][-1]:
 							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p2stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja2.append("1")
@@ -583,6 +595,7 @@ def igra():#window za igru od 7 bodova
 						elif usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] == adut[0][-1]:
 							if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 								p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								p1stih_stat += 1
 								stih = 1
 								zavrsi_bacanje_kliknut = 2
 								usporedba_red_bacanja1.append("0")
@@ -591,6 +604,7 @@ def igra():#window za igru od 7 bodova
 								print(p1bodovi_runda,p2bodovi_runda)
 							elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 								p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								p2stih_stat += 1
 								stih = 1
 								zavrsi_bacanje_kliknut = 2
 								usporedba_red_bacanja2.append("1")
@@ -599,6 +613,7 @@ def igra():#window za igru od 7 bodova
 								print(p1bodovi_runda,p2bodovi_runda)
 						else:
 							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p1stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja1.append("0")
@@ -610,6 +625,7 @@ def igra():#window za igru od 7 bodova
 					if usporedba[0][-1] == usporedba[1][-1]:
 						if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p2stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja2.append("1")
@@ -618,6 +634,7 @@ def igra():#window za igru od 7 bodova
 							print(p1bodovi_runda,p2bodovi_runda)
 						elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p1stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja1.append("0")
@@ -626,6 +643,7 @@ def igra():#window za igru od 7 bodova
 							print(p1bodovi_runda,p2bodovi_runda)
 						else:
 							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p2stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja1.append("1")
@@ -635,6 +653,7 @@ def igra():#window za igru od 7 bodova
 					elif usporedba[0][-1] != usporedba[1][-1]:
 						if usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] != adut[0][-1]:
 							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p1stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja2.append("0")
@@ -644,6 +663,7 @@ def igra():#window za igru od 7 bodova
 						elif usporedba[1][-1] == adut[0][-1] and usporedba[0][-1] == adut[0][-1]:
 							if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:
 								p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								p2stih_stat += 1
 								stih = 1
 								zavrsi_bacanje_kliknut = 2
 								usporedba_red_bacanja1.append("1")
@@ -652,6 +672,7 @@ def igra():#window za igru od 7 bodova
 								print(p1bodovi_runda,p2bodovi_runda)
 							elif vrijednosti_karata[usporedba[0]]<vrijednosti_karata[usporedba[1]]:
 								p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+								p1stih_stat += 1
 								stih = 1
 								zavrsi_bacanje_kliknut = 2
 								usporedba_red_bacanja2.append("0")
@@ -660,6 +681,7 @@ def igra():#window za igru od 7 bodova
 								print(p1bodovi_runda,p2bodovi_runda)
 						else:
 							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
+							p2stih_stat += 1
 							stih = 1
 							zavrsi_bacanje_kliknut = 2
 							usporedba_red_bacanja1.append("1")
@@ -725,18 +747,6 @@ def igra():#window za igru od 7 bodova
 		
 		pygame.display.update()
 	pygame.quit()
-
-
-def pravila():#window za popis pravila igre
-	global menu_state
-	novi_prozor = pygame.display.set_mode((1024,768))
-	novi_prozor.blit(pozadina2_slika, (0,0))
-
-	btn_povratak = Button(0,30,povratak_btn_slika,0.5)
-	if btn_povratak.draw() == True:
-		menu_state = "main"
-	if menu_state =="main":
-		main()
 
 def zvanje():
 	ogranici_zvanje = 0
@@ -871,11 +881,14 @@ def kraj_runde():
 	global ciji_red
 	global brojac_vrsteP1
 	global brojac_vrsteP2
-	global zadnja_karta
 	global brojac_ibera
 	global brojac_ibera2
 	global stih
 	global ogranici_zavrsi
+	global p1runda_stat
+	global p2runda_stat
+	global bodoviPoRundi_stat1
+	global bodoviPoRundi_stat2
 
 	clock = pygame.time.Clock()
 	run = True
@@ -886,8 +899,10 @@ def kraj_runde():
 				run = False
 		novi_prozor = pygame.display.set_mode((1024,768))
 		novi_prozor.blit(pozadina2_slika, (0,0))
+
 		if zatvara == "1" and p2bodovi == stari_bodovi2:
 			if sum(p1bodovi_runda) < 66:
+				p2runda_stat += 1
 				if sum(p2bodovi_runda) == 0:
 					p2bodovi = stari_bodovi2 - 3
 				if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
@@ -895,14 +910,12 @@ def kraj_runde():
 				if sum(p2bodovi_runda) > 33:
 					p2bodovi = stari_bodovi2 - 1
 				if sum(p2bodovi_runda) == 33:
-					if zadnja_karta[0][0] > zadnja_karta[0][1]:
-						p1bodovi = stari_bodovi1 - 1
-					else:
-						p2bodovi = stari_bodovi2 - 1
+					p1bodovi = stari_bodovi1 - 1
 			else:
 				zatvara = "0"
 		elif zatvara == "2" and p1bodovi == stari_bodovi1:
 			if sum(p2bodovi_runda) < 66:
+				p1runda_stat += 1
 				if sum(p1bodovi_runda) == 0:
 					p1bodovi = stari_bodovi1 - 3
 				if sum(p1bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
@@ -910,14 +923,12 @@ def kraj_runde():
 				if sum(p1bodovi_runda) > 33:
 					p1bodovi = stari_bodovi1 - 1
 				if sum(p2bodovi_runda) == 33:
-					if zadnja_karta[0][0] > zadnja_karta[0][1]:
-						p1bodovi = stari_bodovi1 - 1
-					else:
-						p2bodovi = stari_bodovi2 - 1
+					p1bodovi = stari_bodovi1 - 1
 			else:
 				zatvara = "0"
 		elif zatvara == "0":
 			if sum(p1bodovi_runda) > sum(p2bodovi_runda) and stari_bodovi1 == p1bodovi:
+				p1runda_stat += 1
 				if sum(p2bodovi_runda) == 0:
 					p1bodovi = stari_bodovi1 - 3
 				if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
@@ -925,6 +936,7 @@ def kraj_runde():
 				if sum(p2bodovi_runda) > 33:
 					p1bodovi = stari_bodovi1 - 1
 			if sum(p2bodovi_runda) > sum(p1bodovi_runda) and stari_bodovi2 == p2bodovi:
+				p2runda_stat += 1
 				if sum(p1bodovi_runda) == 0:
 					p2bodovi = stari_bodovi2 - 3
 				if sum(p1bodovi_runda) > 0 and sum(p1bodovi_runda) < 33:
@@ -933,8 +945,8 @@ def kraj_runde():
 					p2bodovi = stari_bodovi2 - 1
 		novi_prozor.blit(kraj_runde_slika, (0,0))
 
-		draw_text(f"{igrač1ime}",font4,(250,250,250),500,252)
-		draw_text(f"{igrač2ime}",font4,(250,250,250),820,252)
+		draw_text(f"{igrač1ime}",font4,(250,250,250),470,252)
+		draw_text(f"{igrač2ime}",font4,(250,250,250),790,252)
 		draw_text(f"{sum(p1bodovi_runda)}",font4,(250,250,250),550,340)
 		draw_text(f"{sum(p2bodovi_runda)}",font4,(250,250,250),870,340)
 		draw_text(f"{p1bodovi}",font4,(250,250,250),550,430)
@@ -988,11 +1000,12 @@ def kraj_runde():
 			if nastavi_rundu_btn.draw() == True:
 				menu_state = "pobjeda"
 			if menu_state == "pobjeda":
+				zatvara = "0"
+				bodoviPoRundi_stat1.append(sum(p1bodovi_runda))
+				bodoviPoRundi_stat2.append(sum(p2bodovi_runda))
 				#reseta bodove runde
 				p1bodovi_runda.clear()
 				p2bodovi_runda.clear()
-				zatvara = "0"
-				zadnja_karta = []
 				pobjeda()
 		else: #nastavlja rundu ako nije gotova runda
 			draw_text(f"KRAJ RUNDE",font3,(255,255,255),300,80)
@@ -1000,11 +1013,12 @@ def kraj_runde():
 			if nastavi_rundu_btn.draw() == True:
 				menu_state = "nastavi_sedam"
 			if menu_state == "nastavi_sedam":
+				zatvara = "0"
+				bodoviPoRundi_stat1.append(sum(p1bodovi_runda))
+				bodoviPoRundi_stat2.append(sum(p2bodovi_runda))
 				#reseta bodove runde
 				p1bodovi_runda.clear()
 				p2bodovi_runda.clear()
-				zatvara = "0"
-				zadnja_karta = []
 				igra()
 		pygame.display.update()
 	pygame.quit()
@@ -1015,6 +1029,13 @@ def pobjeda():
 	global p1bodovi
 	global p2bodovi
 	global ogranici_bodovanje
+	global p1runda_stat
+	global p2runda_stat
+	global p1stih_stat
+	global p2stih_stat
+	global p1bodProsjek_stat
+	global p2bodProsjek_stat
+	global menu_state
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -1035,15 +1056,24 @@ def pobjeda():
 				p2bodovi = 0
 				p2pobjeda += 1
 				ogranici_bodovanje += 1
+		p1bodProsjek_stat = round(sum(bodoviPoRundi_stat1) / len(bodoviPoRundi_stat1),2)
+		p2bodProsjek_stat = round(sum(bodoviPoRundi_stat2) / len(bodoviPoRundi_stat2),2)
 		draw_text(f"STATISTIKA",font4,(255,255,255),400,40)
 		screen.blit(kraj_igre_tablica, (0,0))
-		draw_text(f"{igrač1ime}",font4,(250,250,250),500,252)
-		draw_text(f"{igrač2ime}",font4,(250,250,250),820,252)
+		draw_text(f"{igrač1ime}",font4,(250,250,250),470,252)
+		draw_text(f"{igrač2ime}",font4,(250,250,250),790,252)
 		draw_text(f"{p1pobjeda}",font4,(250,250,250),550,340)
 		draw_text(f"{p2pobjeda}",font4,(250,250,250),870,340)
+		draw_text(f"{p1runda_stat}",font4,(250,250,250),550,430)
+		draw_text(f"{p2runda_stat}",font4,(250,250,250),870,430)
+		draw_text(f"{p1stih_stat}",font4,(250,250,250),550,520)
+		draw_text(f"{p2stih_stat}",font4,(250,250,250),870,520)
+		draw_text(f"{p1bodProsjek_stat}",font4,(250,250,250),530,610)
+		draw_text(f"{p2bodProsjek_stat}",font4,(250,250,250),850,610)
 		zavrsi_rundu_btn = Button(280,700,vrati_se_slika, 0.5)
 		if zavrsi_rundu_btn.draw() == True:
-			ogranici_bodovanje = 0
+			menu_state = "main"
+		if menu_state == "main":	
 			main()
 		pygame.display.update()
 	pygame.quit()
@@ -1053,6 +1083,8 @@ def main():#loop koji pokrece igru
 	global p1bodovi
 	global p2bodovi
 	global prikazi_video
+	global p1pobjeda
+	global p2pobjeda
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -1063,15 +1095,24 @@ def main():#loop koji pokrece igru
 		
 		video.draw(screen, (0, 0))
 		igraj_btn = Button(290,330,igra_slika, 1)
-		pravila_btn = Button(290,450,pravila_slika, 1)
+		izlaz_btn = Button(290,570,izlaz_slika,1)
+		if izlaz_btn.draw() == True:
+			menu_state = "izlaz"
+		if menu_state == "izlaz":
+			pygame.quit()
+
+		if p1pobjeda > 0 or p2pobjeda > 0:
+			statistika_btn = Button(290,450,statistika_slika, 1)
+			if statistika_btn.draw() == True:
+				menu_state = "statistika"
+		
 		if igraj_btn.draw() == True:
 			menu_state = "opcije"
 		if menu_state == "opcije":
 			opcije()
-		if pravila_btn.draw() == True:
-			menu_state = "pravila"
-		if menu_state =="pravila":
-			pravila()
+		
+		if menu_state =="statistika":
+			pobjeda()
 
 		pygame.display.update()
 	pygame.quit()
@@ -1080,6 +1121,7 @@ def opcije():
 	global menu_state
 	global p1bodovi
 	global p2bodovi
+	global ogranici_bodovanje
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -1101,6 +1143,7 @@ def opcije():
 			p1bodovi = 7
 			p2bodovi = 7
 		if menu_state == "igra":
+			ogranici_bodovanje = 0
 			igra()
 		if devet_bodova_btn.draw() == True:
 			menu_state = "igra"

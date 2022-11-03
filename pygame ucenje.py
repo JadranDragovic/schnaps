@@ -1093,7 +1093,7 @@ def main():#loop koji pokrece igru
 			if event.type == pygame.QUIT:
 				run = False
 		
-		screen.blit(pozadina2_slika, (0,0))
+		screen.blit(mainMenu_slika, (0,0))
 		video.draw(screen, (0, 0))
 		igraj_btn = Button(290,330,igra_slika, 1)
 		izlaz_btn = Button(290,570,izlaz_slika,1)
@@ -1142,8 +1142,8 @@ def opcije():
 			main()
 		if sedam_bodova_btn.draw() == True:
 			menu_state = "igra"
-			p1bodovi = 1
-			p2bodovi = 1
+			p1bodovi = 7
+			p2bodovi = 7
 		if menu_state == "igra":
 			ogranici_bodovanje = 0
 			igra()

@@ -1,17 +1,11 @@
 from turtle import Screen
 import pygame 
-import random  
+import random
 import time
 from pygame import Surface
 from pyvidplayer import Video
 
 pygame.init()
-igrač1ime = input("Unesi ime za 1. igrača: ").upper()
-while len(igrač1ime)>7 or len(igrač1ime)==0:
-    igrač1ime = input("Unesi ime koje ima manje ili 7 znakova i više od 0: ").upper()
-igrač2ime = input("Unesi ime za 2. igrača: ").upper()
-while len(igrač2ime)>7 or len(igrač2ime)==0:
-    igrač2ime = input("Unesi ime koje ima manje ili 7 znakova i više od 0: ").upper()
 
 #velicine
 screen = pygame.display.set_mode((1024,768))
@@ -71,7 +65,7 @@ slike_karata = {"10C":"10C.png",
 				"QC":"QC.png",
 				"QD":"QD.png",
 				"QH":"QH.png",
-				"QS":"QS.png"} #ime karte je clan rjecnika, a vrijednost karte je ime slike karte u folderu
+				"QS":"QS.png"}
 p1inv=[]
 p2inv = []
 adut = []
@@ -90,17 +84,17 @@ bodoviPoRundi_stat2 = []
 
 def dijeljenje_karata():#podijeli random karte igračima
 	for i in range(3):
-		p1inv.append(random.choice(dek))#dodaju se 3 random karte u inv od igraca 1 i iste karte se brisu iz deka
+		p1inv.append(random.choice(dek)) #dodaju se 3 random karte u inv od igraca 1 i iste karte se brisu iz deka
 		dek.remove(p1inv[i])
 	for i in range(3): 
-		p2inv.append(random.choice(dek))#dodaju se 3 random karte u inv od igraca 2 i iste karte se brisu iz deka
+		p2inv.append(random.choice(dek)) #dodaju se 3 random karte u inv od igraca 2 i iste karte se brisu iz deka
 		dek.remove(p2inv[i])
 	adut.append(random.choice(dek))
 	for i in range(3,5):
-		p1inv.append(random.choice(dek))#dodaju se 2 random karte u inv od igraca 1 i iste karte se brisu iz deka
+		p1inv.append(random.choice(dek)) #dodaju se 2 random karte u inv od igraca 1 i iste karte se brisu iz deka
 		dek.remove(p1inv[i])
 	for i in range(3,5): 
-		p2inv.append(random.choice(dek))#dodaju se 2 random karte u inv od igraca 2 i iste karte se brisu iz deka
+		p2inv.append(random.choice(dek)) #dodaju se 2 random karte u inv od igraca 2 i iste karte se brisu iz deka
 		dek.remove(p2inv[i])
 
 def draw_text(text,font,text_col,x,y):#služi za prikazivanje bilo kakavog teksta na ekranu, funkcija za argumente prima text, font i velicinu texta, boju teksta i koordinate gdje ce se text prikazivati
@@ -108,29 +102,29 @@ def draw_text(text,font,text_col,x,y):#služi za prikazivanje bilo kakavog tekst
 	screen.blit(img,(x,y))
 
 class Button():#proizvodim vlastitu klasu za gumb 
-
-	def __init__(self, x, y, image,scale): #argumenti su koordinate gumba, slika za gumb i scale je varijabla koja omogucuje mijenjanje veličine slike gumba
+	hovered = False
+	def __init__(self, x, y, image,scale):
 		
 		self.image = image
 		width = image.get_width()
 		height = image.get_height()
 		self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale))) #originalna sirina i visina slike se mnoze sa scaleom i tako se postavljaju nova sirina i visina slike 
-		self.rect = self.image.get_rect() 
+		self.rect = self.image.get_rect()
 		self.rect.topleft = (x, y) #postavlja sliku na upisane koordinate
 		self.clicked = False
 
-	def draw(self,): #sluzi za prikazivanje gumba na ekranu i provjeru je li gumb kliknut	
+	def draw(self,):#sluzi za prikazivanje gumba na ekranu i provjeru je li gumb kliknut	
 		action = False #varijabla koja sluzi za provjeru je li gumb kliknut
 			#dobivamo mouse position
 		pos = pygame.mouse.get_pos()
 		if self.rect.collidepoint(pos): #provjerava prolazi li kursor misa preko gumba
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False: #provjerava je li pritisnut lijevi klik misa na gumbu
+			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:#provjerava je li pritisnut lijevi klik misa na gumbu
 				self.clicked = True
 				action = True
-		if pygame.mouse.get_pressed()[0] == 0:
+		if pygame.mouse.get_pressed()[0] == 0:#prikazuje gumb na glavni window (sliku gumba na zadane koordinate)
 			self.clicked = False
 			
-		screen.blit(self.image,(self.rect.x,self.rect.y)) #prikazuje gumb na glavni window (sliku gumba na zadane koordinate)
+		screen.blit(self.image,(self.rect.x,self.rect.y))
 		return action
 
 #buttoni
@@ -138,7 +132,7 @@ btn_zavrsi_bacanje = Button(460,80,promijeni_red_btn_slika,0.5)
 btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,0.5)
 
 #varijable
-menu_state ="main" #pomaze za mijenjanje prozora
+menu_state ="main" #pomaže za mijenjanje prozora
 karte_state ="ne_prikaz" #sluzi za prikaz karata na ekranu
 bacena_karta_state ="ne" #varijabla koja se mijenja ovisno o tome je li karta bacena za igraca 1
 bacena_karta_state2 ="ne" #varijabla koja se mijenja ovisno o tome je li karta bacena za igraca 2
@@ -173,10 +167,10 @@ def igra():#window u kojemu se igra snaps
 	while run:
 		clock = pygame.time.Clock()
 		clock.tick(FPS) #odreduje u koliko fps igra radi
-		for event in pygame.event.get(): 
-			if event.type == pygame.QUIT:#sluzi za gasenje prozora
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT: #sluzi za gasenje prozora
 				run = False
-		global karte_state #global sluzi kako bi se varijable koje postoje od prije mogle prepoznati unutar novog defa
+		global karte_state #global sluzi kako bi se varijable koje postoje od prije mogle prepoznati unutar novog defa/
 		global promjena_reda
 		global p1bodovi_runda
 		global p2bodovi_runda
@@ -212,8 +206,8 @@ def igra():#window u kojemu se igra snaps
 		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
 		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
 
-		#dijeljenje karata
-		if len(p1inv) == 0 and len(dek) != 0: 
+		#dijeljenje karti
+		if len(p1inv) == 0 and len(dek) != 0:
 			btn_podijeli_karte = Button(448,245,podijeli_karte_slika,0.7)
 			if btn_podijeli_karte.draw() == True:#ako se klikne taj gumb onda se podijeli karte s pomocu funkcije dijeljenje_karata
 				while btn_podijeli_karte_crtaj % 2 == 0:
@@ -242,7 +236,7 @@ def igra():#window u kojemu se igra snaps
 					for i in p1inv:#prolazi kroz p1inv i crta sve karte na stol
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 						xos += 180
-						if karta == True: #provjerava je li karta kliknuta
+						if karta == True:#provjerava je li karta kliknuta
 							if len(dek) != 0:	
 								while ogranici_bacanje1 == 0:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 2. igraca, bacena karta se izbacuje iz p1inv, i zabranjuje bacanje jos jedna karte
 									karte_crtanje.append(i)
@@ -351,13 +345,13 @@ def igra():#window u kojemu se igra snaps
 					if bacena_karta_state =="da":
 						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
 				
-				if promjena_reda == 1: #ako je promjena reda 1 onda je 2. igrac na redu
+				if promjena_reda == 1:#ako je promjena reda 1 onda je 2. igrac na redu
 					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
 					xos = 95
 					for t in p2inv:#prolazi kroz p2inv i crta sve karte na stol
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 						xos += 180
-						if karta == True: #provjerava je li karta kliknuta
+						if karta == True:#provjerava je li karta kliknuta
 							if len(dek) != 0:
 								while ogranici_bacanje2 == 1:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 1. igraca, bacena karta se izbacuje iz p2inv, i zabranjuje bacanje jos jedna karte
 									karte_crtanje.append(t)
@@ -480,7 +474,7 @@ def igra():#window u kojemu se igra snaps
 							karte_crtanje.clear()
 						else:
 							pass
-						if stih == 1: #automatsko dijeljenje karata nakon svakog stiha tj. broji je li stih gotov i ako je svakom igracu se doda jedna karta iz deka
+						if stih == 1:#automatsko dijeljenje karata nakon svakog stiha tj. broji je li stih gotov i ako je svakom igracu se doda jedna karta iz deka
 							if len(dek) > 0:
 								p1inv.append(random.choice(dek))
 								dek.remove(p1inv[-1])
@@ -492,7 +486,7 @@ def igra():#window u kojemu se igra snaps
 						else:
 							pass
 
-						if zavrsi_bacanje_kliknut == 0: #samo sluzi za prvu promjenu reda kasnije je nebitan dio koda, prikazuje se waiting screen preko cijelog ekrana kako bi igraci stigli zamijeniti mjesta i kako ne bi vidjeli karte od protivnika
+						if zavrsi_bacanje_kliknut == 0:#samo sluzi za prvu promjenu reda kasnije je nebitan dio koda, prikazuje se waiting screen preko cijelog ekrana kako bi igraci stigli zamijeniti mjesta i kako ne bi vidjeli karte od protivnika
 							promjena_reda =1
 							screen.blit(waiting_slika1, (0,0))
 							draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
@@ -508,7 +502,7 @@ def igra():#window u kojemu se igra snaps
 							time.sleep(1)
 							zavrsi_bacanje_kliknut = 1
 						if zavrsi_bacanje_kliknut == 2:#sluzi za promjenu reda igraca tijekom cijele igre tj. nakon prvog stiha
-							if usporedba_red_bacanja1[-1] == "0": #prvi igrac je dobio stih pa on mora biti na redu (ako je 0 prvi igrac je dobio stih)
+							if usporedba_red_bacanja1[-1] == "0":#prvi igrac je dobio stih pa on mora biti na redu (ako je 0 prvi igrac je dobio stih)
 								promjena_reda = 0
 								screen.blit(waiting_slika1, (0,0))
 								draw_text(f"{igrač1ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
@@ -522,11 +516,11 @@ def igra():#window u kojemu se igra snaps
 								draw_text(f"{igrač1ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
-								ogranici_bacanje1 = 0 #resetiraju se ogranicenja za bacanje
+								ogranici_bacanje1 = 0#resetiraju se ogranicenja za bacanje
 								ogranici_bacanje2 = 1
-								usporedba_red_bacanja1.append("1") #dodaje se 1 na kraj lista kako igrac 1 ne bi vise mogao igrati i da igrac 2 bude na redu
+								usporedba_red_bacanja1.append("1")#dodaje se 1 na kraj lista kako igrac 1 ne bi vise mogao igrati i da igrac 2 bude na redu
 								usporedba_red_bacanja2.append("1")
-							elif usporedba_red_bacanja2[-1] == "1": #drugi igrac je dobio stih pa on mora biti na redu (ako je 1 drugi igrac je dobio stih)
+							elif usporedba_red_bacanja2[-1] == "1":#drugi igrac je dobio stih pa on mora biti na redu (ako je 1 drugi igrac je dobio stih)
 								promjena_reda = 1
 								screen.blit(waiting_slika1, (0,0))
 								draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
@@ -540,13 +534,13 @@ def igra():#window u kojemu se igra snaps
 								draw_text(f"{igrač2ime} MOŽE IGRATI ZA",font2,(0,0,0),370,430)
 								pygame.display.update()
 								time.sleep(1)
-								ogranici_bacanje1 = 0 #resetiraju se ogranicenja za bacanje
+								ogranici_bacanje1 = 0#resetiraju se ogranicenja za bacanje
 								ogranici_bacanje2 = 1
-								usporedba_red_bacanja2.append("0") #dodaje se 0 na kraj lista kako igrac 2 ne bi vise mogao igrati i da igrac 1 bude na redu
+								usporedba_red_bacanja2.append("0")#dodaje se 0 na kraj lista kako igrac 2 ne bi vise mogao igrati i da igrac 1 bude na redu
 								usporedba_red_bacanja1.append("0")
 
 			elif len(usporedba) == 2:#ako je istina oba igraca su bacila kartu i stih se mora zavrsiti
-				if karte_crtanje[-2] ==  bacena_kartap1[-1] and karte_crtanje[-1] == bacena_kartap2[-1]: #sluzi za to da znamo da je 1. igrac bacao prvi
+				if karte_crtanje[-2] ==  bacena_kartap1[-1] and karte_crtanje[-1] == bacena_kartap2[-1]:#sluzi za to da znamo da je 1. igrac bacao prvi
 					if usporedba[0][-1] == usporedba[1][-1]:#provjerava jesu li obje bacene karte iste vrste
 						if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:#ako je karta od igraca 1 jaca od karte od igraca 2 onda igrac jedan dobiva bodove
 							p1bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
@@ -614,7 +608,7 @@ def igra():#window u kojemu se igra snaps
 							usporedba.clear()
 							print(p1bodovi_runda,p2bodovi_runda)
 
-				if karte_crtanje[-1] == bacena_kartap1[-1] and karte_crtanje[-2] == bacena_kartap2[-1]: #sluzi za to da znamo da je 2. igrac bacao prvi
+				if karte_crtanje[-1] == bacena_kartap1[-1] and karte_crtanje[-2] == bacena_kartap2[-1]:#sluzi za to da znamo da je 2. igrac bacao prvi
 					if usporedba[0][-1] == usporedba[1][-1]:#provjerava jesu li obje bacene karte iste vrste
 						if vrijednosti_karata[usporedba[0]]>vrijednosti_karata[usporedba[1]]:#ako je karta od igraca 1 slabija od karte od igraca 2 onda igrac dva dobiva bodove
 							p2bodovi_runda.append(vrijednosti_karata[usporedba[0]]+vrijednosti_karata[usporedba[1]])
@@ -962,6 +956,7 @@ def kraj_runde():
 		ogranici_bacanje2 = 1
 		zavrsi_bacanje_kliknut = 0
 		adut.clear()
+		usporedba2.clear()
 		usporedba_red_bacanja1.clear()
 		usporedba_red_bacanja2.clear()
 		bacena_kartap1.clear()
@@ -1074,7 +1069,6 @@ def main():#loop koji pokrece igru
 	global menu_state
 	global p1bodovi
 	global p2bodovi
-	global prikazi_video
 	global p1pobjeda
 	global p2pobjeda
 	clock = pygame.time.Clock()
@@ -1085,6 +1079,7 @@ def main():#loop koji pokrece igru
 			if event.type == pygame.QUIT:
 				run = False
 		
+		screen.blit(mainMenu_slika, (0,0))
 		video.draw(screen, (0, 0))
 		igraj_btn = Button(290,330,igra_slika, 1)
 		izlaz_btn = Button(290,570,izlaz_slika,1)
@@ -1100,6 +1095,7 @@ def main():#loop koji pokrece igru
 		
 		if igraj_btn.draw() == True:
 			menu_state = "opcije"
+			video.close()
 		if menu_state == "opcije":
 			opcije()
 		
@@ -1114,6 +1110,16 @@ def opcije():
 	global p1bodovi
 	global p2bodovi
 	global ogranici_bodovanje
+	global igrač1ime
+	global igrač2ime
+	igrač1ime = ""
+	igrač2ime = ""
+	text_box1 = pygame.Rect(250,200,120,50)
+	text_box2 = pygame.Rect(700,200,120,50)
+	active1 = False
+	active2 = False
+	color1 = pygame.Color('red')
+	color2= pygame.Color('red')
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -1121,27 +1127,78 @@ def opcije():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				if text_box1.collidepoint(event.pos):
+					active1 = True
+				else:
+					active1 = False
+				if text_box2.collidepoint(event.pos):
+					active2 = True
+				else:
+					active2 = False
+			if event.type == pygame.KEYDOWN:
+				if active1:
+					if event.key == pygame.K_BACKSPACE:
+						igrač1ime = igrač1ime[:-1]
+					else:
+						igrač1ime += event.unicode
+				if active2:
+					if event.key == pygame.K_BACKSPACE:
+						igrač2ime = igrač2ime[:-1]
+					else:
+						igrač2ime += event.unicode
+
+
 		screen.blit(pozadina2_slika, (0,0))
-		sedam_bodova_btn = Button(350,400,sedam_bodova_slika,1.2)		
-		devet_bodova_btn = Button(580,400,devet_bodova_slika,1.2)
+		
+		if active1:
+			color1 = pygame.Color('coral2')
+		else:
+			color1 = pygame.Color('red')
+		if active2:
+			color2 = pygame.Color('coral2')
+		else:
+			color2 = pygame.Color('red')
+
+		pygame.draw.rect(screen,color1, text_box1,4)
+		surf1 = font.render(igrač1ime,True,'white')
+		screen.blit(surf1, (text_box1.x +5 , text_box1.y +5))
+		text_box1.w = max(100, surf1.get_width()+10)
+
+		pygame.draw.rect(screen,color2, text_box2,4)
+		surf2 = font.render(igrač2ime,True,'white')
+		screen.blit(surf2, (text_box2.x +5 , text_box2.y +5))
+		text_box2.w = max(100, surf2.get_width()+10)
+
+
+		sedam_bodova_btn = Button(350,400,sedam_bodova_slika,1)		
+		devet_bodova_btn = Button(580,400,devet_bodova_slika,1)
 		btn_povratak = Button(0,30,povratak_btn_slika,0.5)
-		draw_text(f"ODABERI BROJ BODOVA",font3,(255,255,255),100,200)
 		if btn_povratak.draw() == True:
 			menu_state = "main"
 		if menu_state =="main":
 			main()
 		if sedam_bodova_btn.draw() == True:
-			menu_state = "igra"
 			p1bodovi = 7
 			p2bodovi = 7
-		if menu_state == "igra":
-			ogranici_bodovanje = 0
-			igra()
+			menu_state = "nastavi"
 		if devet_bodova_btn.draw() == True:
-			menu_state = "igra"
 			p1bodovi = 9
 			p2bodovi = 9
+			menu_state = "nastavi"
+		if menu_state == "nastavi":
+			nastavi_btn = Button(580,600,nastavi_slika,1)
+			if nastavi_btn.draw() == True:
+				menu_state = "igra"
+		if menu_state == "igra":
+			if len(igrač2ime)>7 or len(igrač2ime)==0 or len(igrač1ime)>7 or len(igrač1ime)==0:
+				draw_text(f"Upiši normalno ime",font4,(250,250,250),850,610)
+				menu_state = "nastavi"
+			else:
+				ogranici_bodovanje = 0
+				igra()
+		
+
 		pygame.display.update()
 	pygame.quit()
-
 main()

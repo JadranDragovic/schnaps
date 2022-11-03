@@ -6,10 +6,10 @@ from pygame import Surface
 from pyvidplayer import Video
 
 pygame.init()
-igrač1ime = input("Unesi ime: ").upper()
+igrač1ime = input("Unesi ime za 1. igrača: ").upper()
 while len(igrač1ime)>7 or len(igrač1ime)==0:
     igrač1ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ").upper()
-igrač2ime = input("Unesi ime: ").upper()
+igrač2ime = input("Unesi ime za 2. igrača: ").upper()
 while len(igrač2ime)>7 or len(igrač2ime)==0:
     igrač2ime = input("Unesi ime koje ima manje od 7 znakova i više od 0: ").upper()
 

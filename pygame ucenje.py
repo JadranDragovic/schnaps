@@ -956,7 +956,6 @@ def kraj_runde():
 		ogranici_bacanje2 = 1
 		zavrsi_bacanje_kliknut = 0
 		adut.clear()
-		usporedba2.clear()
 		usporedba_red_bacanja1.clear()
 		usporedba_red_bacanja2.clear()
 		bacena_kartap1.clear()

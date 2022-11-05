@@ -40,7 +40,6 @@ opcije2_slika = pygame.image.load("Desktop\projekt\slike\opcije2.png").convert_a
 podijeli_karte_slika = pygame.image.load("Desktop\projekt\slike\podijeli_btn.png").convert_alpha()
 zatvaranje_slika = pygame.image.load("Desktop\projekt\slike\zatvaranje_btn.png").convert_alpha()
 zvanje_slika = pygame.image.load("Desktop\projekt\slike\zvanje_btn.png").convert_alpha()
-kraj_slika = pygame.image.load("Desktop\projekt\slike\kraj_btn.png").convert_alpha()
 nastavi_slika = pygame.image.load("Desktop\projekt\slike\continue_btn.png").convert_alpha()
 vrati_se_slika = pygame.image.load("Desktop\projekt\slike\leave_btn.png").convert_alpha()
 waiting_slika1 = pygame.image.load("Desktop\projekt\slike\waiting1.png").convert_alpha()
@@ -732,13 +731,11 @@ def igra():#window u kojemu se igra snaps
 
 		#KRAJ RUNDE	
 		if (sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66) or ((zatvara == "1" or zatvara == "2") and len(p1inv) == 0 and len(p2inv) == 0 and sum(p1bodovi_runda) < 66 and sum(p2bodovi_runda) < 66): #provjerava je li runda gotova tako da gleda ima li jedan igrač 66 bodova ili više ili su završili zatvaranje
-			kraj_runde_btn = Button(800,250,kraj_slika, 0.5)
-			if kraj_runde_btn.draw() == True:
-				menu_state = "kraj_runde"
-				if menu_state == "kraj_runde":
-					stari_bodovi1 = p1bodovi
-					stari_bodovi2 = p2bodovi
-					kraj_runde()
+			draw_text(f"RUNDA JE GOTOVA!",font5,(255,255,255),190,160)
+			time.sleep(2)
+			stari_bodovi1 = p1bodovi
+			stari_bodovi2 = p2bodovi
+			kraj_runde()
 		
 		pygame.display.update()
 	pygame.quit()
@@ -786,9 +783,9 @@ def zvanje():
 				xos += 180
 				if karta == True: #ako je karta kliknuta
 					if ogranici_zvanje < 2: #daje da se samo dvije karte smiju zvati
-						if i not in zvanje_baceno: #provjerava da karta već nije bila kliknuta
-							if i[0] == "K" or i[0] == "Q": #provjerava je li karta kralj ili baba
-								zvanje_baceno.append(i)
+						if t not in zvanje_baceno: #provjerava da karta već nije bila kliknuta
+							if t[0] == "K" or t[0] == "Q": #provjerava je li karta kralj ili baba
+								zvanje_baceno.append(t)
 								ogranici_zvanje += 1
 
 		if ogranici_zvanje == 0 and len(zvanje_baceno) % 2 == 1: #ako je igraač zvao samo jednu kartu, a ne dvije, izbriši je iz liste baceno, tj. ne zove se
@@ -1049,20 +1046,20 @@ def pobjeda():
 				run = False
 		screen.blit(pozadina2_slika, (0,0))
 		if p1bodovi <= 0: #provjerava je li 1. igrac pobijedio
-			draw_text(f"Pobijedio je {igrač1ime}!",font3,(255,255,255),280,150)
+			draw_text(f"Pobijedio je {igrač1ime}!",font4,(255,255,255),240,140)
 			if ogranici_bodovanje == 0:
 				p1bodovi = 0
 				p1pobjeda += 1 #dodaje mu pobjedu u varijablu
 				ogranici_bodovanje +=1
 		elif p2bodovi <= 0: #provjerava je li 2. igrac pobijedio
-			draw_text(f"Pobijedio je {igrač2ime}!",font3,(255,255,255),280,150)
+			draw_text(f"Pobijedio je {igrač2ime}!",font4,(255,255,255),240,140)
 			if ogranici_bodovanje == 0:
 				p2bodovi = 0
 				p2pobjeda += 1 #dodaje mu pobjedu u varijablu
 				ogranici_bodovanje += 1
 		p1bodProsjek_stat = round(sum(bodoviPoRundi_stat1) / len(bodoviPoRundi_stat1),2) #dijeli bodove u rundi kroz koliko je bilo rundi
 		p2bodProsjek_stat = round(sum(bodoviPoRundi_stat2) / len(bodoviPoRundi_stat2),2)
-		draw_text(f"STATISTIKA",font4,(255,255,255),400,40)
+		draw_text(f"STATISTIKA",font3,(255,255,255),350,30)
 		screen.blit(kraj_igre_tablica, (0,0))
 		draw_text(f"{igrač1ime}",font4,(250,250,250),470,252)
 		draw_text(f"{igrač2ime}",font4,(250,250,250),790,252)
@@ -1074,7 +1071,7 @@ def pobjeda():
 		draw_text(f"{p2stih_stat}",font4,(250,250,250),870,520)
 		draw_text(f"{p1bodProsjek_stat}",font4,(250,250,250),530,610)
 		draw_text(f"{p2bodProsjek_stat}",font4,(250,250,250),850,610)
-		zavrsi_rundu_btn = Button(280,700,vrati_se_slika, 0.5)
+		zavrsi_rundu_btn = Button(400,700,vrati_se_slika, 0.5)
 		if zavrsi_rundu_btn.draw() == True:
 			menu_state = "main"
 		if menu_state == "main":	
@@ -1244,8 +1241,8 @@ def opcije():
 			else:
 				devet_bodova_btn = Button(580,470,devet_kliknut_slika,1)
 			if sedam_bodova_btn.draw() == True:
-				p1bodovi = 7
-				p2bodovi = 7
+				p1bodovi = 1
+				p2bodovi = 1
 				makni_sedam = 1
 				makni_devet = 0
 				nastavi_state = "da" #ako se klikne 7, stvori se "nastavi"

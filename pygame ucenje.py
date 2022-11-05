@@ -15,6 +15,7 @@ font = pygame.font.Font(None, 60)
 font2 = pygame.font.Font(None, 40)
 font3 = pygame.font.Font(None, 100)
 font4 = pygame.font.Font(None, 80)
+font5 = pygame.font.Font(None, 30)
 text_color = (255,255,255)
 #video
 video = Video("Desktop\projekt\slike\cards1.mp4")
@@ -48,7 +49,7 @@ waiting_slika3 = pygame.image.load("Desktop\projekt\slike\waiting3.png").convert
 
 #liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
-dek = ["JC", "QC", "KC", "10C", "AC","JS", "QS", "KS", "10S", "AS","JD", "QD", "KD", "10D", "AD","JH", "QH", "KH", "10H", "AH"]
+dek = ["JC", "QC", "KC", "10C", "AC","JS","QS","KS","10S","AS","JD", "QD", "KD", "10D", "AD","JH", "QH", "KH", "10H", "AH"]
 slike_karata = {"10C":"10C.png",
 				"10D":"10D.png",
 				"10H":"10H.png",
@@ -86,14 +87,14 @@ bodoviPoRundi_stat1 = []
 bodoviPoRundi_stat2 = []
 
 def dijeljenje_karata():#podijeli random karte igračima
-	for i in range(3):
+	for i in range(3): 
 		p1inv.append(random.choice(dek)) #dodaju se 3 random karte u inv od igraca 1 i iste karte se brisu iz deka
 		dek.remove(p1inv[i])
 	for i in range(3): 
 		p2inv.append(random.choice(dek)) #dodaju se 3 random karte u inv od igraca 2 i iste karte se brisu iz deka
 		dek.remove(p2inv[i])
 	adut.append(random.choice(dek))
-	for i in range(3,5):
+	for i in range(3,5): 
 		p1inv.append(random.choice(dek)) #dodaju se 2 random karte u inv od igraca 1 i iste karte se brisu iz deka
 		dek.remove(p1inv[i])
 	for i in range(3,5): 
@@ -724,7 +725,10 @@ def igra():#window u kojemu se igra snaps
 					dek.clear() #dek je prazan u zatvaranju po pravilima. ne možeš vući karte iz deka
 
 		if zatvaranje_tekst == "da":
-			draw_text(f"ZATVARANJE!",font3,(255,255,255),300,20) #tekst koji signalizira zatvaranje
+			draw_text(f"ZATVARANJE!",font3,(255,255,255),300,17) #tekst koji signalizira zatvaranje
+			if len(p1inv) == 5 and len(p2inv) == 5:
+				draw_text(f"U zatvaranju ne dobijaš karte iz deka. Vrijede pravila iberovanja i poštivanja.",font5,(255,255,255),150,130) #tekst koji opisuje što je zatvaranje
+				draw_text(f"Ako ne dođeš do 66 bodova do kraja runde, protivnik pobjeđuje.",font5,(255,255,255),190,160) 
 
 		#KRAJ RUNDE	
 		if (sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66) or ((zatvara == "1" or zatvara == "2") and len(p1inv) == 0 and len(p2inv) == 0 and sum(p1bodovi_runda) < 66 and sum(p2bodovi_runda) < 66): #provjerava je li runda gotova tako da gleda ima li jedan igrač 66 bodova ili više ili su završili zatvaranje
@@ -760,8 +764,10 @@ def zvanje():
 				run = False
 		novi_prozor = pygame.display.set_mode((1024,768))
 		novi_prozor.blit(background_slika, (0,0))
-		draw_text("ZVANJfE",font3,(255,255,255),400,80) #stavi tekst "zvanje"(tekst,velicina,boja,x,y)
+		draw_text("ZVANJE",font3,(255,255,255),390,30) #stavi tekst "zvanje"(tekst,velicina,boja,x,y)
 		xos = 95
+		if len(zvanje_baceno) == 0:
+			draw_text(f"U zvanju moraš baciti kralja i kraljicu iste boje.",font2,(255,255,255),250,150)
 		if promjena_reda == 0:  #koji je igrač na redu (1.)
 			for i in p1inv:
 				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
@@ -787,6 +793,11 @@ def zvanje():
 
 		if ogranici_zvanje == 0 and len(zvanje_baceno) % 2 == 1: #ako je igraač zvao samo jednu kartu, a ne dvije, izbriši je iz liste baceno, tj. ne zove se
 			zvanje_baceno.remove(zvanje_baceno[-1]) 
+
+		if len(zvanje_baceno) != 0:
+			zvana_karta = Button(320,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[zvanje_baceno[-1]]).convert_alpha(),0.18).draw()
+			if len(zvanje_baceno) % 2 == 0:
+				zvana_karta = Button(580,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[zvanje_baceno[-2]]).convert_alpha(),0.18).draw()
 
 		if ogranici_zvanje == 2: #ako su zvane dvije karte, pogledaj mogu li se zvati
 			if zvanje_baceno[-2][0] != zvanje_baceno[-1][0]: #provjerava da te dvije karte nisu ista vrsta (npr. baba-baba ili kralj-kralj)
@@ -821,11 +832,13 @@ def zvanje():
 			ogranici_zvanje = 3
 
 		if zvanje_state == "1":
-			draw_text(f"Zvanje je uspješno! Dobivaš 40",font2,(255,255,255),400,150)
+			draw_text(f"ZVANJE JE USPJEŠNO!",font2,(255,255,255),370,150)
+			draw_text(f"+40",font3,(255,255,255),450,320)
 		if zvanje_state == "2":
-			draw_text(f"Zvanje je uspješno! Dobivaš 20",font2,(255,255,255),400,150)
+			draw_text(f"ZVANJE JE USPJEŠNO!",font2,(255,255,255),370,150)
+			draw_text(f"+20",font3,(255,255,255),450,320)
 		
-		iz_zvanje_u_igru_btn = Button(280,300,vrati_se_slika, 1)
+		iz_zvanje_u_igru_btn = Button(50,50,povratak_btn_slika, 0.8)
 		#resettiranje varijabli
 		zvanje_provjera = 0
 		moguca_zvanja.clear()
@@ -1189,7 +1202,7 @@ def opcije():
 				main()
 
 		if len(igrač2ime)>7 or len(igrač2ime)==0 or len(igrač1ime)>7 or len(igrač1ime)==0: #provjerava je li ime ispravno uspisano
-				draw_text(f"Ime se mora upisati. Najveća duljina je 7 slova.",font2,(250,250,250),350,610)
+				draw_text(f"Ime se mora upisati. Najveća duljina je 7 slova.",font2,(250,250,250),250,610)
 				menu_state = "opcije"
 		else:
 			if menu_state != "nastavi" and menu_state != "igra":

@@ -237,7 +237,7 @@ def igra():#window u kojemu se igra snaps
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:#provjerava je li karta kliknuta
-							if len(dek) != 0:	
+							if len(dek) != 0: #ako u deku ima karata onda ne vrijede pravila poštovanja i iberovanja
 								while ogranici_bacanje1 == 0:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 2. igraca, bacena karta se izbacuje iz p1inv, i zabranjuje bacanje jos jedna karte
 									karte_crtanje.append(i)
 									bacena_kartap1.append(i)
@@ -247,28 +247,28 @@ def igra():#window u kojemu se igra snaps
 									ogranici_bacanje1 =1
 									ogranici_bacanje2 =1
 									ogranici_zavrsi = 0					
-							if len(dek) == 0:
-								if len(usporedba) != 0:
-									for m in p1inv:
-										if m[-1] == bacena_kartap2[-1][-1]:
+							if len(dek) == 0: #ako je dek prazan onda se moraju pratiti pravila poštovanja i iberovanja
+								if len(usporedba) != 0: #ako je 1. igrač drugi na redu onda mora pratiti pravila
+									for m in p1inv: #prolazi kroz inventori prvog igrača 
+										if m[-1] == bacena_kartap2[-1][-1]: #provjerava je li vrsta bačene karte drugog igrača jednaka vrsti karti u njegovom inventoriju
 											brojac_vrsteP1 = 1
-										if brojac_vrsteP1 == 0:
-											if m[-1] == adut[0][-1]:
-												brojac_vrsteP1 = 2
+										if brojac_vrsteP1 == 0: #ako se brojač nije promijenio
+											if m[-1] == adut[0][-1]: #provjerava je li ima adut ako nema iste vrste
+												brojac_vrsteP1 = 2 
 									if brojac_vrsteP1 == 0:
 										for k in p1inv:
-											if k[-1] != bacena_kartap2[-1][-1] and k[-1] != adut[0][-1]:
+											if k[-1] != bacena_kartap2[-1][-1] and k[-1] != adut[0][-1]: #ako nema adut ni vrstu
 												brojac_vrsteP1 = 3
-									for h in p1inv:
-										if h[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[h]>vrijednosti_karata[bacena_kartap2[-1]]:
-											brojac_ibera = 1
+									for h in p1inv: #prolazi kroz inventori prvog igrača
+										if h[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[h]>vrijednosti_karata[bacena_kartap2[-1]]: #provjerava je li u inventoriju ima karta koja je iste vrste i veća od bačene karte drugog igrača
+											brojac_ibera = 1 
 									print(brojac_vrsteP1)
-									if brojac_vrsteP1 == 1:
+									if brojac_vrsteP1 == 1: #ako ima iste vrste
 										brojac_vrsteP1 = 0
-										if i[-1] == bacena_kartap2[-1][-1]:
-											if brojac_ibera == 1:
+										if i[-1] == bacena_kartap2[-1][-1]: #ako je bačena karta prvog igrača jednaka vrsti bačene karte drugog igrača
+											if brojac_ibera == 1: #ako ima kartu koja je veće vrijednosti
 												brojac_ibera = 0
-												if i[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[i]>vrijednosti_karata[bacena_kartap2[-1]]:
+												if i[-1] == bacena_kartap2[-1][-1] and vrijednosti_karata[i]>vrijednosti_karata[bacena_kartap2[-1]]: #provjerava je li bačena karta iste vrste i je li veća ako ju ima
 													while ogranici_bacanje1 == 0:
 														karte_crtanje.append(i)
 														bacena_kartap1.append(i)
@@ -279,12 +279,12 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje2 =1
 														ogranici_zavrsi = 0
 												else:
-													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150)
+													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150) #sve dok se ne klikne točna karta će se printat ovaj tekst
 													pygame.display.update()
 													time.sleep(2)
-											else:
-												if i[-1] == bacena_kartap2[-1][-1]:
-													while ogranici_bacanje1 == 0:
+											else: #ako nema kartu koja je veća
+												if i[-1] == bacena_kartap2[-1][-1]: #je li bačena karta igrača jedna iste vrste kao bačena karta drugog igrača
+													while ogranici_bacanje1 == 0: 
 														karte_crtanje.append(i)
 														bacena_kartap1.append(i)
 														bacena_karta_state ="da"
@@ -294,17 +294,17 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje2 =1
 														ogranici_zavrsi = 0
 															
-												else:
+												else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 													draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
 													pygame.display.update()
 													time.sleep(2)
-										else:
+										else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
 											pygame.display.update()
 											time.sleep(2)
-									if brojac_vrsteP1 == 2:
+									if brojac_vrsteP1 == 2: #ako nema kartu iste vrste onda provjerava za adut
 										brojac_vrsteP1 = 0
-										if i[-1] == adut[0][-1]:
+										if i[-1] == adut[0][-1]: #ako je vrsta bačene karte jednaka vrsti aduta
 											while ogranici_bacanje1 == 0:
 												karte_crtanje.append(i)
 												bacena_kartap1.append(i)
@@ -315,11 +315,11 @@ def igra():#window u kojemu se igra snaps
 												ogranici_bacanje2 =1
 												ogranici_zavrsi = 0
 												
-										else:
+										else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
 											pygame.display.update()
 											time.sleep(2)
-									if brojac_vrsteP1 == 3:
+									if brojac_vrsteP1 == 3: #ako nema ni vrstu ni adut
 										brojac_vrsteP1 = 0
 										while ogranici_bacanje1 == 0:
 											karte_crtanje.append(i)
@@ -330,7 +330,7 @@ def igra():#window u kojemu se igra snaps
 											ogranici_bacanje1 =1
 											ogranici_bacanje2 =1
 											ogranici_zavrsi = 0
-								if len(usporedba)  == 0:
+								if len(usporedba)  == 0: #ako je 1. igrač prvi na redu onda ne mora pratiti pravila 
 									while ogranici_bacanje1 == 0:
 										karte_crtanje.append(i)
 										bacena_kartap1.append(i)
@@ -352,7 +352,7 @@ def igra():#window u kojemu se igra snaps
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:#provjerava je li karta kliknuta
-							if len(dek) != 0:
+							if len(dek) != 0: #ako u deku ima karata onda ne vrijede pravila poštovanja i iberovanja
 								while ogranici_bacanje2 == 1:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 1. igraca, bacena karta se izbacuje iz p2inv, i zabranjuje bacanje jos jedna karte
 									karte_crtanje.append(t)
 									bacena_kartap2.append(t)
@@ -362,28 +362,28 @@ def igra():#window u kojemu se igra snaps
 									ogranici_bacanje2 = 0
 									ogranici_bacanje1 = 0
 									ogranici_zavrsi = 0					
-							if len(dek) == 0:
-								if len(usporedba) != 0:
-									for l in p2inv:
-										if l[-1] == bacena_kartap1[-1][-1]:
+							if len(dek) == 0: #ako je dek prazan moraju se pratiti pravilo poštovanja i iberovanja
+								if len(usporedba) != 0: #ako je drugi igrač drugi na redu
+									for l in p2inv: #prolazi kroz inventori drugog igrača
+										if l[-1] == bacena_kartap1[-1][-1]: #ako u inventoriju ima kartu iste vrste kao bačena karta prvog igrača
 											brojac_vrsteP2 = 1
-										if brojac_vrsteP2 == 0:
-											if l[-1] == adut[0][-1]:
+										if brojac_vrsteP2 == 0: #ako nema iste vrste
+											if l[-1] == adut[0][-1]: #provjerava je li ima adut
 												brojac_vrsteP2 = 2
-									if brojac_vrsteP2 == 0:
-										for s in p2inv:
-											if s[-1] != bacena_kartap1[-1][-1] and s[-1] != adut[0][-1]:
+									if brojac_vrsteP2 == 0: #ako nema ni jedno ni drugi
+										for s in p2inv: #prolazi kroz inventori drugog igrača
+											if s[-1] != bacena_kartap1[-1][-1] and s[-1] != adut[0][-1]:#radi provjeru
 												brojac_vrsteP2 = 3
-									for z in p2inv:
-										if z[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[z]>vrijednosti_karata[bacena_kartap1[-1]]:
+									for z in p2inv:#prolazi kroz inventory
+										if z[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[z]>vrijednosti_karata[bacena_kartap1[-1]]:#provjerava je li u inventoriju drugog igrača ima karta koja je iste vrste i veća od bačene karte prvog igrača
 											brojac_ibera2 = 1
 									print(brojac_vrsteP2)
-									if brojac_vrsteP2 == 1:
+									if brojac_vrsteP2 == 1: #provjera je li iste vrste
 										brojac_vrsteP2 = 0
-										if t[-1] == bacena_kartap1[-1][-1]:
-											if brojac_ibera2 == 1:
+										if t[-1] == bacena_kartap1[-1][-1]: #ako je bačena karta drugog igrača iste vrste kao bačena karta prvog
+											if brojac_ibera2 == 1: #ako ima kartu koja je veće vrijednosti
 												brojac_ibera2 = 0
-												if t[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[t]>vrijednosti_karata[bacena_kartap1[-1]]:
+												if t[-1] == bacena_kartap1[-1][-1] and vrijednosti_karata[t]>vrijednosti_karata[bacena_kartap1[-1]]: #provjerava je li bačena karta iste vrste i je li veća ako ju ima
 													while ogranici_bacanje2 == 1:
 														bacena_kartap2.append(t)
 														karte_crtanje.append(t)
@@ -394,12 +394,12 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje1 = 0
 														ogranici_zavrsi = 0
 														
-												else:
+												else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150)
 													pygame.display.update()
 													time.sleep(2)
-											else:
-												if t[-1] == bacena_kartap1[-1][-1]:
+											else: #ako nema kartu veće vrijednosti
+												if t[-1] == bacena_kartap1[-1][-1]: #provjerava je li bačena karta iste vrste kao od prvog igrača
 													while ogranici_bacanje2 == 1:
 														bacena_kartap2.append(t)
 														karte_crtanje.append(t)
@@ -410,17 +410,17 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje1 = 0
 														ogranici_zavrsi = 0
 															
-												else:
+												else:#sve dok se ne klikne točna karta će se printat ovaj tekst
 													draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
 													screen.display.update()
 													time.sleep(2)
-										else:
+										else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
 											pygame.display.update()
 											time.sleep(2)
-									if brojac_vrsteP2 == 2:
+									if brojac_vrsteP2 == 2: #ako nema iste vrste a ima adut
 										brojac_vrsteP2 = 0
-										if t[-1] == adut[0][-1]:
+										if t[-1] == adut[0][-1]: #je li bačena karta jednaka adutu
 											while ogranici_bacanje2 == 1:
 												bacena_kartap2.append(t)
 												karte_crtanje.append(t)
@@ -431,12 +431,12 @@ def igra():#window u kojemu se igra snaps
 												ogranici_bacanje1 = 0
 												ogranici_zavrsi = 0
 												
-										else:
+										else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
 											pygame.display.update()
 											time.sleep(2)
 
-									if brojac_vrsteP2 == 3:
+									if brojac_vrsteP2 == 3: #ako nema ni vrstu ni adut
 										brojac_vrsteP2 = 0
 										while ogranici_bacanje2 == 1:
 											bacena_kartap2.append(t)
@@ -447,7 +447,7 @@ def igra():#window u kojemu se igra snaps
 											ogranici_bacanje2 = 0
 											ogranici_bacanje1 = 0
 											ogranici_zavrsi = 0
-								if len(usporedba)  == 0:
+								if len(usporedba)  == 0: #ako je drugi igrač prvi na redu
 									while ogranici_bacanje2 == 1:
 										bacena_kartap2.append(t)
 										karte_crtanje.append(t)
@@ -677,53 +677,53 @@ def igra():#window u kojemu se igra snaps
 							print(p1bodovi_runda,p2bodovi_runda)
 		
 		#tipka za zvanje
-		if ciji_red % 2 == 0:
-			if promjena_reda == 0:
+		if ciji_red % 2 == 0: #provjerava je li igrač 1. na redu
+			if promjena_reda == 0: #koji je igrač na redu (1.)
 				for zvanje_moguce in p1inv:
-					if zvanje_provjera < 6:
+					if zvanje_provjera < 6: #ogranici da ne gleda beskonačno karte u inventoriju
 						zvanje_provjera +=1
-						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q":
+						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q": #provjerava je li karta kralj ili baba
 							if len(moguca_zvanja) > 0:
 								for z in moguca_zvanja:
-									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno:
+									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno: #provjerava je li karta različita, iste boje i nije zvana. Ako je istinito sve, može se zvati
 										prihvati_zvanje = 1
-							moguca_zvanja.append(zvanje_moguce)
-			elif promjena_reda == 1:
-				for zvanje_moguce in p2inv:
-					if zvanje_provjera < 6:
+							moguca_zvanja.append(zvanje_moguce) #dodaj u listu karti koje se mogu zvati
+			elif promjena_reda == 1: #koji je igrač na redu (2.)
+				for zvanje_moguce in p2inv: 
+					if zvanje_provjera < 6: #ogranici da ne gleda beskonačno karte u inventoriju
 						zvanje_provjera +=1
-						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q":
+						if zvanje_moguce[0] == "K" or zvanje_moguce[0] == "Q": #provjerava je li karta kralj ili baba
 							if len(moguca_zvanja) > 0:
 								for z in moguca_zvanja:
-									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno:
+									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno: #provjerava je li karta različita, iste boje i nije zvana. Ako je istinito sve, može se zvati
 										prihvati_zvanje = 1
-							moguca_zvanja.append(zvanje_moguce)
+							moguca_zvanja.append(zvanje_moguce) #dodaj u listu karti koje se mogu zvati
                             
 		if prihvati_zvanje == 1:
-			btn_zvanje = Button(100,265,zvanje_slika, 0.5)
-			if btn_zvanje.draw() == True:
-				menu_state ="zvanje"
+			btn_zvanje = Button(100,265,zvanje_slika, 0.5) #gumb za zvanje
+			if btn_zvanje.draw() == True: #ako se gumb za zvanje klikne
+				menu_state ="zvanje" #menu je sada zvanje
 			#drzi menu zvanje otvorenim
-			if menu_state == "zvanje":
-				zvanje()	
+			if menu_state == "zvanje": #ako je menu zvanje, izvrsi zvanje funckiju
+				zvanje()
 
 		#ZATVARANJE
-		if len(dek) > 2 and len(p1inv) > 0:
-			if ciji_red % 2 == 0:	
-				zatvaranje_btn = Button(50,430,zatvaranje_slika, 0.5)
+		if len(dek) > 2 and len(p1inv) > 0: #pravilo zatvaranja je da moraju biti barem 2 karte u deku
+			if ciji_red % 2 == 0: #provjerava je li igrač 1. na redu
+				zatvaranje_btn = Button(50,430,zatvaranje_slika, 0.5) #gumb za zatvaranje
 				if zatvaranje_btn.draw() == True:
 					zatvaranje_tekst = "da"
-					if promjena_reda == 0:
-						zatvara = "1"
-					if promjena_reda == 1:
-						zatvara = "2"
-					dek.clear()
+					if promjena_reda == 0: #ako je prvi igrac na redu
+						zatvara = "1" #zatvara je 1 sto znaci da je 1. igrac htio zatvoriti
+					if promjena_reda == 1: #ako je drugi igrac na redu
+						zatvara = "2" #zatvara je 2 sto znaci da je 2. igrac htio zatvoriti
+					dek.clear() #dek je prazan u zatvaranju po pravilima. ne možeš vući karte iz deka
 
 		if zatvaranje_tekst == "da":
-			draw_text(f"ZATVARANJE!",font3,(255,255,255),300,20)
+			draw_text(f"ZATVARANJE!",font3,(255,255,255),300,20) #tekst koji signalizira zatvaranje
 
 		#KRAJ RUNDE	
-		if (sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66) or ((zatvara == "1" or zatvara == "2") and len(p1inv) == 0 and len(p2inv) == 0 and sum(p1bodovi_runda) < 66 and sum(p2bodovi_runda) < 66):
+		if (sum(p1bodovi_runda) >= 66 or sum(p2bodovi_runda) >= 66) or ((zatvara == "1" or zatvara == "2") and len(p1inv) == 0 and len(p2inv) == 0 and sum(p1bodovi_runda) < 66 and sum(p2bodovi_runda) < 66): #provjerava je li runda gotova tako da gleda ima li jedan igrač 66 bodova ili više ili su završili zatvaranje
 			kraj_runde_btn = Button(800,250,kraj_slika, 0.5)
 			if kraj_runde_btn.draw() == True:
 				menu_state = "kraj_runde"
@@ -736,9 +736,9 @@ def igra():#window u kojemu se igra snaps
 	pygame.quit()
 
 def zvanje():
-	ogranici_zvanje = 0
-	ogranici_zbroj = 0
-	zvanje_state = "0"
+	ogranici_zvanje = 0 #ogranicuje zvanje na dvije karte
+	ogranici_zbroj = 0 #daje da se samo jednom smije zbrajati
+	zvanje_state = "0" ##provjerava je li zvanje s ili bez aduta
 	global p1bodovi_runda
 	global p2bodovi_runda
 	global promjena_reda
@@ -756,65 +756,63 @@ def zvanje():
 				run = False
 		novi_prozor = pygame.display.set_mode((1024,768))
 		novi_prozor.blit(background_slika, (0,0))
-		draw_text(f"ZVANJE",font3,(255,255,255),400,80)
+		draw_text("ZVANJfE",font3,(255,255,255),400,80) #stavi tekst "zvanje"(tekst,velicina,boja,x,y)
 		xos = 95
-		if promjena_reda == 0:
+		if promjena_reda == 0:  #koji je igrač na redu (1.)
 			for i in p1inv:
 				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 				xos += 180
-				if karta == True:
-					if ogranici_zvanje < 2:
-						if i not in zvanje_baceno:
-							if i[0] == "K" or i[0] == "Q":
+				if karta == True: #ako je karta kliknuta
+					if ogranici_zvanje < 2: #daje da se samo dvije karte smiju zvati
+						if i not in zvanje_baceno: #provjerava da karta već nije bila kliknuta
+							if i[0] == "K" or i[0] == "Q": #provjerava je li karta kralj ili baba
 								zvanje_baceno.append(i)
 								ogranici_zvanje += 1
 
 
-		else:
+		else:  #koji je igrač na redu (2.)
 			for t in p2inv:
 				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 				xos += 180
-				if karta == True:
-					if ogranici_zvanje < 2:
-						if t not in zvanje_baceno:
-							if t[0] == "K" or t[0] == "Q":
-								zvanje_baceno.append(t)
+				if karta == True: #ako je karta kliknuta
+					if ogranici_zvanje < 2: #daje da se samo dvije karte smiju zvati
+						if i not in zvanje_baceno: #provjerava da karta već nije bila kliknuta
+							if i[0] == "K" or i[0] == "Q": #provjerava je li karta kralj ili baba
+								zvanje_baceno.append(i)
 								ogranici_zvanje += 1
 
-		if ogranici_zvanje == 0 and len(zvanje_baceno) % 2 == 1:
-			zvanje_baceno.remove(zvanje_baceno[-1])
+		if ogranici_zvanje == 0 and len(zvanje_baceno) % 2 == 1: #ako je igraač zvao samo jednu kartu, a ne dvije, izbriši je iz liste baceno, tj. ne zove se
+			zvanje_baceno.remove(zvanje_baceno[-1]) 
 
-		if ogranici_zvanje == 2:
-			if zvanje_baceno[-2][0] != zvanje_baceno[-1][0]:
-				print(zvanje_baceno[-2])
-				print(zvanje_baceno[-1])
-				if zvanje_baceno[-2][1] == zvanje_baceno[-1][1] and zvanje_baceno[-1][1] == adut[0][-1]:
-					zvanje_state = "1"
-					if ogranici_zbroj == 0:
-						if promjena_reda == 0:
-							p1bodovi_runda.append(40)
+		if ogranici_zvanje == 2: #ako su zvane dvije karte, pogledaj mogu li se zvati
+			if zvanje_baceno[-2][0] != zvanje_baceno[-1][0]: #provjerava da te dvije karte nisu ista vrsta (npr. baba-baba ili kralj-kralj)
+				if zvanje_baceno[-2][1] == zvanje_baceno[-1][1] and zvanje_baceno[-1][1] == adut[0][-1]: #zvanje je uspješno. imaju iste boje karte i kao adut
+					zvanje_state = "1" #varijabla za ispisivanje teksta u slucaju iste boje aduta
+					if ogranici_zbroj == 0: #dopušta da se bodovi daju igraču samo jednom
+						if promjena_reda == 0: #provjerava je li 1. igrač na redu
+							p1bodovi_runda.append(40) #daj 1. igracu 40 bodova
 							ogranici_zbroj +=1
 							print(p1bodovi_runda)
-						else:
-							p2bodovi_runda.append(40)
+						else: #provjerava je li 2. igrač na redu
+							p2bodovi_runda.append(40) #daj 2. igracu 40 bodova
 							ogranici_zbroj +=1
 							print(p2bodovi_runda)
 				elif zvanje_baceno[-2][1] == zvanje_baceno[-1][1] and zvanje_baceno[-1][1] != adut[0][-1]:
-					zvanje_state = "2"
-					if ogranici_zbroj == 0:
-						if promjena_reda == 0:
-							p1bodovi_runda.append(20)
+					zvanje_state = "2"  #varijabla za ispisivanje teksta u slucaju razlicite boje aduta
+					if ogranici_zbroj == 0: #dopušta da se bodovi daju igraču samo jednom
+						if promjena_reda == 0: #provjerava je li 1. igrač na redu
+							p1bodovi_runda.append(20) #daj 1. igracu 40 bodova
 							ogranici_zbroj +=1
 							print(p1bodovi_runda)
-						else:
-							p2bodovi_runda.append(20)
+						else: #provjerava je li 2. igrač na redu
+							p2bodovi_runda.append(20) #daj 2. igracu 40 bodova
 							ogranici_zbroj +=1
 							print(p2bodovi_runda)
 				else:
-					zvanje_baceno.remove(zvanje_baceno[-1])
+					zvanje_baceno.remove(zvanje_baceno[-1]) #zvanje nije bilo uspješno, izbaci karte
 					zvanje_baceno.remove(zvanje_baceno[-1])
 			else:
-				zvanje_baceno.remove(zvanje_baceno[-1])
+				zvanje_baceno.remove(zvanje_baceno[-1]) #zvanje nije bilo uspješno, izbaci karte
 				zvanje_baceno.remove(zvanje_baceno[-1])
 			ogranici_zvanje = 3
 
@@ -824,9 +822,11 @@ def zvanje():
 			draw_text(f"Zvanje je uspješno! Dobivaš 20",font2,(255,255,255),400,150)
 		
 		iz_zvanje_u_igru_btn = Button(280,300,vrati_se_slika, 1)
+		#resettiranje varijabli
 		zvanje_provjera = 0
 		moguca_zvanja.clear()
 		prihvati_zvanje = 0
+
 		if iz_zvanje_u_igru_btn.draw() == True:
 			menu_state = "nastavi_sedam"
 		if menu_state == "nastavi_sedam":
@@ -887,51 +887,52 @@ def kraj_runde():
 		novi_prozor = pygame.display.set_mode((1024,768))
 		novi_prozor.blit(pozadina2_slika, (0,0))
 
-		if zatvara == "1" and p2bodovi == stari_bodovi2:
-			if sum(p1bodovi_runda) < 66:
+		if zatvara == "1" and p2bodovi == stari_bodovi2: #provjerava je li 1. igrač zatvarao
+			if sum(p1bodovi_runda) < 66: #provjerava je li igrač uspio ili nije uspio zatvaranje
 				p2runda_stat += 1
-				if sum(p2bodovi_runda) == 0:
+				if sum(p2bodovi_runda) == 0: #ako je protivnik imao 0 bodova, ide dolje za 3
 					p2bodovi = stari_bodovi2 - 3
-				if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
+				if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33: #ako je protivnik imao vise od 0, ali manje od 33 bodova, ide dolje za 2
 					p2bodovi = stari_bodovi2 - 2
-				if sum(p2bodovi_runda) > 33:
+				if sum(p2bodovi_runda) > 33: #ako je protivnik imao 33 bodova ili vise, ide dolje za 1
 					p2bodovi = stari_bodovi2 - 1
 				if sum(p2bodovi_runda) == 33:
 					p1bodovi = stari_bodovi1 - 1
 			else:
 				zatvara = "0"
-		elif zatvara == "2" and p1bodovi == stari_bodovi1:
-			if sum(p2bodovi_runda) < 66:
+		elif zatvara == "2" and p1bodovi == stari_bodovi1: #provjerava je li 2. igrač zatvarao
+			if sum(p2bodovi_runda) < 66: #provjerava je li igrač uspio ili nije uspio zatvaranje
 				p1runda_stat += 1
-				if sum(p1bodovi_runda) == 0:
+				if sum(p1bodovi_runda) == 0: #ako je protivnik imao 0 bodova, ide dolje za 3
 					p1bodovi = stari_bodovi1 - 3
-				if sum(p1bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
+				if sum(p1bodovi_runda) > 0 and sum(p2bodovi_runda) < 33: #ako je protivnik imao vise od 0, ali manje od 33 bodova, ide dolje za 2
 					p1bodovi = stari_bodovi1 - 2
-				if sum(p1bodovi_runda) > 33:
+				if sum(p1bodovi_runda) > 33: #ako je protivnik imao 33 bodova ili vise, ide dolje za 1
 					p1bodovi = stari_bodovi1 - 1
 				if sum(p2bodovi_runda) == 33:
 					p1bodovi = stari_bodovi1 - 1
 			else:
 				zatvara = "0"
-		elif zatvara == "0":
-			if sum(p1bodovi_runda) > sum(p2bodovi_runda) and stari_bodovi1 == p1bodovi:
+		elif zatvara == "0": #boduje se normalno, ne kao zatvaranje
+			if sum(p1bodovi_runda) > sum(p2bodovi_runda) and stari_bodovi1 == p1bodovi: #ako je 1. igrač pobijedio
 				p1runda_stat += 1
-				if sum(p2bodovi_runda) == 0:
+				if sum(p2bodovi_runda) == 0: #ako protivnik ima 0 boda, ide dolje za 3 pobjednik
 					p1bodovi = stari_bodovi1 - 3
-				if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33:
+				if sum(p2bodovi_runda) > 0 and sum(p2bodovi_runda) < 33: #ako protivnik ima više od 0, ali manje od 33 boda, ide dolje za 2 pobjednik
 					p1bodovi = stari_bodovi1 - 2
-				if sum(p2bodovi_runda) > 33:
+				if sum(p2bodovi_runda) > 33: #ako protivnik ima vise od 33 boda, ide dolje za 1 pobjednik
 					p1bodovi = stari_bodovi1 - 1
-			if sum(p2bodovi_runda) > sum(p1bodovi_runda) and stari_bodovi2 == p2bodovi:
+			if sum(p2bodovi_runda) > sum(p1bodovi_runda) and stari_bodovi2 == p2bodovi: #ako je 2. igrač pobijedio
 				p2runda_stat += 1
-				if sum(p1bodovi_runda) == 0:
+				if sum(p1bodovi_runda) == 0: #ako protivnik ima 0 boda, ide dolje za 3 pobjednik
 					p2bodovi = stari_bodovi2 - 3
-				if sum(p1bodovi_runda) > 0 and sum(p1bodovi_runda) < 33:
+				if sum(p1bodovi_runda) > 0 and sum(p1bodovi_runda) < 33: #ako protivnik ima više od 0, ali manje od 33 boda, ide dolje za 2 pobjednik
 					p2bodovi = stari_bodovi2 - 2
-				if sum(p1bodovi_runda) > 33:
+				if sum(p1bodovi_runda) > 33: #ako protivnik ima vise od 33 boda, ide dolje za 1 pobjednik
 					p2bodovi = stari_bodovi2 - 1
-		novi_prozor.blit(kraj_runde_slika, (0,0))
-
+		
+		novi_prozor.blit(kraj_runde_slika, (0,0)) #stvori sliku tablice
+		#upisi brojeve u tablicu
 		draw_text(f"{igrač1ime}",font4,(250,250,250),470,252)
 		draw_text(f"{igrač2ime}",font4,(250,250,250),790,252)
 		draw_text(f"{sum(p1bodovi_runda)}",font4,(250,250,250),550,340)
@@ -976,29 +977,29 @@ def kraj_runde():
 		stih = 0
 		ogranici_zavrsi = 1
 
-		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li runda gotova
+		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li igra gotova
 			draw_text(f"KRAJ IGRE",font3,(255,255,255),300,80)
 			nastavi_rundu_btn = Button(280,600,nastavi_slika, 1)
-			if p1bodovi < 0:
+			if p1bodovi < 0: #ako igrač ima manje od 0 boda, zapisi kao da ima 0
 				p1bodovi = 0
 			if p2bodovi < 0:
 				p2bodovi = 0
-			if nastavi_rundu_btn.draw() == True:
+			if nastavi_rundu_btn.draw() == True: #ako se "nastavi" gumb kline, izbaci pobjednika i statistiku
 				menu_state = "pobjeda"
 			if menu_state == "pobjeda":
+				#resetira varijable
 				zatvara = "0"
 				bodoviPoRundi_stat1.append(sum(p1bodovi_runda))
 				bodoviPoRundi_stat2.append(sum(p2bodovi_runda))
-				#reseta bodove runde
 				p1bodovi_runda.clear()
 				p2bodovi_runda.clear()
 				pobjeda()
-		else: #nastavlja rundu ako nije gotova runda
+		else: #nastavlja rundu ako nije gotova igra
 			draw_text(f"KRAJ RUNDE",font3,(255,255,255),300,80)
 			nastavi_rundu_btn = Button(280,600,nastavi_slika, 1)
 			if nastavi_rundu_btn.draw() == True:
 				menu_state = "nastavi_sedam"
-			if menu_state == "nastavi_sedam":
+			if menu_state == "nastavi_sedam": #ako se "nastavi" gumb kline, nastavi igru
 				zatvara = "0"
 				bodoviPoRundi_stat1.append(sum(p1bodovi_runda))
 				bodoviPoRundi_stat2.append(sum(p2bodovi_runda))
@@ -1030,19 +1031,19 @@ def pobjeda():
 			if event.type == pygame.QUIT:
 				run = False
 		screen.blit(pozadina2_slika, (0,0))
-		if p1bodovi <= 0:
+		if p1bodovi <= 0: #provjerava je li 1. igrac pobijedio
 			draw_text(f"Pobijedio je {igrač1ime}!",font3,(255,255,255),280,150)
 			if ogranici_bodovanje == 0:
 				p1bodovi = 0
-				p1pobjeda += 1
+				p1pobjeda += 1 #dodaje mu pobjedu u varijablu
 				ogranici_bodovanje +=1
-		elif p2bodovi <= 0:
+		elif p2bodovi <= 0: #provjerava je li 2. igrac pobijedio
 			draw_text(f"Pobijedio je {igrač2ime}!",font3,(255,255,255),280,150)
 			if ogranici_bodovanje == 0:
 				p2bodovi = 0
-				p2pobjeda += 1
+				p2pobjeda += 1 #dodaje mu pobjedu u varijablu
 				ogranici_bodovanje += 1
-		p1bodProsjek_stat = round(sum(bodoviPoRundi_stat1) / len(bodoviPoRundi_stat1),2)
+		p1bodProsjek_stat = round(sum(bodoviPoRundi_stat1) / len(bodoviPoRundi_stat1),2) #dijeli bodove u rundi kroz koliko je bilo rundi
 		p2bodProsjek_stat = round(sum(bodoviPoRundi_stat2) / len(bodoviPoRundi_stat2),2)
 		draw_text(f"STATISTIKA",font4,(255,255,255),400,40)
 		screen.blit(kraj_igre_tablica, (0,0))
@@ -1079,7 +1080,7 @@ def main():#loop koji pokrece igru
 				run = False
 		
 		screen.blit(mainMenu_slika, (0,0))
-		video.draw(screen, (0, 0))
+		video.draw(screen, (0, 0)) #stvori video
 		igraj_btn = Button(290,330,igra_slika, 1)
 		izlaz_btn = Button(290,570,izlaz_slika,1)
 		if izlaz_btn.draw() == True:
@@ -1111,8 +1112,8 @@ def opcije():
 	global ogranici_bodovanje
 	global igrač1ime
 	global igrač2ime
-	igrač1ime = ""
-	igrač2ime = ""
+	igrač1ime = "" #tekst koji je upisao 1. igrac
+	igrač2ime = "" #tekst koji je upisao 2. igrac
 	text_box1 = pygame.Rect(250,200,120,50)
 	text_box2 = pygame.Rect(700,200,120,50)
 	active1 = False
@@ -1180,17 +1181,17 @@ def opcije():
 		if sedam_bodova_btn.draw() == True:
 			p1bodovi = 7
 			p2bodovi = 7
-			menu_state = "nastavi"
+			menu_state = "nastavi" #ako se klikne 7, stvori se "nastavi"
 		if devet_bodova_btn.draw() == True:
 			p1bodovi = 9
 			p2bodovi = 9
-			menu_state = "nastavi"
+			menu_state = "nastavi" #ako se klikne 9, stvori se "nastavi"
 		if menu_state == "nastavi":
 			nastavi_btn = Button(580,600,nastavi_slika,1)
 			if nastavi_btn.draw() == True:
-				menu_state = "igra"
+				menu_state = "igra" #ako se klikne "nastavi", krene se igra
 		if menu_state == "igra":
-			if len(igrač2ime)>7 or len(igrač2ime)==0 or len(igrač1ime)>7 or len(igrač1ime)==0:
+			if len(igrač2ime)>7 or len(igrač2ime)==0 or len(igrač1ime)>7 or len(igrač1ime)==0: #provjerava je li ime ispravno uspisano
 				draw_text(f"Upiši normalno ime",font4,(250,250,250),850,610)
 				menu_state = "nastavi"
 			else:

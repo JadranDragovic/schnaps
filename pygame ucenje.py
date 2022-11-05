@@ -21,7 +21,9 @@ video = Video("Desktop\projekt\slike\cards1.mp4")
 video.set_size((1024, 768))
 #slike za buttone
 sedam_bodova_slika = pygame.image.load("Desktop\projekt\slike\sedam.png").convert_alpha()
+sedam_kliknut_slika = pygame.image.load("Desktop\projekt\slike\sedam_kliknut.png").convert_alpha()
 devet_bodova_slika = pygame.image.load("Desktop\projekt\slike\devet.png").convert_alpha()
+devet_kliknut_slika = pygame.image.load("Desktop\projekt\slike\devet_kliknut.png").convert_alpha()
 povratak_btn_slika = pygame.image.load("Desktop\projekt\slike\povratak_btn.png").convert_alpha()
 promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\slike\promijeni_btn.png").convert_alpha()
 statistika_slika = pygame.image.load("Desktop\projekt\slike\statistika_slika.png").convert_alpha()
@@ -32,13 +34,14 @@ kraj_igre_tablica = pygame.image.load("Desktop\projekt\slike\kraj_igre_table.png
 background_slika = pygame.image.load("Desktop\projekt\slike\pozadina.png").convert_alpha()
 pozadina2_slika = pygame.image.load("Desktop\projekt\slike\pozadina2.png").convert_alpha()
 mainMenu_slika = pygame.image.load("Desktop\projekt\slike\mainScreen.png").convert_alpha()
+opcije1_slika = pygame.image.load("Desktop\projekt\slike\opcije1.png").convert_alpha()
+opcije2_slika = pygame.image.load("Desktop\projekt\slike\opcije2.png").convert_alpha()
+podijeli_karte_slika = pygame.image.load("Desktop\projekt\slike\podijeli_btn.png").convert_alpha()
 zatvaranje_slika = pygame.image.load("Desktop\projekt\slike\zatvaranje_btn.png").convert_alpha()
 zvanje_slika = pygame.image.load("Desktop\projekt\slike\zvanje_btn.png").convert_alpha()
 kraj_slika = pygame.image.load("Desktop\projekt\slike\kraj_btn.png").convert_alpha()
 nastavi_slika = pygame.image.load("Desktop\projekt\slike\continue_btn.png").convert_alpha()
 vrati_se_slika = pygame.image.load("Desktop\projekt\slike\leave_btn.png").convert_alpha()
-podijeli_karte_slika = pygame.image.load("Desktop\projekt\slike\podijeli_btn.png").convert_alpha()
-nastavi_slika = pygame.image.load("Desktop\projekt\slike\continue_btn.png").convert_alpha()
 waiting_slika1 = pygame.image.load("Desktop\projekt\slike\waiting1.png").convert_alpha()
 waiting_slika2 = pygame.image.load("Desktop\projekt\slike\waiting2.png").convert_alpha()
 waiting_slika3 = pygame.image.load("Desktop\projekt\slike\waiting3.png").convert_alpha()
@@ -129,7 +132,6 @@ class Button():#proizvodim vlastitu klasu za gumb
 
 #buttoni
 btn_zavrsi_bacanje = Button(460,80,promijeni_red_btn_slika,0.5)
-btn_izvuci_kartu = Button(800,250,sedam_bodova_slika,0.5)
 
 #varijable
 menu_state ="main" #pomaže za mijenjanje prozora
@@ -161,6 +163,8 @@ p1stih_stat = 0 #broji nošene štihove 1. igrača za statistiku
 p2stih_stat = 0	#broji nošene štihove 2. igrača za statistiku
 p1bodProsjek_stat = 0 #računa prosječan broj bodova 1. igrača
 p2bodProsjek_stat = 0 #računa prosječan broj bodova 2. igrača
+makni_sedam = 0 #makne sliku 7 i zamijeni s kliknutom slikom 7
+makni_devet = 0 #makne sliku 9 i zamijeni s kliknutom slikom 9
 
 def igra():#window u kojemu se igra snaps
 	run = True
@@ -1071,6 +1075,10 @@ def main():#loop koji pokrece igru
 	global p2bodovi
 	global p1pobjeda
 	global p2pobjeda
+	global makni_sedam
+	global makni_devet 
+	makni_sedam = 0
+	makni_devet = 0
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -1112,10 +1120,13 @@ def opcije():
 	global ogranici_bodovanje
 	global igrač1ime
 	global igrač2ime
+	global makni_sedam
+	global makni_devet
+	nastavi_state = ""
 	igrač1ime = "" #tekst koji je upisao 1. igrac
 	igrač2ime = "" #tekst koji je upisao 2. igrac
-	text_box1 = pygame.Rect(250,200,120,50)
-	text_box2 = pygame.Rect(700,200,120,50)
+	text_box1 = pygame.Rect(150,300,300,50)
+	text_box2 = pygame.Rect(755,300,300,50)
 	active1 = False
 	active2 = False
 	color1 = pygame.Color('red')
@@ -1149,53 +1160,97 @@ def opcije():
 						igrač2ime += event.unicode
 
 
-		screen.blit(pozadina2_slika, (0,0))
+		if menu_state == "opcije":
+			screen.blit(opcije1_slika, (0,0))
 		
-		if active1:
-			color1 = pygame.Color('coral2')
-		else:
-			color1 = pygame.Color('red')
-		if active2:
-			color2 = pygame.Color('coral2')
-		else:
-			color2 = pygame.Color('red')
-
-		pygame.draw.rect(screen,color1, text_box1,4)
-		surf1 = font.render(igrač1ime,True,'white')
-		screen.blit(surf1, (text_box1.x +5 , text_box1.y +5))
-		text_box1.w = max(100, surf1.get_width()+10)
-
-		pygame.draw.rect(screen,color2, text_box2,4)
-		surf2 = font.render(igrač2ime,True,'white')
-		screen.blit(surf2, (text_box2.x +5 , text_box2.y +5))
-		text_box2.w = max(100, surf2.get_width()+10)
-
-
-		sedam_bodova_btn = Button(350,400,sedam_bodova_slika,1)		
-		devet_bodova_btn = Button(580,400,devet_bodova_slika,1)
-		btn_povratak = Button(0,30,povratak_btn_slika,0.5)
-		if btn_povratak.draw() == True:
-			menu_state = "main"
-		if menu_state =="main":
-			main()
-		if sedam_bodova_btn.draw() == True:
-			p1bodovi = 7
-			p2bodovi = 7
-			menu_state = "nastavi" #ako se klikne 7, stvori se "nastavi"
-		if devet_bodova_btn.draw() == True:
-			p1bodovi = 9
-			p2bodovi = 9
-			menu_state = "nastavi" #ako se klikne 9, stvori se "nastavi"
-		if menu_state == "nastavi":
-			nastavi_btn = Button(580,600,nastavi_slika,1)
-			if nastavi_btn.draw() == True:
-				menu_state = "igra" #ako se klikne "nastavi", krene se igra
-		if menu_state == "igra":
-			if len(igrač2ime)>7 or len(igrač2ime)==0 or len(igrač1ime)>7 or len(igrač1ime)==0: #provjerava je li ime ispravno uspisano
-				draw_text(f"Upiši normalno ime",font4,(250,250,250),850,610)
-				menu_state = "nastavi"
+			if active1:
+				color1 = pygame.Color('coral2')
 			else:
+				color1 = pygame.Color('red')
+			if active2:
+				color2 = pygame.Color('coral2')
+			else:
+				color2 = pygame.Color('red')
+
+			pygame.draw.rect(screen,color1, text_box1,4)
+			surf1 = font.render(igrač1ime,True,'white')
+			screen.blit(surf1, (text_box1.x +5 , text_box1.y +5))
+			text_box1.w = max(100, surf1.get_width()+10)
+
+			pygame.draw.rect(screen,color2, text_box2,4)
+			surf2 = font.render(igrač2ime,True,'white')
+			screen.blit(surf2, (text_box2.x +5 , text_box2.y +5))
+			text_box2.w = max(100, surf2.get_width()+10)
+
+			btn_povratak = Button(20,20,povratak_btn_slika,0.8)
+			if btn_povratak.draw() == True:
+				menu_state = "main"
+			if menu_state =="main":
+				main()
+
+		if len(igrač2ime)>7 or len(igrač2ime)==0 or len(igrač1ime)>7 or len(igrač1ime)==0: #provjerava je li ime ispravno uspisano
+				draw_text(f"Ime se mora upisati. Najveća duljina je 7 slova.",font2,(250,250,250),350,610)
+				menu_state = "opcije"
+		else:
+			if menu_state != "nastavi" and menu_state != "igra":
+				menu_state = "bodovi"
+		if menu_state == "bodovi":
+			screen.blit(opcije2_slika, (0,0))
+			
+			if active1:
+				color1 = pygame.Color('coral2')
+			else:
+				color1 = pygame.Color('red')
+			if active2:
+				color2 = pygame.Color('coral2')
+			else:
+				color2 = pygame.Color('red')
+
+			pygame.draw.rect(screen,color1, text_box1,4)
+			surf1 = font.render(igrač1ime,True,'white')
+			screen.blit(surf1, (text_box1.x +5 , text_box1.y +5))
+			text_box1.w = max(100, surf1.get_width()+10)
+
+			pygame.draw.rect(screen,color2, text_box2,4)
+			surf2 = font.render(igrač2ime,True,'white')
+			screen.blit(surf2, (text_box2.x +5 , text_box2.y +5))
+			text_box2.w = max(100, surf2.get_width()+10)
+
+			btn_povratak = Button(20,20,povratak_btn_slika,0.8)
+			if btn_povratak.draw() == True:
+				menu_state = "main"
+			if menu_state =="main":
+				main()
+
+			if makni_sedam == 0:
+				sedam_bodova_btn = Button(350,470,sedam_bodova_slika,1)
+			else:
+				sedam_bodova_btn = Button(350,470,sedam_kliknut_slika,1)
+			if makni_devet == 0:
+				devet_bodova_btn = Button(580,470,devet_bodova_slika,1)
+			else:
+				devet_bodova_btn = Button(580,470,devet_kliknut_slika,1)
+			if sedam_bodova_btn.draw() == True:
+				p1bodovi = 7
+				p2bodovi = 7
+				makni_sedam = 1
+				makni_devet = 0
+				nastavi_state = "da" #ako se klikne 7, stvori se "nastavi"
+			if devet_bodova_btn.draw() == True:
+				p1bodovi = 9
+				p2bodovi = 9
+				makni_devet = 1
+				makni_sedam = 0
+				nastavi_state = "da" #ako se klikne 9, stvori se "nastavi"
+			
+			if nastavi_state == "da":
+				nastavi_btn = Button(290,610,nastavi_slika,1)
+				if nastavi_btn.draw() == True:
+					menu_state = "igra" #ako se klikne "nastavi", krene se igra
+			if menu_state == "igra":
 				ogranici_bodovanje = 0
+				makni_sedam = 0
+				makni_devet = 0
 				igra()
 		
 

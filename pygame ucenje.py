@@ -16,6 +16,7 @@ font2 = pygame.font.Font(None, 40)
 font3 = pygame.font.Font(None, 100)
 font4 = pygame.font.Font(None, 80)
 font5 = pygame.font.Font(None, 30)
+font6 = pygame.font.Font(None, 35)
 text_color = (255,255,255)
 #video
 video = Video("Desktop\projekt\slike\cards1.mp4")
@@ -45,6 +46,12 @@ vrati_se_slika = pygame.image.load("Desktop\projekt\slike\leave_btn.png").conver
 waiting_slika1 = pygame.image.load("Desktop\projekt\slike\waiting1.png").convert_alpha()
 waiting_slika2 = pygame.image.load("Desktop\projekt\slike\waiting2.png").convert_alpha()
 waiting_slika3 = pygame.image.load("Desktop\projekt\slike\waiting3.png").convert_alpha()
+adut_tref_slika = pygame.image.load("Desktop\projekt\slike\_tref_adut.png").convert_alpha()
+adut_pik_slika = pygame.image.load("Desktop\projekt\slike\_pik_adut.png").convert_alpha()
+adut_herc_slika = pygame.image.load("Desktop\projekt\slike\_herc_adut.png").convert_alpha()
+adut_karo_slika = pygame.image.load("Desktop\projekt\slike\_karo_adut.png").convert_alpha()
+scoreboard_prvi_slika = pygame.image.load("Desktop\projekt\slike\scoreboard1.png").convert_alpha()
+scoreboard_drugi_slika = pygame.image.load("Desktop\projekt\slike\scoreboard2.png").convert_alpha()
 
 #liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
@@ -207,8 +214,14 @@ def igra():#window u kojemu se igra snaps
 		global p1stih_stat
 		global p2stih_stat
 		screen.blit(background_slika, (0,0))
-		draw_text(f"{igrač1ime}:{p1bodovi}",font2,text_color,880,10)
-		draw_text(f"{igrač2ime}:{p2bodovi}",font2,text_color,880,50)
+		draw_text(f"{igrač1ime}",font6,text_color,814,22)
+		draw_text(f"{igrač2ime}",font6,text_color,919,22)
+		draw_text(f"{p1bodovi}",font4,text_color,850,70)
+		draw_text(f"{p2bodovi}",font4,text_color,955,70)
+		draw_text(f"{sum(p1bodovi_runda)}",font4,text_color,850,125)
+		draw_text(f"{sum(p1bodovi_runda)}",font4,text_color,955,125)
+		draw_text(f"{p1pobjeda}",font4,text_color,850,185)
+		draw_text(f"{p2pobjeda}",font4,text_color,955,185)
 
 		#dijeljenje karti
 		if len(p1inv) == 0 and len(dek) != 0:
@@ -224,18 +237,18 @@ def igra():#window u kojemu se igra snaps
 			#prikaz karata
 			if len(adut) != 0: #prikaz boje aduta na ekranu
 				if adut[0][-1] == "H":
-					draw_text(f"ADUT: HERC",font2,(255,255,255),50,40)
+					adut_slika = Button(25,-15,adut_herc_slika, 0.7).draw()
 				if adut[0][-1] == "S":
-					draw_text(f"ADUT: PIK",font2,(255,255,255),50,40)
+					adut_slika = Button(25,-15,adut_pik_slika, 0.7).draw()
 				if adut[0][-1] == "D":
-					draw_text(f"ADUT: KARO",font2,(255,255,255),50,40)
+					adut_slika = Button(25,-15,adut_karo_slika, 0.7).draw()
 				if adut[0][-1] == "C":
-					draw_text(f"ADUT: TREF",font2,(255,255,255),50,40)
+					adut_slika = Button(25,-15,adut_tref_slika, 0.7).draw()
 				
 			
 			if len(usporedba) != 2: #ako je istina oba igraca nisu bacila kartu i stih se nastavlja
 				if promjena_reda == 0: #ako je promjena reda 0 onda je 1. igrac na redu
-					draw_text(f"{igrač1ime} JE NA REDU",font2,(255,255,255),50,10)
+					scoreboard_btn = Button(805,0,scoreboard_prvi_slika, 1.1).draw()
 					xos = 95
 					for i in p1inv:#prolazi kroz p1inv i crta sve karte na stol
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
@@ -350,7 +363,7 @@ def igra():#window u kojemu se igra snaps
 						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
 				
 				if promjena_reda == 1:#ako je promjena reda 1 onda je 2. igrac na redu
-					draw_text(f"{igrač2ime} JE NA REDU",font2,(255,255,255),50,10)
+					scoreboard_btn = Button(805,0,scoreboard_drugi_slika, 1.1).draw()
 					xos = 95
 					for t in p2inv:#prolazi kroz p2inv i crta sve karte na stol
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()

@@ -178,7 +178,9 @@ ogranici_scoreboard = "ne" #ogranaicuje prikaz znacenja brojeva u scoreboardu
 prvi_nosi = 0 #pomaže da se isprinta tekst da 1. igrac nosi stih
 drugi_nosi = 0 #pomaže da se isprinta tekst da 2. igrac nosi stih
 kraj_state = "ne" #provjerava je li runda gotova, ako je, ne dopušta mijenjanje reda i stvara gumb za kraj
-brojac = 0
+brojac = 0 #provjerava je li se zvalo to bacanje
+igrač1ime = "" #tekst koji je upisao 1. igrac
+igrač2ime = "" #tekst koji je upisao 2. igrac
 
 def igra():#window u kojemu se igra snaps
 	run = True
@@ -295,6 +297,7 @@ def igra():#window u kojemu se igra snaps
 										ogranici_bacanje2 =1
 										ogranici_zavrsi = 0
 										brojac = 0
+										prihvati_zvanje = 0
 								else:
 									draw_text(f"MORAŠ BACITI JEDNU OD ZVANIH KARATA",font2,text_color,250,120)
 									pygame.display.update()
@@ -309,7 +312,8 @@ def igra():#window u kojemu se igra snaps
 									p1inv.remove(i)
 									ogranici_bacanje1 =1
 									ogranici_bacanje2 =1
-									ogranici_zavrsi = 0					
+									ogranici_zavrsi = 0
+									prihvati_zvanje = 0			
 							if len(dek) == 0 and brojac == 0: #ako je dek prazan onda se moraju pratiti pravila poštovanja i iberovanja
 								if len(usporedba) != 0: #ako je 1. igrač drugi na redu onda mora pratiti pravila
 									for m in p1inv: #prolazi kroz inventori prvog igrača 
@@ -340,6 +344,7 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje1 =1
 														ogranici_bacanje2 =1
 														ogranici_zavrsi = 0
+														prihvati_zvanje = 0
 												else:
 													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150) #sve dok se ne klikne točna karta će se printat ovaj tekst
 													pygame.display.update()
@@ -355,6 +360,7 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje1 =1
 														ogranici_bacanje2 =1
 														ogranici_zavrsi = 0
+														prihvati_zvanje = 0
 															
 												else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 													draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
@@ -376,6 +382,7 @@ def igra():#window u kojemu se igra snaps
 												ogranici_bacanje1 =1
 												ogranici_bacanje2 =1
 												ogranici_zavrsi = 0
+												prihvati_zvanje = 0
 												
 										else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
@@ -392,6 +399,7 @@ def igra():#window u kojemu se igra snaps
 											ogranici_bacanje1 =1
 											ogranici_bacanje2 =1
 											ogranici_zavrsi = 0
+											prihvati_zvanje = 0
 								if len(usporedba)  == 0: #ako je 1. igrač prvi na redu onda ne mora pratiti pravila 
 									while ogranici_bacanje1 == 0:
 										karte_crtanje.append(i)
@@ -402,6 +410,7 @@ def igra():#window u kojemu se igra snaps
 										ogranici_bacanje1 =1
 										ogranici_bacanje2 =1
 										ogranici_zavrsi = 0
+										prihvati_zvanje = 0
 									
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:#sluzi za prikaz bacene karte na sredini stola
 					if bacena_karta_state =="da":
@@ -435,6 +444,7 @@ def igra():#window u kojemu se igra snaps
 										ogranici_bacanje1 = 0
 										ogranici_zavrsi = 0	
 										brojac = 0
+										prihvati_zvanje = 0
 								else:
 									draw_text(f"MORAŠ BACITI JEDNU OD ZVANIH KARATA",font2,text_color,250,120)
 									pygame.display.update()
@@ -449,7 +459,8 @@ def igra():#window u kojemu se igra snaps
 									p2inv.remove(t)
 									ogranici_bacanje2 = 0
 									ogranici_bacanje1 = 0
-									ogranici_zavrsi = 0					
+									ogranici_zavrsi = 0
+									prihvati_zvanje = 0			
 							if len(dek) == 0 and brojac == 0: #ako je dek prazan moraju se pratiti pravilo poštovanja i iberovanja
 								if len(usporedba) != 0: #ako je drugi igrač drugi na redu
 									for l in p2inv: #prolazi kroz inventori drugog igrača
@@ -480,6 +491,7 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje2 = 0
 														ogranici_bacanje1 = 0
 														ogranici_zavrsi = 0
+														prihvati_zvanje = 0
 														
 												else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 													draw_text("MORAŠ PRATITI PRAVILO IBEROVANJA",font2,(255,255,255),250,150)
@@ -496,6 +508,7 @@ def igra():#window u kojemu se igra snaps
 														ogranici_bacanje2 = 0
 														ogranici_bacanje1 = 0
 														ogranici_zavrsi = 0
+														prihvati_zvanje = 0
 															
 												else:#sve dok se ne klikne točna karta će se printat ovaj tekst
 													draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
@@ -517,6 +530,7 @@ def igra():#window u kojemu se igra snaps
 												ogranici_bacanje2 = 0
 												ogranici_bacanje1 = 0
 												ogranici_zavrsi = 0
+												prihvati_zvanje = 0
 												
 										else: #sve dok se ne klikne točna karta će se printat ovaj tekst
 											draw_text("MORAŠ PRATITI PRAVILO POŠTOVANJA",font2,(255,255,255),250,150)
@@ -534,6 +548,7 @@ def igra():#window u kojemu se igra snaps
 											ogranici_bacanje2 = 0
 											ogranici_bacanje1 = 0
 											ogranici_zavrsi = 0
+											prihvati_zvanje = 0
 								if len(usporedba)  == 0: #ako je drugi igrač prvi na redu
 									while ogranici_bacanje2 == 1:
 										bacena_kartap2.append(t)
@@ -544,6 +559,7 @@ def igra():#window u kojemu se igra snaps
 										ogranici_bacanje2 = 0
 										ogranici_bacanje1 = 0
 										ogranici_zavrsi = 0
+										prihvati_zvanje = 0
 								
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:#sluzi za prikaz bacene karte na sredini stola
 					if bacena_karta_state2 =="da":
@@ -564,6 +580,9 @@ def igra():#window u kojemu se igra snaps
 						moguca_zvanja.clear()
 						prvi_nosi = 0
 						drugi_nosi = 0
+						
+						if zatvara == "1" or zatvara == "2" and len(dek) > 0:
+							dek.clear() #izbrisi dek u zatvaranju nakon prve bacene karte
 
 						if len(karte_crtanje) == 2:
 							karte_crtanje.clear()
@@ -779,7 +798,7 @@ def igra():#window u kojemu se igra snaps
 			draw_text(f"Vrijednost: {p2bodovi_runda[-1]}",font2,(255,255,255),600,380)
 		
 		#tipka za zvanje
-		if ciji_red % 2 == 0: #provjerava je li igrač 1. na redu
+		if ciji_red % 2 == 0: #provjerava je li igrač 1. na redu i da nije bacena karta već
 			if promjena_reda == 0: #koji je igrač na redu (1.)
 				for zvanje_moguce in p1inv:
 					if zvanje_provjera < 6: #ogranici da ne gleda beskonačno karte u inventoriju
@@ -800,7 +819,7 @@ def igra():#window u kojemu se igra snaps
 									if zvanje_moguce not in moguca_zvanja and zvanje_moguce[1] == z[1] and zvanje_moguce not in zvanje_baceno: #provjerava je li karta različita, iste boje i nije zvana. Ako je istinito sve, može se zvati
 										prihvati_zvanje = 1
 							moguca_zvanja.append(zvanje_moguce) #dodaj u listu karti koje se mogu zvati
-                            
+
 		if prihvati_zvanje == 1:
 			btn_zvanje = Button(100,265,zvanje_slika, 0.5) #gumb za zvanje
 			if btn_zvanje.draw() == True: #ako se gumb za zvanje klikne
@@ -812,7 +831,7 @@ def igra():#window u kojemu se igra snaps
 		#ZATVARANJE
 		if len(dek) > 2 and len(p1inv) > 0: #pravilo zatvaranja je da moraju biti barem 2 karte u deku
 			if ciji_red % 2 == 0:#provjerava je li igrač 1. na redu
-				if len(p1inv) == 5 and len(p2inv) == 5:
+				if len(p1inv) == 5 and len(p2inv) == 5 and zatvaranje_tekst != "da":
 					zatvaranje_btn = Button(50,430,zatvaranje_slika, 0.5) #gumb za zatvaranje
 					if zatvaranje_btn.draw() == True:
 						zatvaranje_tekst = "da"
@@ -820,7 +839,6 @@ def igra():#window u kojemu se igra snaps
 							zatvara = "1" #zatvara je 1 sto znaci da je 1. igrac htio zatvoriti
 						if promjena_reda == 1: #ako je drugi igrac na redu
 							zatvara = "2" #zatvara je 2 sto znaci da je 2. igrac htio zatvoriti
-						dek.clear() #dek je prazan u zatvaranju po pravilima. ne možeš vući karte iz deka
 
 		if zatvaranje_tekst == "da":
 			draw_text(f"ZATVARANJE!",font3,(255,255,255),300,17) #tekst koji signalizira zatvaranje
@@ -833,7 +851,7 @@ def igra():#window u kojemu se igra snaps
 			stari_bodovi1 = p1bodovi
 			stari_bodovi2 = p2bodovi
 			kraj_state = "da"
-		if len(p1inv) == 0 and len(p2inv) == 0 and len(dek) == 0 and sum(p1bodovi_runda)<66 and sum(p2bodovi_runda)<66:
+		if len(p1inv) == 0 and len(p2inv) == 0 and len(dek) == 0 and sum(p1bodovi_runda)<66 and sum(p2bodovi_runda)<66 and zatvara != "1" and zatvara != "2":
 			zatvara = "4"
 			kraj_runde() 
 		
@@ -1246,9 +1264,9 @@ def opcije():
 	global igrač2ime
 	global makni_sedam
 	global makni_devet
+	global text_box1
+	global text_box2
 	nastavi_state = ""
-	igrač1ime = "" #tekst koji je upisao 1. igrac
-	igrač2ime = "" #tekst koji je upisao 2. igrac
 	text_box1 = pygame.Rect(150,300,300,50)
 	text_box2 = pygame.Rect(755,300,300,50)
 	active1 = False
@@ -1355,8 +1373,8 @@ def opcije():
 			else:
 				devet_bodova_btn = Button(580,470,devet_kliknut_slika,1)
 			if sedam_bodova_btn.draw() == True:
-				p1bodovi = 7
-				p2bodovi = 7
+				p1bodovi = 1
+				p2bodovi = 1
 				makni_sedam = 1
 				makni_devet = 0
 				nastavi_state = "da" #ako se klikne 7, stvori se "nastavi"

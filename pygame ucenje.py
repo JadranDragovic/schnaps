@@ -178,6 +178,8 @@ ogranici_scoreboard = "ne" #ogranaicuje prikaz znacenja brojeva u scoreboardu
 prvi_nosi = 0 #pomaže da se isprinta tekst da 1. igrac nosi stih
 drugi_nosi = 0 #pomaže da se isprinta tekst da 2. igrac nosi stih
 kraj_state = "ne" #provjerava je li runda gotova, ako je, ne dopušta mijenjanje reda i stvara gumb za kraj
+brojac = 0
+
 def igra():#window u kojemu se igra snaps
 	run = True
 	while run:
@@ -222,6 +224,8 @@ def igra():#window u kojemu se igra snaps
 		global prvi_nosi
 		global drugi_nosi
 		global kraj_state
+		global ogranici_zbroj
+		global brojac
 		screen.blit(background_slika, (0,0))
 
 		#dijeljenje karti
@@ -279,7 +283,24 @@ def igra():#window u kojemu se igra snaps
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:#provjerava je li karta kliknuta
-							if len(dek) != 0: #ako u deku ima karata onda ne vrijede pravila poštovanja i iberovanja
+							if brojac == 1:
+								if i == zvanje_baceno[-1] or i == zvanje_baceno[-2]:
+									while ogranici_bacanje1 == 0:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 2. igraca, bacena karta se izbacuje iz p1inv, i zabranjuje bacanje jos jedna karte
+										karte_crtanje.append(i)
+										bacena_kartap1.append(i)
+										bacena_karta_state ="da"
+										usporedba.append(i)
+										p1inv.remove(i)
+										ogranici_bacanje1 =1
+										ogranici_bacanje2 =1
+										ogranici_zavrsi = 0
+										brojac = 0
+								else:
+									draw_text(f"MORAŠ BACITI JEDNU OD ZVANIH KARATA",font2,text_color,250,120)
+									pygame.display.update()
+									time.sleep(2)
+	
+							if len(dek) != 0 and brojac == 0: #ako u deku ima karata onda ne vrijede pravila poštovanja i iberovanja
 								while ogranici_bacanje1 == 0:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 2. igraca, bacena karta se izbacuje iz p1inv, i zabranjuje bacanje jos jedna karte
 									karte_crtanje.append(i)
 									bacena_kartap1.append(i)
@@ -289,7 +310,7 @@ def igra():#window u kojemu se igra snaps
 									ogranici_bacanje1 =1
 									ogranici_bacanje2 =1
 									ogranici_zavrsi = 0					
-							if len(dek) == 0: #ako je dek prazan onda se moraju pratiti pravila poštovanja i iberovanja
+							if len(dek) == 0 and brojac == 0: #ako je dek prazan onda se moraju pratiti pravila poštovanja i iberovanja
 								if len(usporedba) != 0: #ako je 1. igrač drugi na redu onda mora pratiti pravila
 									for m in p1inv: #prolazi kroz inventori prvog igrača 
 										if m[-1] == bacena_kartap2[-1][-1]: #provjerava je li vrsta bačene karte drugog igrača jednaka vrsti karti u njegovom inventoriju
@@ -402,7 +423,24 @@ def igra():#window u kojemu se igra snaps
 						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:#provjerava je li karta kliknuta
-							if len(dek) != 0: #ako u deku ima karata onda ne vrijede pravila poštovanja i iberovanja
+							if brojac == 1:
+								if t == zvanje_baceno[-1] or t == zvanje_baceno[-2]:
+									while ogranici_bacanje2 == 1:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 2. igraca, bacena karta se izbacuje iz p1inv, i zabranjuje bacanje jos jedna karte
+										karte_crtanje.append(t)
+										bacena_kartap2.append(t)
+										bacena_karta_state2 ="da"
+										usporedba.append(t)
+										p2inv.remove(t)
+										ogranici_bacanje2 = 0
+										ogranici_bacanje1 = 0
+										ogranici_zavrsi = 0	
+										brojac = 0
+								else:
+									draw_text(f"MORAŠ BACITI JEDNU OD ZVANIH KARATA",font2,text_color,250,120)
+									pygame.display.update()
+									time.sleep(2)
+
+							if len(dek) != 0 and brojac == 0: #ako u deku ima karata onda ne vrijede pravila poštovanja i iberovanja
 								while ogranici_bacanje2 == 1:#karta se moze baciti,prikazuje se na sredini stola, dodaje se u usporedbu kako bi se kasnije mogla usporediti s kartom od 1. igraca, bacena karta se izbacuje iz p2inv, i zabranjuje bacanje jos jedna karte
 									karte_crtanje.append(t)
 									bacena_kartap2.append(t)
@@ -412,7 +450,7 @@ def igra():#window u kojemu se igra snaps
 									ogranici_bacanje2 = 0
 									ogranici_bacanje1 = 0
 									ogranici_zavrsi = 0					
-							if len(dek) == 0: #ako je dek prazan moraju se pratiti pravilo poštovanja i iberovanja
+							if len(dek) == 0 and brojac == 0: #ako je dek prazan moraju se pratiti pravilo poštovanja i iberovanja
 								if len(usporedba) != 0: #ako je drugi igrač drugi na redu
 									for l in p2inv: #prolazi kroz inventori drugog igrača
 										if l[-1] == bacena_kartap1[-1][-1]: #ako u inventoriju ima kartu iste vrste kao bačena karta prvog igrača
@@ -773,20 +811,21 @@ def igra():#window u kojemu se igra snaps
 
 		#ZATVARANJE
 		if len(dek) > 2 and len(p1inv) > 0: #pravilo zatvaranja je da moraju biti barem 2 karte u deku
-			if ciji_red % 2 == 0: #provjerava je li igrač 1. na redu
-				zatvaranje_btn = Button(50,430,zatvaranje_slika, 0.5) #gumb za zatvaranje
-				if zatvaranje_btn.draw() == True:
-					zatvaranje_tekst = "da"
-					if promjena_reda == 0: #ako je prvi igrac na redu
-						zatvara = "1" #zatvara je 1 sto znaci da je 1. igrac htio zatvoriti
-					if promjena_reda == 1: #ako je drugi igrac na redu
-						zatvara = "2" #zatvara je 2 sto znaci da je 2. igrac htio zatvoriti
-					dek.clear() #dek je prazan u zatvaranju po pravilima. ne možeš vući karte iz deka
+			if ciji_red % 2 == 0:#provjerava je li igrač 1. na redu
+				if len(p1inv) == 5 and len(p2inv) == 5:
+					zatvaranje_btn = Button(50,430,zatvaranje_slika, 0.5) #gumb za zatvaranje
+					if zatvaranje_btn.draw() == True:
+						zatvaranje_tekst = "da"
+						if promjena_reda == 0: #ako je prvi igrac na redu
+							zatvara = "1" #zatvara je 1 sto znaci da je 1. igrac htio zatvoriti
+						if promjena_reda == 1: #ako je drugi igrac na redu
+							zatvara = "2" #zatvara je 2 sto znaci da je 2. igrac htio zatvoriti
+						dek.clear() #dek je prazan u zatvaranju po pravilima. ne možeš vući karte iz deka
 
 		if zatvaranje_tekst == "da":
 			draw_text(f"ZATVARANJE!",font3,(255,255,255),300,17) #tekst koji signalizira zatvaranje
 			if len(p1inv) == 5 and len(p2inv) == 5:
-				draw_text(f"U zatvaranju ne dobijaš karte iz deka. Vrijede pravila iberovanja i poštivanja.",font5,(255,255,255),150,130) #tekst koji opisuje što je zatvaranje
+				draw_text(f"U zatvaranju ne dobivaš karte iz deka. Vrijede pravila iberovanja i poštovanja.",font5,(255,255,255),150,130) #tekst koji opisuje što je zatvaranje
 				draw_text(f"Ako ne dođeš do 66 bodova do kraja runde, protivnik pobjeđuje.",font5,(255,255,255),190,160) 
 
 		#KRAJ RUNDE	
@@ -794,6 +833,9 @@ def igra():#window u kojemu se igra snaps
 			stari_bodovi1 = p1bodovi
 			stari_bodovi2 = p2bodovi
 			kraj_state = "da"
+		if len(p1inv) == 0 and len(p2inv) == 0 and len(dek) == 0 and sum(p1bodovi_runda)<66 and sum(p2bodovi_runda)<66:
+			zatvara = "4"
+			kraj_runde() 
 		
 		pygame.display.update()
 	pygame.quit()
@@ -810,6 +852,7 @@ def zvanje():
 	global prihvati_zvanje
 	global zvanje_provjera
 	global moguca_zvanja
+	global brojac
 	clock = pygame.time.Clock()
 	run = True
 	while run:
@@ -862,18 +905,22 @@ def zvanje():
 						if promjena_reda == 0: #provjerava je li 1. igrač na redu
 							p1bodovi_runda.append(40) #daj 1. igracu 40 bodova
 							ogranici_zbroj +=1
+							brojac = 1
 						else: #provjerava je li 2. igrač na redu
 							p2bodovi_runda.append(40) #daj 2. igracu 40 bodova
 							ogranici_zbroj +=1
+							brojac = 1
 				elif zvanje_baceno[-2][1] == zvanje_baceno[-1][1] and zvanje_baceno[-1][1] != adut[0][-1]:
 					zvanje_state = "2"  #varijabla za ispisivanje teksta u slucaju razlicite boje aduta
 					if ogranici_zbroj == 0: #dopušta da se bodovi daju igraču samo jednom
 						if promjena_reda == 0: #provjerava je li 1. igrač na redu
-							p1bodovi_runda.append(20) #daj 1. igracu 40 bodova
+							p1bodovi_runda.append(20) #daj 1. igracu 20 bodova
 							ogranici_zbroj +=1
+							brojac = 1
 						else: #provjerava je li 2. igrač na redu
-							p2bodovi_runda.append(20) #daj 2. igracu 40 bodova
+							p2bodovi_runda.append(20) #daj 2. igracu 20 bodova
 							ogranici_zbroj +=1
+							brojac = 1
 				else:
 					zvanje_baceno.remove(zvanje_baceno[-1]) #zvanje nije bilo uspješno, izbaci karte
 					zvanje_baceno.remove(zvanje_baceno[-1])
@@ -948,6 +995,7 @@ def kraj_runde():
 	global drugi_nosi
 	global ogranici_scoreboard
 	global kraj_state 
+	global brojac
 
 	clock = pygame.time.Clock()
 	run = True
@@ -1002,6 +1050,9 @@ def kraj_runde():
 					p2bodovi = stari_bodovi2 - 2
 				if sum(p1bodovi_runda) > 33: #ako protivnik ima vise od 33 boda, ide dolje za 1 pobjednik
 					p2bodovi = stari_bodovi2 - 1
+		elif zatvara == "4":
+			p1bodovi = p1bodovi
+			p2bodovi = p2bodovi
 		
 		novi_prozor.blit(kraj_runde_slika, (0,0)) #stvori sliku tablice
 		#upisi brojeve u tablicu
@@ -1052,6 +1103,7 @@ def kraj_runde():
 		drugi_nosi = 0
 		ogranici_scoreboard = "ne"
 		kraj_state = "ne"
+		brojac = 0
 
 		if p1bodovi <= 0 or p2bodovi <= 0: #gleda je li igra gotova
 			draw_text(f"KRAJ IGRE",font3,(255,255,255),300,80)

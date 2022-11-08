@@ -1373,8 +1373,8 @@ def opcije():
 			else:
 				devet_bodova_btn = Button(580,470,devet_kliknut_slika,1)
 			if sedam_bodova_btn.draw() == True:
-				p1bodovi = 1
-				p2bodovi = 1
+				p1bodovi = 7
+				p2bodovi = 7
 				makni_sedam = 1
 				makni_devet = 0
 				nastavi_state = "da" #ako se klikne 7, stvori se "nastavi"
@@ -1394,8 +1394,7 @@ def opcije():
 				makni_sedam = 0
 				makni_devet = 0
 				igra()
-		
-
+	
 		pygame.display.update()
 	pygame.quit()
 main()

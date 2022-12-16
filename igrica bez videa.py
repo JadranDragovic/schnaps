@@ -2,6 +2,7 @@ from turtle import Screen
 import pygame 
 import random
 import time
+import os
 from pygame import Surface
 
 pygame.init()
@@ -20,37 +21,37 @@ font7 = pygame.font.Font(None, 25)
 text_color = (255,255,255)
 
 #slike za buttone
-sedam_bodova_slika = pygame.image.load("Desktop\projekt\slike\sedam.png").convert_alpha()
-sedam_kliknut_slika = pygame.image.load("Desktop\projekt\slike\sedam_kliknut.png").convert_alpha()
-devet_bodova_slika = pygame.image.load("Desktop\projekt\slike\devet.png").convert_alpha()
-devet_kliknut_slika = pygame.image.load("Desktop\projekt\slike\devet_kliknut.png").convert_alpha()
-povratak_btn_slika = pygame.image.load("Desktop\projekt\slike\povratak_btn.png").convert_alpha()
-promijeni_red_btn_slika = pygame.image.load("Desktop\projekt\slike\promijeni_btn.png").convert_alpha()
-statistika_slika = pygame.image.load("Desktop\projekt\slike\statistika_slika.png").convert_alpha()
-igra_slika = pygame.image.load("Desktop\projekt\slike\igra_btn.png").convert_alpha()
-izlaz_slika = pygame.image.load("Desktop\projekt\slike\izlaz_btn.png").convert_alpha()
-kraj_runde_slika = pygame.image.load("Desktop\projekt\slike\kraj_runde_table.png").convert_alpha()
-kraj_igre_tablica = pygame.image.load("Desktop\projekt\slike\kraj_igre_table.png").convert_alpha()
-background_slika = pygame.image.load("Desktop\projekt\slike\pozadina.png").convert_alpha()
-pozadina2_slika = pygame.image.load("Desktop\projekt\slike\pozadina2.png").convert_alpha()
-mainMenu_slika = pygame.image.load("Desktop\projekt\slike\mainScreen.png").convert_alpha()
-opcije1_slika = pygame.image.load("Desktop\projekt\slike\opcije1.png").convert_alpha()
-opcije2_slika = pygame.image.load("Desktop\projekt\slike\opcije2.png").convert_alpha()
-podijeli_karte_slika = pygame.image.load("Desktop\projekt\slike\podijeli_btn.png").convert_alpha()
-kraj_slika = pygame.image.load("Desktop\projekt\slike\kraj_btn.png").convert_alpha()
-zatvaranje_slika = pygame.image.load("Desktop\projekt\slike\zatvaranje_btn.png").convert_alpha()
-zvanje_slika = pygame.image.load("Desktop\projekt\slike\zvanje_btn.png").convert_alpha()
-nastavi_slika = pygame.image.load("Desktop\projekt\slike\continue_btn.png").convert_alpha()
-vrati_se_slika = pygame.image.load("Desktop\projekt\slike\leave_btn.png").convert_alpha()
-waiting_slika1 = pygame.image.load("Desktop\projekt\slike\waiting1.png").convert_alpha()
-waiting_slika2 = pygame.image.load("Desktop\projekt\slike\waiting2.png").convert_alpha()
-waiting_slika3 = pygame.image.load("Desktop\projekt\slike\waiting3.png").convert_alpha()
-adut_tref_slika = pygame.image.load("Desktop\projekt\slike\_tref_adut.png").convert_alpha()
-adut_pik_slika = pygame.image.load("Desktop\projekt\slike\_pik_adut.png").convert_alpha()
-adut_herc_slika = pygame.image.load("Desktop\projekt\slike\_herc_adut.png").convert_alpha()
-adut_karo_slika = pygame.image.load("Desktop\projekt\slike\_karo_adut.png").convert_alpha()
-scoreboard_prvi_slika = pygame.image.load("Desktop\projekt\slike\scoreboard1.png").convert_alpha()
-scoreboard_drugi_slika = pygame.image.load("Desktop\projekt\slike\scoreboard2.png").convert_alpha()
+sedam_bodova_slika = pygame.image.load(os.path.join("slike", "sedam.png")).convert_alpha()
+sedam_kliknut_slika = pygame.image.load(os.path.join("slike", "sedam_kliknut.png")).convert_alpha()
+devet_bodova_slika = pygame.image.load(os.path.join("slike", "devet.png")).convert_alpha()
+devet_kliknut_slika = pygame.image.load(os.path.join("slike", "devet_kliknut.png")).convert_alpha()
+povratak_btn_slika = pygame.image.load(os.path.join("slike", "povratak_btn.png")).convert_alpha()
+promijeni_red_btn_slika = pygame.image.load(os.path.join("slike", "promijeni_btn.png")).convert_alpha()
+statistika_slika = pygame.image.load(os.path.join("slike", "statistika_slika.png")).convert_alpha()
+igra_slika = pygame.image.load(os.path.join("slike", "igra_btn.png")).convert_alpha()
+izlaz_slika = pygame.image.load(os.path.join("slike", "izlaz_btn.png")).convert_alpha()
+kraj_runde_slika = pygame.image.load(os.path.join("slike", "kraj_runde_table.png")).convert_alpha()
+kraj_igre_tablica = pygame.image.load(os.path.join("slike", "kraj_igre_table.png")).convert_alpha()
+background_slika = pygame.image.load(os.path.join("slike", "pozadina.png")).convert_alpha()
+pozadina2_slika = pygame.image.load(os.path.join("slike", "pozadina2.png")).convert_alpha()
+mainMenu_slika = pygame.image.load(os.path.join("slike", "mainScreen.png")).convert_alpha()
+opcije1_slika = pygame.image.load(os.path.join("slike", "opcije1.png")).convert_alpha()
+opcije2_slika = pygame.image.load(os.path.join("slike", "opcije2.png")).convert_alpha()
+podijeli_karte_slika = pygame.image.load(os.path.join("slike", "podijeli_btn.png")).convert_alpha()
+kraj_slika = pygame.image.load(os.path.join("slike", "kraj_btn.png")).convert_alpha()
+zatvaranje_slika = pygame.image.load(os.path.join("slike", "zatvaranje_btn.png")).convert_alpha()
+zvanje_slika = pygame.image.load(os.path.join("slike", "zvanje_btn.png")).convert_alpha()
+nastavi_slika = pygame.image.load(os.path.join("slike", "continue_btn.png")).convert_alpha()
+vrati_se_slika = pygame.image.load(os.path.join("slike", "leave_btn.png")).convert_alpha()
+waiting_slika1 = pygame.image.load(os.path.join("slike", "waiting1.png")).convert_alpha()
+waiting_slika2 = pygame.image.load(os.path.join("slike", "waiting2.png")).convert_alpha()
+waiting_slika3 = pygame.image.load(os.path.join("slike", "waiting3.png")).convert_alpha()
+adut_tref_slika = pygame.image.load(os.path.join("slike", "_tref_adut.png")).convert_alpha()
+adut_pik_slika = pygame.image.load(os.path.join("slike", "_pik_adut.png")).convert_alpha()
+adut_herc_slika = pygame.image.load(os.path.join("slike", "_herc_adut.png")).convert_alpha()
+adut_karo_slika = pygame.image.load(os.path.join("slike", "_karo_adut.png")).convert_alpha()
+scoreboard_prvi_slika = pygame.image.load(os.path.join("slike", "scoreboard1.png")).convert_alpha()
+scoreboard_drugi_slika = pygame.image.load(os.path.join("slike", "scoreboard2.png")).convert_alpha()
 
 #liste
 vrijednosti_karata = {"JC":2, "QC":3, "KC":4, "10C":10, "AC":11,"JS":2, "QS":3, "KS":4, "10S":10, "AS":11,"JD":2, "QD":3, "KD":4, "10D":10, "AD":11,"JH":2, "QH":3, "KH":4, "10H":10, "AH":11}
@@ -279,7 +280,7 @@ def igra():#window u kojemu se igra snaps
 						draw_text(f"Tko je na redu->",font6,text_color,630,185)
 					xos = 95
 					for i in p1inv:#prolazi kroz p1inv i crta sve karte na stol
-						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
+						karta = Button(xos,500,pygame.image.load(os.path.join("karte", slike_karata[i])).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:#provjerava je li karta kliknuta
 							if brojac == 1:
@@ -411,7 +412,7 @@ def igra():#window u kojemu se igra snaps
 									
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:#sluzi za prikaz bacene karte na sredini stola
 					if bacena_karta_state =="da":
-						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
+						bacena_karta = Button(455,250,pygame.image.load(os.path.join("karte", slike_karata[karte_crtanje[-1]])).convert_alpha(),0.18).draw()
 				
 				if promjena_reda == 1:#ako je promjena reda 1 onda je 2. igrac na redu
 					scoreboard_btn = Button(805,0,scoreboard_drugi_slika, 1.1)
@@ -426,7 +427,7 @@ def igra():#window u kojemu se igra snaps
 						draw_text(f"Tko je na redu->",font6,text_color,630,185)
 					xos = 95
 					for t in p2inv:#prolazi kroz p2inv i crta sve karte na stol
-						karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
+						karta = Button(xos,500,pygame.image.load(os.path.join("karte", slike_karata[t])).convert_alpha(),0.18).draw()
 						xos += 180
 						if karta == True:#provjerava je li karta kliknuta
 							if brojac == 1:
@@ -560,7 +561,7 @@ def igra():#window u kojemu se igra snaps
 								
 				if len(karte_crtanje) == 1 or len(karte_crtanje) == 2:#sluzi za prikaz bacene karte na sredini stola
 					if bacena_karta_state2 =="da":
-						bacena_karta = Button(455,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[karte_crtanje[-1]]).convert_alpha(),0.18).draw()
+						bacena_karta = Button(455,250,pygame.image.load(os.path.join("karte", slike_karata[karte_crtanje[-1]])).convert_alpha(),0.18).draw()
 				
 				if kraj_state == "da":
 					ogranici_zavrsi = 1
@@ -883,7 +884,7 @@ def zvanje():
 			draw_text(f"U zvanju moraš baciti kralja i kraljicu iste boje.",font2,(255,255,255),250,150)
 		if promjena_reda == 0:  #koji je igrač na redu (1.)
 			for i in p1inv:
-				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[i]).convert_alpha(),0.18).draw()
+				karta = Button(xos,500,pygame.image.load(os.path.join("karte", slike_karata[i])).convert_alpha(),0.18).draw()
 				xos += 180
 				if karta == True: #ako je karta kliknuta
 					if ogranici_zvanje < 2: #daje da se samo dvije karte smiju zvati
@@ -895,7 +896,7 @@ def zvanje():
 
 		else:  #koji je igrač na redu (2.)
 			for t in p2inv:
-				karta = Button(xos,500,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[t]).convert_alpha(),0.18).draw()
+				karta = Button(xos,500,pygame.image.load(os.path.join("karte", slike_karata[t])).convert_alpha(),0.18).draw()
 				xos += 180
 				if karta == True: #ako je karta kliknuta
 					if ogranici_zvanje < 2: #daje da se samo dvije karte smiju zvati
@@ -908,9 +909,9 @@ def zvanje():
 			zvanje_baceno.remove(zvanje_baceno[-1]) 
 
 		if len(zvanje_baceno) != 0:
-			zvana_karta = Button(320,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[zvanje_baceno[-1]]).convert_alpha(),0.18).draw()
-			if len(zvanje_baceno) % 2 == 0:
-				zvana_karta = Button(580,250,pygame.image.load("Desktop\projekt\karte\\"+ slike_karata[zvanje_baceno[-2]]).convert_alpha(),0.18).draw()
+			zvana_karta = Button(320,250,pygame.image.load(os.path.join("karte", slike_karata[zvanje_baceno[-1]]).convert_alpha(),0.18).draw()
+		if len(zvanje_baceno) % 2 == 0:
+			zvana_karta = Button(580,250,pygame.image.load(os.path.join("karte", slike_karata[zvanje_baceno[-2]]).convert_alpha(),0.18).draw()
 
 		if ogranici_zvanje == 2: #ako su zvane dvije karte, pogledaj mogu li se zvati
 			if zvanje_baceno[-2][0] != zvanje_baceno[-1][0]: #provjerava da te dvije karte nisu ista vrsta (npr. baba-baba ili kralj-kralj)
@@ -1310,12 +1311,12 @@ def opcije():
 				color2 = pygame.Color('red')
 
 			pygame.draw.rect(screen,color1, text_box1,4)
-			surf1 = font.render(igrač1ime,True,'white')
+			surf1 = font.render(igrač1ime,True,(255,255,255))
 			screen.blit(surf1, (text_box1.x +5 , text_box1.y +5))
 			text_box1.w = max(100, surf1.get_width()+10)
 
 			pygame.draw.rect(screen,color2, text_box2,4)
-			surf2 = font.render(igrač2ime,True,'white')
+			surf2 = font.render(igrač2ime,True,(255,255,255))
 			screen.blit(surf2, (text_box2.x +5 , text_box2.y +5))
 			text_box2.w = max(100, surf2.get_width()+10)
 
@@ -1344,12 +1345,12 @@ def opcije():
 				color2 = pygame.Color('red')
 
 			pygame.draw.rect(screen,color1, text_box1,4)
-			surf1 = font.render(igrač1ime,True,'white')
+			surf1 = font.render(igrač1ime,True,(255,255,255))
 			screen.blit(surf1, (text_box1.x +5 , text_box1.y +5))
 			text_box1.w = max(100, surf1.get_width()+10)
 
 			pygame.draw.rect(screen,color2, text_box2,4)
-			surf2 = font.render(igrač2ime,True,'white')
+			surf2 = font.render(igrač2ime,True,(255,255,255))
 			screen.blit(surf2, (text_box2.x +5 , text_box2.y +5))
 			text_box2.w = max(100, surf2.get_width()+10)
 
